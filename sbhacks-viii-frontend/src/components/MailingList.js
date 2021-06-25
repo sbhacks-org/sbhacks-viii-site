@@ -7,8 +7,11 @@ function MailingList() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("/mailing-list", emailAddress).then((res) => {
-      console.log(res.data);
+    axios.post("/mailing-list/subscribe", {'emailAddress': emailAddress}).then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   };
 
