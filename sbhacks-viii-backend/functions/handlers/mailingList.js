@@ -15,6 +15,7 @@ exports.mailingListSubscribe = async (req, res) => {
       .get();
   if (doc.exists) {
     res.status(400).json({error: `"${emailAddress}" is already subscribed`});
+    return;
   }
 
   const subscriber = {
