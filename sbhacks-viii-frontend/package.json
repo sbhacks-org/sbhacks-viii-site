@@ -40,5 +40,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5001/sbhacks-viii-site/us-central1/api"
+  "proxy": "http://localhost:5001/sbhacks-viii-site/us-central1/api",
+  "devDependencies": {
+    "prettier": "2.3.2"
+  }
 }

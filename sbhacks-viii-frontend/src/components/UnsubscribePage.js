@@ -1,67 +1,54 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import { useLocation } from "react-router-dom";
-import queryString from 'query-string'
+import queryString from "query-string";
 
 function MailingList() {
-  const [firstRender, setFirstRender] = useState(true);
-  const [validValues, setvalidValues] = useState(false);
-  const [resInfo, setResInfo] = useState("");
+  const [body, setBody] = useState(<div />);
 
   const { search } = useLocation();
-  const values = queryString.parse(search);
 
   useEffect(() => {
-    setFirstRender(false);
-    if(!('emailAddress' in values) || !('token' in values)) {
-      setvalidValues(false);
+    const values = queryString.parse(search);
+
+    if (!("emailAddress" in values) || !("token" in values)) {
+      setBody(
+          <div>
+            Error: Either email address or token is missing. Please check your
+            unsubscribe link.
+          </div>
+      );
       return;
     }
-    else {
-      setvalidValues(true);
-      const {emailAddress, token} = values;
-      axios.get("/mailing-list/unsubscribe", {
+
+    const { emailAddress, token } = values;
+    axios
+      .get("/mailing-list/unsubscribe", {
         params: {
           emailAddress: emailAddress,
-          token: token
-        }
-      }).then((res) => {
-        console.log(res);
-        const success_message = `success ${res.status}: ${res.data.success}`
-        console.log(success_message);
-        setResInfo(success_message);
+          token: token,
+        },
+      })
+      .then((res) => {
+        setBody(
+          <div>
+            Success: {res.data.success}
+          </div>
+        );
       })
       .catch((err) => {
-        console.log(err);
-        let error_message = 'something went really really wrong';
-        if(err.response) {
-          error_message = `error ${err.response.status}: ${err.response.data.error}`
+        setBody(<div>something went really really wrong</div>);
+        if (err.response) {
+          setBody(
+            <div>
+              Error {err.response.status}: {err.response.data.error}.
+            </div>
+          );
         }
-        console.log(error_message);
-        setResInfo(error_message);
       });
-    }    
-  }, [])
-  
-  if(firstRender) {
-    return (
-      <div></div>
-    )
-  }
+  }, [search]);
 
-  if(!validValues) {
-    return (
-      <div>
-      <div>error: either email address or token is missing</div>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {resInfo}
-    </div>
-  )
+  return body;
 }
 
 export default MailingList;
