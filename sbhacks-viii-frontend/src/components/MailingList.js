@@ -19,7 +19,6 @@ function MailingList() {
     setEmailAddress(event.target.value);
   };
 
-  //useEffect(() => {}, [emailAddress]);
   return (
     <form noValidate onSubmit={handleSubmit}>
       <TextField
