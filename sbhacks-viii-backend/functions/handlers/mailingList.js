@@ -1,6 +1,7 @@
 const {admin, db} = require("../utils/admin");
-const {validateEmail} = require("../utils/mailingListUtils");
+const {validateEmail, sendTestEmail, sendEmail} = require("../utils/mailingListUtils");
 const uuid = require("uuid");
+require("dotenv").config();
 
 exports.mailingListSubscribe = async (req, res) => {
   try {
@@ -18,6 +19,19 @@ exports.mailingListSubscribe = async (req, res) => {
       res
           .status(400)
           .json({error: `"${emailAddress}" is already subscribed`});
+      return;
+    }
+
+    try {
+      const mailOptions = { // edit here email to send new subscribers
+        from: process.env.EMAIL_USERNAME,
+        to: emailAddress,
+        subject: "SB Hacks VIII Mailing List",
+        text: "thanks for subscribing to our mailing list!",
+      };
+      sendEmail(mailOptions);
+    } catch (err) {
+      res.status(400).json({error: `could not send email to ${emailAddress}: ${err}`});
       return;
     }
 
