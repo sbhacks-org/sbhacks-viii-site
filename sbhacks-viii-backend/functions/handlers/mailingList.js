@@ -22,18 +22,13 @@ exports.mailingListSubscribe = async (req, res) => {
       return;
     }
 
-    try {
-      const mailOptions = { // edit here email to send new subscribers
-        from: process.env.EMAIL_USERNAME,
-        to: emailAddress,
-        subject: "SB Hacks VIII Mailing List",
-        text: "thanks for subscribing to our mailing list!",
-      };
-      sendEmail(mailOptions);
-    } catch (err) {
-      res.status(400).json({error: `could not send email to ${emailAddress}: ${err}`});
-      return;
-    }
+    const mailOptions = { // edit here email to send new subscribers
+      from: process.env.EMAIL_ALIAS,
+      to: emailAddress,
+      subject: "SB Hacks VIII Mailing List",
+      text: "thanks for subscribing to our mailing list!",
+    };
+    sendEmail(mailOptions);
 
     const subscriber = {
       "date-time-subscribed": admin.firestore.Timestamp.now(),

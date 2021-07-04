@@ -7,7 +7,7 @@ exports.validateEmail = (email) => {
 };
 
 const transporter = nodemailer.createTransport({
-  service: "yahoo",
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 exports.sendTestEmail = () => {
   const mailOptions = {
-    from: process.env.EMAIL_USERNAME,
+    from: process.env.EMAIL_ALIAS,
     to: "dguo@ucsb.edu", // edit this to your email to test
     subject: "sb hacks email testing",
     text: "nice it worked",
