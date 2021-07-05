@@ -3,7 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
-function MailingList() {
+function UnsubscribePage() {
   const [body, setBody] = useState(<div />);
 
   const { search } = useLocation();
@@ -51,4 +51,4 @@ function MailingList() {
   return body;
 }
 
-export default MailingList;
+export default UnsubscribePage;

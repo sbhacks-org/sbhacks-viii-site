@@ -1,5 +1,5 @@
 const {admin, db} = require("../utils/admin");
-const {validateEmail, sendTestEmail, sendEmail} = require("../utils/mailingListUtils");
+const {validateEmail, sendEmail} = require("../utils/mailingListUtils");
 const uuid = require("uuid");
 require("dotenv").config();
 
@@ -22,17 +22,35 @@ exports.mailingListSubscribe = async (req, res) => {
       return;
     }
 
-    const mailOptions = { // edit here email to send new subscribers
+    const token = uuid.v4();
+
+    const confirmationURL = `${process.env.SITE_URL}\
+/confirm?emailAddress=${emailAddress}&token=${token}`;
+
+    const unsubscribeURL = `${process.env.SITE_URL}\
+/unsubscribe?emailAddress=${emailAddress}&token=${token}`;
+
+    const mailOptions = {
+      // edit here email to send new subscribers
       from: process.env.EMAIL_ALIAS,
       to: emailAddress,
-      subject: "SB Hacks VIII Mailing List",
-      text: "thanks for subscribing to our mailing list!",
+      subject: "SB Hacks VIII Mailing List - Please Confirm",
+      text: `thanks for subscribing to our mailing list!\n\
+Please confirm: ${confirmationURL}\n\
+To unsubscribe: ${unsubscribeURL}`,
     };
-    sendEmail(mailOptions);
+
+    if (!(await sendEmail(mailOptions))) {
+      res
+          .status(500)
+          .json({error: `failed to send email to "${emailAddress}"`});
+      return;
+    }
 
     const subscriber = {
       "date-time-subscribed": admin.firestore.Timestamp.now(),
-      "token": uuid.v4(),
+      "token": token,
+      "confirmed": false,
     };
     await db
         .collection("mailing-list-subscribers")
@@ -67,9 +85,39 @@ exports.mailingListUnsubscribe = async (req, res) => {
         .collection("mailing-list-subscribers")
         .doc(emailAddress)
         .delete();
-
     console.log(deleteRes);
     res.json({success: `${emailAddress} has been unsubscribed`});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: `something went wrong: ${err}`});
+  }
+};
+
+exports.mailingListConfirm = async (req, res) => {
+  try {
+    const {emailAddress, token} = req.query;
+
+    const doc = await db
+        .collection("mailing-list-subscribers")
+        .doc(emailAddress)
+        .get();
+    if (!doc.exists) {
+      res.status(400).json({error: `"${emailAddress}" is not subscribed`});
+      return;
+    }
+
+    const docData = doc.data();
+    if (docData.token !== token) {
+      res.status(400).json({error: "mismatched token"});
+      return;
+    }
+
+    const confirmRes = await db
+        .collection("mailing-list-subscribers")
+        .doc(emailAddress)
+        .update({confirmed: true});
+    console.log(confirmRes);
+    res.json({success: `${emailAddress} has been confirmed`});
   } catch (err) {
     console.error(err);
     res.status(500).json({error: `something went wrong: ${err}`});
