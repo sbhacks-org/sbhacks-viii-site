@@ -3,6 +3,7 @@ import MailingList from "./components/MailingList.js";
 import UnsubscribePage from "./components/UnsubscribePage.js"
 import ConfirmPage from "./components/ConfirmPage.js"
 import { Switch, Route } from 'react-router-dom';
+import SocialMediaBar from "./components/SocialMediaBar";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         </Route>
         <Route path="/">
           <MailingList/>
+          <SocialMediaBar/>
         </Route>
       </Switch>
     </div>
