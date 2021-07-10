@@ -95,7 +95,7 @@
     /* background-image: url('../assets/fish_submit.png'); */
 }
 @media (min-width: 1720px) {
-    .txt {
+    .text {
         font-size: 1rem;
     }
     #submitTxt {
