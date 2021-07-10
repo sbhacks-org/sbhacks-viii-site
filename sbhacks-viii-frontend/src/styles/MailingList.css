@@ -110,6 +110,7 @@
     transform: translateY(77%) translateX(-10%);
     font-size: 1vw;
     color: var(--submit);
+    transition: 0.3s;
     /* background-image: url('../assets/fish_submit.png'); */
 }
 @media (min-width: 1720px) {
@@ -123,15 +124,17 @@
 #submitFish {
     width: 30%;
     margin-top: 2%;
+    transition: 0.3s;
 
     /* margin: auto; */
     /* z-index: 100; */
 } 
 #submitFish:hover {
     cursor: pointer;
-    filter: brightness(0.8);
+    /* filter: brightness(0.8); */
+    transform: scale(1.1);
 }
-#submitTxt {
+#submitTxt:hover {
     cursor: pointer;
 }
 /* #submitBtn {

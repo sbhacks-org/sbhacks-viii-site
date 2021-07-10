@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Carnival from '../assets/carnival.svg';
 import TicketPlain from '../assets/ticket_plain.svg';
-import FishSubmit from '../assets/fish_submit.png';
+import FishSubmit from '../assets/fish_submit(2).svg';
 
 import '../styles/MailingList.css';
 
@@ -28,13 +28,27 @@ function MailingList() {
 
   const fishHover = () => {
     let submitFish = document.getElementById("submitFish");
-    if (submitFish)
-      submitFish.style.filter = 'brightness(0.8)';
+    if (submitFish) {
+      // submitFish.style.filter = 'brightness(0.8)';
+      submitFish.style.transform = 'scale(1.1)';
+    }
+  }
+  const textHover = () => {
+    let submitTxt = document.getElementById('submitTxt');
+    if (submitTxt) {
+      // submitTxt.style.transform = 'scale(1.1)';
+    }
   }
   const resetFishStyles = () => {
     let submitFish = document.getElementById("submitFish");
-    if (submitFish)
+    if (submitFish) {
       submitFish.style.filter = '';
+      submitFish.style.transform = '';
+    }
+    let submitTxt = document.getElementById('submitTxt');
+    if (submitTxt) {
+      // submitTxt.style.transform = '';
+    }
   }
 
   return (
@@ -59,7 +73,7 @@ function MailingList() {
         </div>
         <div className='submitFishContainer'>
           {/* <div id='submitBtn'> */}
-            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onClick={handleSubmit} onMouseLeave={resetFishStyles}/>
+            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onClick={handleSubmit} onMouseEnter={textHover} onMouseLeave={resetFishStyles}/>
             <div id="submitTxt" onMouseEnter={fishHover} >SUBMIT</div>
           {/* </div> */}
         </div>
