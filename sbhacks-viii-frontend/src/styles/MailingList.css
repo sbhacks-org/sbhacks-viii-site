@@ -3,6 +3,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: flex-end;
+    margin-top: 20vh;
 }
 #carnival {
     width: 1100px;
@@ -54,6 +55,21 @@
 .fish-ticket .MuiFormControl-root {
     width: 54%;
 }
+.fish-ticket .MuiFormLabel-root.Mui-focused {
+    color: var(--submit);    
+}
+.fish-ticket .MuiInputLabel-formControl {
+    color: var(--submit);
+}
+.fish-ticket .MuiInput-underline:after {
+    border-bottom: 2px solid var(--submit) !important;
+}
+.fish-ticket .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid var(--submit) !important;
+}
+.fish-ticket .MuiInputBase-input {
+    color: var(--submit);
+}
 #email {
     outline: none;
     text-decoration: none !important;
@@ -66,6 +82,7 @@
     align-items: center;
 }
 .text {
+    color: var(--mailing-list);
     text-align: center;
     font-size: 1vw;
     width: 50%;
@@ -92,6 +109,7 @@
     position: absolute;
     transform: translateY(77%) translateX(-10%);
     font-size: 1vw;
+    color: var(--submit);
     /* background-image: url('../assets/fish_submit.png'); */
 }
 @media (min-width: 1720px) {
