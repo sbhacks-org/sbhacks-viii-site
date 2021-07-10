@@ -8,22 +8,119 @@
     width: 1100px;
 }
 
-#ticketImg {
-    grid-column: 1/2;
-    grid-row: 1/3;
-    width: 100%;
-}
-#submitFish {
-    /* width: 50px; */
-    grid-column: 1/2;
-    grid-row: 2/3;
-    /* filter: brightness(0.5); */
-    width: 30%;
-    margin: auto;
-}
 .fish-ticket {
     display: grid;
     width: fit-content;
     grid-template-columns: 400px;
-    grid-template-rows: 35% 65%;
+    grid-template-rows: 37% 20% 43%;
 }
+@media (max-width: 1504px) {
+    .fish-ticket {
+        grid-template-columns: 350px;
+    }
+    #carnival {
+        width: 962.5px;
+    }
+}
+@media (max-width: 1330px) {
+    .fish-ticket {
+        grid-template-columns: 300px;
+    }
+    #carnival {
+        width: 825px;
+    }
+}
+@media (max-width: 768px) {
+    .fish-ticket {
+        grid-template-columns: 60vw;
+    }
+    #carnival {
+        width: 80vw;
+    }
+}
+#ticketImg {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    width: 100%;
+}
+
+#form {
+    grid-row: 1/2;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.fish-ticket .MuiFormControl-root {
+    width: 54%;
+}
+#email {
+    outline: none;
+    text-decoration: none !important;
+}
+.textContainer {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text {
+    text-align: center;
+    font-size: 1vw;
+    width: 50%;
+}
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 3/4;
+    grid-column: 1/2;
+}
+.submitBtn {
+    background-image: url('../assets/fish_submit.svg');
+    width: 20%;
+}
+.submitFishContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+#submitTxt {
+    position: absolute;
+    transform: translateY(77%) translateX(-10%);
+    font-size: 1vw;
+    /* background-image: url('../assets/fish_submit.png'); */
+}
+@media (min-width: 1720px) {
+    .txt {
+        font-size: 1rem;
+    }
+    #submitTxt {
+        font-size: 1.1rem;
+    }
+}
+#submitFish {
+    width: 30%;
+    margin-top: 2%;
+
+    /* margin: auto; */
+    /* z-index: 100; */
+} 
+#submitFish:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+#submitTxt {
+    cursor: pointer;
+}
+/* #submitBtn {
+    width: 30%;
+    margin-top: 2%;
+}
+#submitBtn:hover{
+    cursor: pointer;
+    filter:brightness(0.8);
+} */
