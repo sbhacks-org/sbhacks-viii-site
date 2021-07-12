@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
 import axios from 'axios'
 
+import '../styles/SocialMediaBar.css';
+
 function SocialMediaBar() {
   const imageStyle = {
     height: 2 + "rem", 
     padding: 1 + "rem",
   };
   return (
-    <div>
+    <div class="sidebar">
       <a href="mailto:team@sbhacks.com" class="text-3xl hover:bg-white hover:bg-opacity-25">
         <img src="icons/email.png" style={imageStyle} alt="email"/>
       </a>

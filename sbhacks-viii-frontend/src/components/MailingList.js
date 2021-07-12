@@ -53,7 +53,6 @@ function MailingList() {
 
   return (
     <div className='mailingListContainer'>
-      <img id='carnival' src={Carnival} alt='Carnival' />
       {/* <FishTicket /> */}
       <div className='fish-ticket'>
         <img id='ticketImg' src={TicketPlain} alt='Ticket' />
@@ -85,6 +84,7 @@ function MailingList() {
           </Button>
         </div> */}
       </div>
+      <img id='carnival' src={Carnival} alt='Carnival' />
       {/* <form noValidate onSubmit={handleSubmit}>
         <TextField
           id="email"

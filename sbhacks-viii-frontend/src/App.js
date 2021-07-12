@@ -16,7 +16,9 @@ function App() {
           <UnsubscribePage/>
         </Route>
         <Route path="/">
-          <MailingList/>
+          <div class="content">
+            <MailingList/>
+          </div>
           <SocialMediaBar/>
         </Route>
       </Switch>
