@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+.App {
+  text-align: center;
+}
+
 :root {
   /* variables */
   --submit: #85632C;
