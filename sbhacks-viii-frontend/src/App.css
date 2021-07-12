@@ -1,6 +1,9 @@
 @font-face {
   font-family: 'NexaLight';
   src: url('./assets/fonts/Nexa Light.otf');
+}
+
+@font-face {
   font-family: 'NexaBold';
   src: url('./assets/fonts/Nexa Bold.otf');
 }
