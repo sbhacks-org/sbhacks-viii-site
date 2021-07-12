@@ -34,9 +34,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     paddingLeft: 20,
   },
+  textPrimary: {
+    fontFamily: 'NexaBold'
+  },
   text: {
     paddingTop: 30,
     lineHeight: "250%",
+    fontFamily: 'NexaBold'
   },
   otterContainer: {
     [theme.breakpoints.up("md")]: {
@@ -56,7 +60,7 @@ const About = () => {
       <Grid container justifyContent="center" alignItems="center" spacing={0}>
         <Grid item md={12} lg={7} style={{ padding: 40 }}>
           <div className={classes.textContainer}>
-            <Typography variant="h4" color="textPrimary">
+            <Typography variant="h4" color="textPrimary" className={classes.textPrimary}>
               <img src={landmark} className={classes.landmark} />
               About Us
             </Typography>

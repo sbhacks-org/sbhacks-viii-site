@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+@font-face {
+  font-family: 'NexaLight';
+  src: url('./assets/fonts/Nexa Light.otf');
+  font-family: 'NexaBold';
+  src: url('./assets/fonts/Nexa Bold.otf');
+}
 
 .App {
   text-align: center;
@@ -39,11 +44,11 @@
 body {
   background-color: var(--Background);
   overflow-x: hidden;
+	font-family: 'NexaBold';
 }
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
-  margin-left: 200px;
   padding: 1px 16px;
   height: 90vh;
 }

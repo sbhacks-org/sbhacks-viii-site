@@ -17,7 +17,7 @@ function SocialMediaBar() {
       <a href="https://facebook.com/ucsbhacks" class="text-3xl hover:bg-white hover:bg-opacity-25">
         <img src="icons/facebook.png" style={imageStyle} alt="facebook"/>
       </a>
-      <a href="https://instagram.com/sbhacks" class="text-3xl hover:bg-white hover:bg-opacity-25">
+      <a href="https://instagram.com/sbhacks" class="text-2xl hover:bg-white hover:bg-opacity-25">
         <img src="icons/instagram.png" style={imageStyle} alt="instagram"/>
       </a>
       <a href="https://twitter.com/sb_hacks" class="text-3xl hover:bg-white hover:bg-opacity-25">

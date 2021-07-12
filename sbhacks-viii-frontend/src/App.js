@@ -1,16 +1,13 @@
 import "./App.css";
 import MailingList from "./components/MailingList.js";
-import UnsubscribePage from "./components/UnsubscribePage.js"
-import ConfirmPage from "./components/ConfirmPage.js"
-import { Switch, Route } from 'react-router-dom';
+import UnsubscribePage from "./components/UnsubscribePage.js";
+import ConfirmPage from "./components/ConfirmPage.js";
+import { Switch, Route } from "react-router-dom";
 import SocialMediaBar from "./components/SocialMediaBar";
 import About from "./components/About.js";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
-  typography: {
-    fontFamily: '"Source Sans Pro"',
-  },
   palette: {
     text: {
       primary: "#fab664",
@@ -24,19 +21,19 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/confirm">
-          <ConfirmPage/>
+          <ConfirmPage />
         </Route>
         <Route path="/unsubscribe">
-          <UnsubscribePage/>
+          <UnsubscribePage />
         </Route>
         <Route path="/">
           <div class="content">
-            <MailingList/>
+            <MailingList />
             <ThemeProvider theme={theme}>
               <About />
             </ThemeProvider>
           </div>
-          <SocialMediaBar/>
+          <SocialMediaBar />
         </Route>
       </Switch>
     </div>
