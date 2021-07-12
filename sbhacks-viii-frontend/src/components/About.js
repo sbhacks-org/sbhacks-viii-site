@@ -35,12 +35,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
   },
   textPrimary: {
-    fontFamily: 'NexaBold'
+    fontFamily: 'NexaBold',
+    fontSize: 34
   },
   text: {
     paddingTop: 30,
     lineHeight: "250%",
-    fontFamily: 'NexaBold'
+    fontFamily: 'NexaBold',
+    fontSize: 16
   },
   otterContainer: {
     [theme.breakpoints.up("md")]: {
