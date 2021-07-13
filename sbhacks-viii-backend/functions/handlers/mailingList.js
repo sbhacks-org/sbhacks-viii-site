@@ -7,7 +7,7 @@ exports.mailingListSubscribe = async (req, res) => {
   try {
     const emailAddress = req.body.emailAddress;
     if (!validateEmail(emailAddress)) {
-      res.status(400).json({error: `"${emailAddress}" is an invalid email`});
+      res.status(400).json({error: emailAddress === "" ? "email cannot be empty" : `${emailAddress} is an invalid email`});
       return;
     }
 
@@ -18,7 +18,7 @@ exports.mailingListSubscribe = async (req, res) => {
     if (doc.exists) {
       res
           .status(400)
-          .json({error: `"${emailAddress}" is already subscribed`});
+          .json({error: `${emailAddress} is already subscribed`});
       return;
     }
 
@@ -40,13 +40,6 @@ Please confirm: ${confirmationURL}\n\
 To unsubscribe: ${unsubscribeURL}`,
     };
 
-    if (!(await sendEmail(mailOptions))) {
-      res
-          .status(500)
-          .json({error: `failed to send email to "${emailAddress}"`});
-      return;
-    }
-
     const subscriber = {
       "date-time-subscribed": admin.firestore.Timestamp.now(),
       "token": token,
@@ -57,6 +50,8 @@ To unsubscribe: ${unsubscribeURL}`,
         .doc(emailAddress)
         .set(subscriber);
     res.json(subscriber);
+
+    sendEmail(mailOptions);
   } catch (err) {
     res.status(500).json({error: `something went wrong: ${err}`});
   }

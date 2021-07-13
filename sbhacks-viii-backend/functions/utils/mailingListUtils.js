@@ -15,14 +15,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.sendEmail = async (mailOptions) => {
-  try {
-    await transporter.sendMail(mailOptions);
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
+exports.sendEmail = (mailOptions) => {
+  transporter.sendMail(mailOptions);
 };
 
 exports.sendTestEmail = () => {
