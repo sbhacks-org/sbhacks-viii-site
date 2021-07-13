@@ -1,33 +1,26 @@
-import React, { useState } from "react";
-import { TextField, Button } from "@material-ui/core";
-import axios from 'axios'
+import "../styles/SocialMediaBar.css";
+import React from "react";
 
-import '../styles/SocialMediaBar.css';
+function SocialMediaButton(props) {
+    return (<a href = {props.url}>
+            <img src = {"icons/" + props.name +
+                        ".png"} alt = { props.name } />
+    </a>);
+}
 
 function SocialMediaBar() {
-  const imageStyle = {
-    height: 2 + "rem", 
-    padding: 1 + "rem",
-  };
-  return (
-    <div class="sidebar">
-      <a href="mailto:team@sbhacks.com" class="text-3xl hover:bg-white hover:bg-opacity-25">
-        <img src="icons/email.png" style={imageStyle} alt="email"/>
-      </a>
-      <a href="https://facebook.com/ucsbhacks" class="text-3xl hover:bg-white hover:bg-opacity-25">
-        <img src="icons/facebook.png" style={imageStyle} alt="facebook"/>
-      </a>
-      <a href="https://instagram.com/sbhacks" class="text-2xl hover:bg-white hover:bg-opacity-25">
-        <img src="icons/instagram.png" style={imageStyle} alt="instagram"/>
-      </a>
-      <a href="https://twitter.com/sb_hacks" class="text-3xl hover:bg-white hover:bg-opacity-25">
-        <img src="icons/twitter.png" style={imageStyle} alt="twitter"/>
-      </a>
-      <a href="https://medium.com/@ucsbhacks" class="text-3xl hover:bg-white hover:bg-opacity-25">
-        <img src="icons/medium.png" style={imageStyle} alt="medium"/>
-      </a>
-    </div>
-  );
+    return (<div class = "sidebar"><div>
+            <SocialMediaButton name = "email" url = "mailto:team@sbhacks.com" />
+            <SocialMediaButton
+                 name = "facebook" url = "https://facebook.com/ucsbhacks" />
+            <SocialMediaButton
+                 name = "instagram" url = "https://instagram.com/sbhacks" />
+            <SocialMediaButton
+                 name = "twitter" url = "https://twitter.com/sb_hacks" />
+            <SocialMediaButton
+                 name = "medium" url = "https://medium.com/@ucsbhacks" />
+            </div>
+    </div>);
 }
 
 export default SocialMediaBar;
