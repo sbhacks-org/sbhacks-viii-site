@@ -16,6 +16,7 @@
   margin: auto;
   padding: 0.5rem;
   width: fit-content;
+  overflow: auto;
 }
 
 /* Sidebar links */
@@ -24,7 +25,11 @@
   padding: 1rem;
   color: black;
   text-decoration: none;
-  padding: 1rem;
+}
+
+/* Border of button gets lighter when hovered. */
+.sidebar div a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar div a img {
