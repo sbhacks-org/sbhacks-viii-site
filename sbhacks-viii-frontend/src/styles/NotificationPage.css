@@ -1,0 +1,12 @@
+.notif {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-family: 'NexaBold';
+    font-size: larger;
+}
+
+.notif_wrapper {
+    height: 100vh;
+}
