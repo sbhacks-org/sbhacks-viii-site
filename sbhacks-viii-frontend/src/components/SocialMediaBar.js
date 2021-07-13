@@ -4,7 +4,7 @@ import React from "react";
 function SocialMediaButton(props) {
     return (<a href = {props.url}>
             <img src = {"icons/" + props.name +
-                        ".png"} alt = { props.name } />
+                        ".png"} alt = { props.name }/>
     </a>);
 }
 
