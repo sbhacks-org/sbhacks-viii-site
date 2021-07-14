@@ -7,6 +7,10 @@ import SocialMediaBar from "./components/SocialMediaBar";
 import About from "./components/About.js";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
+import axios from "axios";
+
+axios.defaults.baseURL = "https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
+
 const theme = createMuiTheme({
   palette: {
     text: {

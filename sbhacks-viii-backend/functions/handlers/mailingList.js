@@ -2,9 +2,11 @@ const {admin, db} = require("../utils/admin");
 const {validateEmail, sendEmail} = require("../utils/mailingListUtils");
 const uuid = require("uuid");
 require("dotenv").config();
+const cors = require("cors")({origin: true});
 
-exports.mailingListSubscribe = async (req, res) => {
-  try {
+exports.mailingListSubscribe = (req, res) => {
+  cors(req, res, async () =>
+  {try {
     const emailAddress = req.body.emailAddress;
     if (!validateEmail(emailAddress)) {
       res.status(400).json({error: emailAddress === "" ? "email cannot be empty" : `${emailAddress} is an invalid email`});
@@ -54,11 +56,12 @@ To unsubscribe: ${unsubscribeURL}`,
     sendEmail(mailOptions);
   } catch (err) {
     res.status(500).json({error: `something went wrong: ${err}`});
-  }
+  }});
 };
 
-exports.mailingListUnsubscribe = async (req, res) => {
-  try {
+exports.mailingListUnsubscribe = (req, res) => {
+  cors(req, res, async () =>
+  {try {
     const {emailAddress, token} = req.query;
 
     const doc = await db
@@ -85,11 +88,12 @@ exports.mailingListUnsubscribe = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({error: `something went wrong: ${err}`});
-  }
+  }});
 };
 
-exports.mailingListConfirm = async (req, res) => {
-  try {
+exports.mailingListConfirm = (req, res) => {
+  cors(req, res, async () =>
+  {try {
     const {emailAddress, token} = req.query;
 
     const doc = await db
@@ -116,5 +120,5 @@ exports.mailingListConfirm = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({error: `something went wrong: ${err}`});
-  }
+  }});
 };

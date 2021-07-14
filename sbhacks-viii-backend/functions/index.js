@@ -7,8 +7,8 @@ const {
 } = require("./handlers/mailingList");
 
 const app = require("express")();
-const cors = require("cors");
-app.use(cors());
+const cors = require("cors")({origin: true});
+app.use(cors);
 
 app.post("/mailing-list/subscribe", mailingListSubscribe);
 app.get("/mailing-list/unsubscribe", mailingListUnsubscribe);
