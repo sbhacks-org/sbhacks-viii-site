@@ -42,7 +42,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-sbhacks-viii-site.cloudfunctions.net/api",
   "devDependencies": {
     "prettier": "2.3.2"
   }

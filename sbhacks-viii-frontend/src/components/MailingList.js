@@ -25,8 +25,12 @@ function MailingList() {
       setButtonEnabled(true);
     })
       .catch((err) => {
-        console.log(err.response.data);
-        setSubmitStatus("error: " + err.response.data.error);
+        console.log(err);
+        if(err.response !== undefined){
+          setSubmitStatus("error: " + err.response.data.error);
+        } else {
+          setSubmitStatus("error: uncaught error (likely network)");
+        }
         setButtonEnabled(true);
       });
   };
