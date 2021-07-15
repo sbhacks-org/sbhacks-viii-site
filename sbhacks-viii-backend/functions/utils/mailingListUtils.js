@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const fs = require('fs').promises;
+const fs = require('fs');
 require("dotenv").config();
 
 exports.validateEmail = (email) => {
@@ -23,11 +23,13 @@ exports.sendEmail = (mailOptions) => {
 exports.sendTestEmail = async () => {
   const mailOptions = {
     from: process.env.EMAIL_ALIAS,
-    to: "ben@bdarnell.com", // edit this to your email to test
+    to: "dguo@ucsb.edu", // edit this to your email to test
     subject: "sb hacks email testing",
     text: "nice it worked",
-    html: await fs.readFile("templates/confirm.html"),
+    html: `<a href=\"${process.env.SITE_URL}/confirm?emailAddress=dguo@ucsb.edu&token=123456789\"> here <a/>`,
   };
 
   return exports.sendEmail(mailOptions);
 };
+
+exports.confirmTemplateHTML = fs.readFileSync("templates/confirm.html", {encoding:'utf8'});
