@@ -42,7 +42,6 @@ exports.mailingListSubscribe = async (req, res) => {
       unsubscribeURL: unsubscribeURL,
     };
 
-    console.log(confirmTemplateHTML);
     const htmlToSend = handlebars.compile(confirmTemplateHTML)(templateVars);
 
     const mailOptions = {
@@ -50,9 +49,6 @@ exports.mailingListSubscribe = async (req, res) => {
       from: process.env.EMAIL_ALIAS,
       to: emailAddress,
       subject: "SB Hacks VIII Mailing List - Please Confirm",
-      text: `thanks for subscribing to our mailing list!\n\
-Please confirm: ${confirmationURL}\n\
-To unsubscribe: ${unsubscribeURL}`,
       html: htmlToSend
     };
 

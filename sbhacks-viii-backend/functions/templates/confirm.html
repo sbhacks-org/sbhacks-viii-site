@@ -1,21 +1,112 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title></title>
+
+<style>
+    table, td, div, h1, p {font-family: Arial, sans-serif;}
+
+    .body_container {
+        background-color: #043563;
+        color: white;
+    }
+    .title_line {
+        font-family: "Arial";
+        font-size: large;
+        color: gold;
+        width: 80%;
+        padding-top: 4%;
+    }
+    .line1 {
+        font-family: "Arial";
+        font-size: large;
+        width: 100%;
+        position: relative;
+        padding-top: 2.5%;
+        margin-bottom: 0;
+    }
+    .line1 a {
+        color: pink;
+        text-decoration: none;
+    }
+    .line2 {
+        font-family: "Arial";
+        font-size: large;
+        width: 100%;
+        position: relative;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .middle {
+        overflow: hidden;
+        width: 100%;
+    }
+    .left {
+        width: 75%;
+        float: left;
+    }
+    .right {
+        width: 20%;
+        float: left;
+    }
+    .footer {
+        font-family: "Arial";
+        font-size: 15px;
+        position: relative;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    .footer a {
+        color: rgba(220, 220, 220, 0.25);
+        text-decoration: none;
+    }
+    .bottom {
+        color: lightgray;
+        width: 90%;
+        padding-top: 15px;
+        border-top: 1.5px solid rgba(220, 220, 220, 0.5);
+        padding-bottom: 4%;
+    }
+    .bottom a {
+        color: lightgray;
+        text-decoration: none;
+    }
+
+</style>
 </head>
+<body style="margin:0;padding:0;">
+    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background: white;">
+        <tr>
+            <td align="center" style="padding:0;">
+                <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                    <tr>
+                        <td align="center" style="padding:0;">
+                            <div class='body_container'>
+                                <div class=title_line> <h1>Thanks for subscribing to our mailing list!</h1> </div>
+                                
+                                <p class="line1"> Please confirm your email <a href="{{ confirmationURL }}">HERE</a>. </p>
+                                <p class="line2"> We will be sending out SB Hacks updates to you soon! </p>
+                                <img src="https://sbhacks.com/assets/otter_holding_mail.png" style="height: auto; width: 150px; margin-top: 5%; margin-bottom: 3%; padding-left: 15px;" />
+                                
+                                <div class="footer">
+                                    <a href="{{ unsubscribeURL }}"> Unsubscribe </a>
+                                </div>
 
-<body>
-  <h2>Thank you for subscribing to our mailing list!</h2>
-  <p>
-    Please click <a href="{{ confirmationURL }}">here</a> to confirm your email address.
-  </p>
-  <img style="width:100%" src="https://i.pinimg.com/originals/1f/bf/0f/1fbf0f3ce861b0a0009f1fc322b7674e.jpg">
-  <p>
-    If you do not wish to receive such emails in the future, please <a href="{{ unsubscribeURL }}">unsubscribe</a>.
-  </p>
+                                <div class="bottom">
+                                    SB Hacks VIII, January 14-16, 2022<br>
+                                    University of California, Santa Barbara<br>
+                                    <a href="https://sbhacks.com"> sbhacks.com </a> <br>
+                                    <a href="https://sbhacks.com"> <img src="https://sbhacks.com/assets/sbhacks_logo.png" style="height: auto; width: 50px; margin-top: 10px;" /> </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
-
 </html>
