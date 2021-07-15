@@ -34,6 +34,7 @@
 
 .sidebar div a img {
   height: 2rem;
+  border-radius: 0.25rem;
 }
 
 /* Border of button gets lighter when hovered. */
