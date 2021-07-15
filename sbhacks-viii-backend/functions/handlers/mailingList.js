@@ -1,5 +1,6 @@
 const {admin, db} = require("../utils/admin");
-const {validateEmail, sendEmail} = require("../utils/mailingListUtils");
+const {validateEmail, sendEmail, sendTestEmail, confirmTemplateHTML} = require("../utils/mailingListUtils");
+const handlebars = require("handlebars");
 const uuid = require("uuid");
 require("dotenv").config();
 
@@ -36,14 +37,19 @@ exports.mailingListSubscribe = async (req, res) => {
     const unsubscribeURL = `${process.env.SITE_URL}\
 /unsubscribe?emailAddress=${emailAddress}&token=${token}`;
 
+    const templateVars = {
+      confirmationURL: confirmationURL,
+      unsubscribeURL: unsubscribeURL,
+    };
+
+    const htmlToSend = handlebars.compile(confirmTemplateHTML)(templateVars);
+
     const mailOptions = {
       // edit here email to send new subscribers
       from: process.env.EMAIL_ALIAS,
       to: emailAddress,
       subject: "SB Hacks VIII Mailing List - Please Confirm",
-      text: `thanks for subscribing to our mailing list!\n\
-Please confirm: ${confirmationURL}\n\
-To unsubscribe: ${unsubscribeURL}`,
+      html: htmlToSend
     };
 
     const subscriber = {
@@ -61,6 +67,7 @@ To unsubscribe: ${unsubscribeURL}`,
 
     console.log("Sending email...");
     sendEmail(mailOptions);
+    // sendTestEmail();
     console.log("Email sent...");
   } catch (err) {
     console.log("Something went wrong");

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    @font-face {
+    font-family: 'NexaLight';
+    src: url('Nexa_Light.otf');
+    }
+    @font-face {
+        font-family: 'NexaBold';
+        src: url('Nexa_Bold.otf');
+    }
+    .body_container {
+        background-color: #043563;
+        color: white;
+    }
+    h1 {
+        margin-bottom: 0;
+        color: gold;
+    }
+    .title_line {
+        font-family: "NexaLight";
+        font-size: large;
+        width: 80%;
+        padding-left: 8%;
+        padding-top: 4%;
+    }
+    .line1 {
+        font-family: "NexaBold";
+        font-size: x-large;
+        width: 100%;
+        position: relative;
+        padding-left: 15%;
+        padding-top: 2.5%;
+        margin-bottom: 0;
+    }
+    .line2 {
+        font-family: "NexaLight";
+        font-size: x-large;
+        width: 100%;
+        position: relative;
+        padding-left: 15%;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .link1 {
+        color: pink;
+    }
+    .middle {
+        overflow: hidden;
+        width: 100%;
+    }
+    .left {
+        width: 75%;
+        float: left;
+    }
+    .right {
+        width: 20%;
+        float: left;
+        padding-top: 5%;
+    }
+    .bottom {
+        overflow: hidden;
+        position: relative;
+        margin-left: 5%;
+        width: 80%;
+        padding-bottom: 1%;
+        border-bottom: 1.5px solid rgba(220, 220, 220, 0.5);
+    }
+    .logo {
+        width: 8%;
+        float: left;
+    }
+    .signature {
+        font-family: "NexaLight";
+        font-size: 25px;
+        float: left;
+        width: 150px;
+        margin-left: 2%;
+        position: absolute;
+        bottom: 0;
+        left: 8%;
+        padding-bottom: 1%;
+    }
+    .footer {
+        font-family: "NexaLight";
+        font-size: 20px;
+        padding-top: 1%;
+        position: relative;
+        margin-left: 6%;
+        width: 90%;
+        padding-bottom: 2%;
+    }
+
+    .footer a {
+        color: rgba(220, 220, 220, 0.25);
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+<div class='body_container'>
+    <div class=title_line>
+        <h1> Thanks for subscribing to our mailing list! </h1>
+    </div>
+    
+    <div class="middle">
+        <div class="left">
+            <p class="line1"> Please confirm your email <a class="link1" href="{{ confirmationURL }}">HERE</a> </p>
+            <p class="line2"> We will be sending out SB Hacks updates to you! </p>
+        </div>
+        <div class="right">
+            <img src="https://sbhacks.com/assets/otter_holding_mail.png" style="max-width: 100%; max-height: 100%" />
+        </div>
+    </div>
+    
+    <div class="bottom">
+        <div class="logo">
+            <img src="https://sbhacks.com/assets/sbhacks_logo.png" style="max-width: 100%; max-height: 100%" />
+        </div>
+        
+        <div class="signature">
+            SB Hacks Team
+        </div>
+    </div>
+    
+    <div class="footer">
+        <a href="{{ unsubscribeURL }}"> Unsubscribe </a>
+    </div>
+</div>
+</body>
+</html>
