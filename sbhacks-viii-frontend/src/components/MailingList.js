@@ -10,15 +10,28 @@ import '../styles/MailingList.css';
 
 function MailingList() {
   const [emailAddress, setEmailAddress] = useState("");
+  const [buttonEnabled, setButtonEnabled] = useState(true);
+  const [submitStatus, setSubmitStatus] = useState("Join our mailing list for updates!");
 
   const handleSubmit = (event) => {
-    // console.log('submit called')
+    console.log('submit called')
+    if(!buttonEnabled) return;
+    setButtonEnabled(false);
+    setEmailAddress("");
     event.preventDefault();
     axios.post("/mailing-list/subscribe", { 'emailAddress': emailAddress }).then((res) => {
       console.log(res);
+      setSubmitStatus("You've been subscribed. Check your email to confirm.");
+      setButtonEnabled(true);
     })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
+        if(err.response !== undefined){
+          setSubmitStatus("error: " + err.response.data.error);
+        } else {
+          setSubmitStatus("error: uncaught error (likely network)");
+        }
+        setButtonEnabled(true);
       });
   };
 
@@ -68,38 +81,16 @@ function MailingList() {
           />
         </form>
         <div className='textContainer'>
-           <div className='text'>Join our mailing list for updates!</div>
+           <div className='text' style={{'color': submitStatus.substr(0, 5) === "error" ? "red" : ""}}>{submitStatus}</div>
         </div>
         <div className='submitFishContainer'>
-          {/* <div id='submitBtn'> */}
-            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onClick={handleSubmit} onMouseEnter={textHover} onMouseLeave={resetFishStyles}/>
-            <div id="submitTxt" onMouseEnter={fishHover} >SUBMIT</div>
-          {/* </div> */}
+          <div className='submitFishButton' onClick={handleSubmit}>
+            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onMouseEnter={textHover} onMouseLeave={resetFishStyles}/>
+            <div id="submitTxt" onMouseEnter={fishHover} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
+          </div>
         </div>
-        
-        {/* <div className='btnContainer'>
-          <Button onClick={handleSubmit} type="submit" className='submitBtn' variant="contained" color="primary">
-              {" "}
-              Submit{" "}
-          </Button>
-        </div> */}
       </div>
       <img id='carnival' src={Carnival} alt='Carnival' />
-      {/* <form noValidate onSubmit={handleSubmit}>
-        <TextField
-          id="email"
-          name="email"
-          type="email"
-          label="Email"
-          value={emailAddress}
-          placeholder="example@gmail.com"
-          onChange={handleChange}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          {" "}
-          Submit{" "}
-        </Button>
-      </form> */}
     </div>
   );
 }

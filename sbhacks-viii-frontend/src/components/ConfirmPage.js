@@ -3,6 +3,8 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+import '../styles/NotificationPage.css';
+
 function ConfirmPage() {
   const [body, setBody] = useState(<div />);
 
@@ -13,7 +15,7 @@ function ConfirmPage() {
 
     if (!("emailAddress" in values) || !("token" in values)) {
       setBody(
-          <div>
+          <div class="notif">
             Error: Either email address or token is missing. Please check your
             unsubscribe link.
           </div>
@@ -31,7 +33,7 @@ function ConfirmPage() {
       })
       .then((res) => {
         setBody(
-          <div>
+          <div class="notif">
             Success: {res.data.success}
           </div>
         );
@@ -40,7 +42,7 @@ function ConfirmPage() {
         setBody(<div>something went really really wrong</div>);
         if (err.response) {
           setBody(
-            <div>
+            <div class="notif">
               Error {err.response.status}: {err.response.data.error}.
             </div>
           );
@@ -48,7 +50,11 @@ function ConfirmPage() {
       });
   }, [search]);
 
-  return body;
+  return (
+    <div class="notif_wrapper">
+      {body}
+    </div>
+  );
 }
 
 export default ConfirmPage;

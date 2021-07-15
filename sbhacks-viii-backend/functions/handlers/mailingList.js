@@ -5,22 +5,28 @@ require("dotenv").config();
 
 exports.mailingListSubscribe = async (req, res) => {
   try {
+    console.log("Subscribing...");
     const emailAddress = req.body.emailAddress;
     if (!validateEmail(emailAddress)) {
-      res.status(400).json({error: `"${emailAddress}" is an invalid email`});
+      res.status(400).json({
+        error:
+          emailAddress === "" ?
+            "email cannot be empty" :
+            `${emailAddress} is an invalid email`,
+      });
       return;
     }
+    console.log("Validated email.");
 
     const doc = await db
         .collection("mailing-list-subscribers")
         .doc(emailAddress)
         .get();
     if (doc.exists) {
-      res
-          .status(400)
-          .json({error: `"${emailAddress}" is already subscribed`});
+      res.status(400).json({error: `${emailAddress} is already subscribed`});
       return;
     }
+    console.log("Validated doesn't exist.");
 
     const token = uuid.v4();
 
@@ -40,24 +46,24 @@ Please confirm: ${confirmationURL}\n\
 To unsubscribe: ${unsubscribeURL}`,
     };
 
-    if (!(await sendEmail(mailOptions))) {
-      res
-          .status(500)
-          .json({error: `failed to send email to "${emailAddress}"`});
-      return;
-    }
-
     const subscriber = {
       "date-time-subscribed": admin.firestore.Timestamp.now(),
       "token": token,
       "confirmed": false,
     };
+    console.log("Adding to database...");
     await db
         .collection("mailing-list-subscribers")
         .doc(emailAddress)
         .set(subscriber);
+    console.log("Added to database...");
     res.json(subscriber);
+
+    console.log("Sending email...");
+    sendEmail(mailOptions);
+    console.log("Email sent...");
   } catch (err) {
+    console.log("Something went wrong");
     res.status(500).json({error: `something went wrong: ${err}`});
   }
 };
