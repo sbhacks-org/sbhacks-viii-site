@@ -33,7 +33,9 @@ function App() {
         </Route>
         <Route path="/">
           <div class="content">
-            <MailingList />
+            <div class="initial-content">
+              <MailingList />
+            </div>
             <ThemeProvider theme={theme}>
               <About />
             </ThemeProvider>

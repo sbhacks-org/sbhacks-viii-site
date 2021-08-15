@@ -3,12 +3,13 @@
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: flex-end;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    vertical-align: middle;
 }
 #carnival {
     width: 1100px;
-		margin-top: 50px;
 }
 
 .fish-ticket {
