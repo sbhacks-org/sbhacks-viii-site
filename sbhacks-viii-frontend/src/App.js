@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import SocialMediaBar from "./components/SocialMediaBar";
 import About from "./components/About.js";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import NavBar from "./components/NavBar";
 
 import axios from "axios";
 
@@ -33,7 +34,8 @@ function App() {
         </Route>
         <Route path="/">
           <div class="content">
-            <div class="initial-content">
+            <NavBar/>
+            <div id='landing' class="initial-content">
               <MailingList />
             </div>
             <ThemeProvider theme={theme}>

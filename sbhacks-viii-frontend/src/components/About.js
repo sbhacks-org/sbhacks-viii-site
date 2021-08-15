@@ -58,7 +58,7 @@ const About = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div id='intro' className={classes.root}>
       <Grid container justifyContent="center" alignItems="center" spacing={0}>
         <Grid item md={12} lg={7} style={{ padding: 40 }}>
           <div className={classes.textContainer}>
