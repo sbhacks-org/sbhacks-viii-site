@@ -38,13 +38,22 @@
     }
 }
 @media (max-width: 768px) {
+    .mailingListContainer {
+        overflow-x: hidden;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 100%;
+        bottom: 0%;
+    }
     .fish-ticket {
-        grid-template-columns: 60vw;
+        grid-template-columns: 75vw;
 				right: auto;
 				position: static;
     }
     #carnival {
-        width: 90vw;
+        width: 108%;
+        margin-right: -4%;
+        /* transform: translateY(20vh); */
     }
 }
 #ticketImg {

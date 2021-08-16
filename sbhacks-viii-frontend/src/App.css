@@ -50,6 +50,10 @@ body {
 	font-family: 'NexaBold';
 }
 
+.initial-content {
+  height: 98vh;
+}
+
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
   margin-left: 1.5rem; /* Don't want the main page to be too far off-center. */
@@ -59,6 +63,9 @@ div.content {
 
 /* On screens that are less than 700px wide, make the sidebar into a bottombar. */
 @media screen and (max-width: 768px) {
+  .initial-content {
+    padding-bottom: 5rem;
+  }
   div.content {
     margin-left: 0;
     padding: 0rem;
@@ -66,6 +73,3 @@ div.content {
   }
 }
 
-.initial-content {
-  height: 98vh;
-}
