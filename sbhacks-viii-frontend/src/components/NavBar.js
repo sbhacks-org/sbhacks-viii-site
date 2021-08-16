@@ -42,14 +42,14 @@ const NavBar = () => {
             <div className="mobNavBar">
                 {/* <!-- Navigation links (hidden by default) --> */}
                 <div id="navLinks">
-                    <a href={`${landing}`}>SB HACKS IIX</a>
+                    <a href={`${landing}`}>SB HACKS VIII</a>
                     <a href={`${intro}`}>INTRO</a>
                     <a href={`${faq}`}>FAQ</a>
                     <a href={`${team}`}>TEAM</a>
                     <a href={`${sponsors}`}>SPONSORS</a>
                     <Link href={`${landingPageLink}${mentors}`}>MENTOR</Link>
                     <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
-                    <Link href={`${landingPageLink}${pastSite}`}>SB HACKS V</Link>
+                    <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link>
                 </div>
                 {/* <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links --> */}
                 <a href="javascript:void(0);" className="icon" onClick={toggleMobNavBar}>
@@ -68,7 +68,7 @@ const NavBar = () => {
                     <li><a href={`${team}`}>TEAM</a></li>
                     <li><a href={`${faq}`}>FAQ</a></li>
                     <li><a href={`${intro}`}>INTRO</a></li>
-                    <li><a href={`${landing}`}>SB HACKS IIX</a></li>
+                    <li><a href={`${landing}`}>SB HACKS VIII</a></li>
                 </ul>
             </div>
 
