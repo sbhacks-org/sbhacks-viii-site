@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
 import "../styles/NavBar.scss";
 
+import Close from "../assets/images/close_icon.png";
+import HamburgerIcon from "../assets/images/hamburger_menu_icon.png";
+
 const NavBar = () => {
     const landingPageLink = 'https://sbhacks.com/';
     const landing = '#landing'; //'#landing';
     const intro = '#intro'; // '#intro';
+    const devpost = 'https://sb-hacks-vii.devpost.com/';
+
     const faq = ''; //'#faq';
     const team = ''; //'#team';
     const sponsors = ''; //'#sponsors';
@@ -15,13 +20,17 @@ const NavBar = () => {
     const volunteer = ''; // 'volunteer';
     const pastSite = ''; // 'https://sbhacksvii.com';
 
+    const [open, setOpen] = useState(false);
+
     const toggleMobNavBar = () => {
         console.log('toggle mobile navbar')
-        let x = document.getElementById("navLinks");
-        if (x.style.display === "block") {
-            x.style.display = "none";
+        let navLinks = document.getElementById("navLinks");
+        if (navLinks.style.display === "block") {
+            navLinks.style.display = "none";
+            setOpen(false);
         } else {
-            x.style.display = "block";
+            navLinks.style.display = "block";
+            setOpen(true)
         }
     }
     // const checkIfMobile = () => {
@@ -39,36 +48,40 @@ const NavBar = () => {
     return (
         <div id='navBarContainer'>
 
-            <div className="mobNavBar">
+            <div className="mobNavBar" style={{backgroundColor: (open) ? 'var(--mobile-background-color)': 'inherit'}}>
                 {/* <!-- Navigation links (hidden by default) --> */}
                 <div id="navLinks">
-                    <a href={`${landing}`}>SB HACKS VIII</a>
-                    <a href={`${intro}`}>INTRO</a>
-                    <a href={`${faq}`}>FAQ</a>
+                    <a href={`${landing}`}>SB Hacks VIII</a>
+                    <a href={`${intro}`}>About US</a>
+                    {/* <a href={`${faq}`}>FAQ</a>
                     <a href={`${team}`}>TEAM</a>
-                    <a href={`${sponsors}`}>SPONSORS</a>
-                    <Link href={`${landingPageLink}${mentors}`}>MENTOR</Link>
-                    <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
-                    <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link>
+                    <a href={`${sponsors}`}>SPONSORS</a> */}
+                    <a href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a>
+                    {/* <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
+                    <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link> */}
                 </div>
                 {/* <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links --> */}
                 <a href="javascript:void(0);" className="icon" onClick={toggleMobNavBar}>
-                    <div className="fa fa-bars" id="burgerIcon" ></div>
-                    <div className="fa fa-bars" id="burgerIcon" ></div>
-                    <div className="fa fa-bars" id="burgerIcon" ></div>
+                    {
+                        open ?
+                            <img className='mobileIcon' src={Close}/> :
+                            <img className='mobileIcon' src={HamburgerIcon}/>
+                    }
+                    
                 </a>
             </div>
 
             <div id="navBar">
                 <ul>
-                    <li><Link className='last' href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link></li>
+                    {/* <li><Link className='last' href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link></li>
                     <li><Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link></li>
-                    <li><Link href={`${landingPageLink}${mentors}`}>MENTOR</Link></li>
-                    <li><a href={`${sponsors}`}>SPONSORS</a></li>
+                    <li><Link href={`${landingPageLink}${mentors}`}>MENTOR</Link></li> */}
+                    <li><a className='last' href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a></li>
+                    {/* <li><a href={`${sponsors}`}>SPONSORS</a></li>
                     <li><a href={`${team}`}>TEAM</a></li>
-                    <li><a href={`${faq}`}>FAQ</a></li>
-                    <li><a href={`${intro}`}>INTRO</a></li>
-                    <li><a href={`${landing}`}>SB HACKS VIII</a></li>
+                    <li><a href={`${faq}`}>FAQ</a></li> */}
+                    <li><a href={`${intro}`}>About Us</a></li>
+                    <li><a href={`${landing}`}>SB Hacks VIII</a></li>
                 </ul>
             </div>
 

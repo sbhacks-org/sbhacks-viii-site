@@ -43,6 +43,15 @@
   --Brown-ground : #917060;
   --Brown-shadow-on-ground : #785543;
 
+  --navbar-text : rgba(255, 255, 255, .6); 
+  --navbar-hover-text: rgba(255, 255, 255, 1);
+  --navbar-active-text: #fad27b;
+
+  --navbar-hover-background: #042a4f;
+  --navbar-border: rgba(255, 255, 255, .3);
+
+  --mobile-background-color: #031529;
+
 }
 body {
   background-color: var(--Background);
