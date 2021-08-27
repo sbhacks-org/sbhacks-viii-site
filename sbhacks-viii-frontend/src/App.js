@@ -50,6 +50,9 @@ function App() {
           </div>
           <SocialMediaBar />
         </Route>
+        <Route path="/authentication">
+          <AuthenticationPage />
+        </Route>
       </Switch>
     </div>
   );
