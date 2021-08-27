@@ -9,6 +9,7 @@ import { Switch, Route } from "react-router-dom";
 import SocialMediaBar from "./components/SocialMediaBar";
 import About from "./components/About.js";
 import Sponsors from "./components/Sponsors.js";
+import AuthenticationPage from "./components/AuthenticationPage";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
 
