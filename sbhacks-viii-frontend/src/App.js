@@ -39,6 +39,9 @@ function App() {
         <Route path="/unsubscribe">
           <UnsubscribePage />
         </Route>
+        <Route path="/authentication">
+          <AuthenticationPage />
+        </Route>
         <Route path="/">
           <div class="content">
             <NavBar/>
@@ -52,9 +55,6 @@ function App() {
             </ThemeProvider>
           </div>
           <SocialMediaBar />
-        </Route>
-        <Route path="/authentication">
-          <AuthenticationPage />
         </Route>
       </Switch>
     </div>
