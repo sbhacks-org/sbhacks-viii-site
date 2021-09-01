@@ -1,7 +1,7 @@
 const { admin, db } = require("../utils/admin");
 require("dotenv").config();
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
   try {
     console.log("Adding hacker to db...");
     const emailAddress = req.body.emailAddress;
@@ -56,7 +56,7 @@ exports.register = (req, res) => {
   }
 };
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   try {
     console.log("Updating hacker login in db...");
     const emailAddress = req.body.emailAddress;
@@ -75,14 +75,15 @@ exports.login = (req, res) => {
   }
 };
 
-exports.saveApp = (req, res) => {
+exports.saveApp = async (req, res) => {
   try {
     console.log("Saving hacker info to db...");
     const update_info = req.body.update_info;
     const uid = req.body.uid;
 
-    const hacker_info = await db.collection("hackers").doc(uid).get().data();
+    const hacker_info = (await db.collection("hackers").doc(uid).get()).data();
     console.log("Got info from database...");
+    console.log(hacker_info)
 
     hacker_info.saveAppTimeStamps.push(admin.firestore.Timestamp.now());
     update_info.saveAppTimeStamps = hacker_info.saveAppTimeStamps;
@@ -99,12 +100,12 @@ exports.saveApp = (req, res) => {
   }
 };
 
-exports.getAppFields = (req, res) => {
+exports.getAppFields = async (req, res) => {
   try {
     console.log("Getting hacker info from db...");
     const uid = req.body.uid;
 
-    const hacker_info = await db.collection("hackers").doc(uid).get().data();
+    const hacker_info = (await db.collection("hackers").doc(uid).get()).data();
     console.log("Got info from database...");
     res.json(hacker_info);
   } catch (err) {
@@ -113,12 +114,12 @@ exports.getAppFields = (req, res) => {
   }
 };
 
-exports.openApp = (req, res) => {
+exports.openApp =  async(req, res) => {
   try {
     console.log("Getting hacker info from db...");
     const uid = req.body.uid;
 
-    const hacker_info = await db.collection("hackers").doc(uid).get().data();
+    const hacker_info = (await db.collection("hackers").doc(uid).get()).data();
     console.log("Got info from database...");
 
     hacker_info.openAppTimeStamps.push(admin.firestore.Timestamp.now());
