@@ -44,6 +44,7 @@ exports.register = (req, res) => {
       registeredTimeStamp: admin.firestore.Timestamp.now(),
       openAppTimeStamps: [],
       saveAppTimeStamps: [],
+      completedAppTimeStamps: []
     };
 
     await db.collection("hackers").doc(uid).set(hacker_info);
@@ -86,7 +87,10 @@ exports.saveApp = (req, res) => {
     hacker_info.saveAppTimeStamps.push(admin.firestore.Timestamp.now());
     update_info.saveAppTimeStamps = hacker_info.saveAppTimeStamps;
 
+    // add timestamp to completedAppTimes for when all required fields are completed
+
     await db.collection("hackers").doc(uid).update(update_info);
+
     console.log("Saved info to database...");
     res.json(update_info);
   } catch (err) {
