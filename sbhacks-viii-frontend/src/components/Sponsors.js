@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textPrimary: {
     fontFamily: "NexaBold",
-    fontSize: 34,
+    fontSize: 54,
   },
   text: {
     paddingTop: 30,
@@ -63,7 +63,7 @@ const Sponsors = () => {
         color="textPrimary"
         className={classes.textPrimary}
       >
-        <img src={landmark} className={classes.landmark} />
+        {/* <img src={landmark} className={classes.landmark} /> */}
         Sponsors
       </Typography>
 
