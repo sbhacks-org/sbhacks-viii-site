@@ -22,8 +22,6 @@ exports.getMailingListAddresses = async (req, res) => {
       }
     }
 
-    console.log(validEmailAddresses);
-
     res.json({ emailAddresses: validEmailAddresses });
   } catch (err) {
     console.error(err);
