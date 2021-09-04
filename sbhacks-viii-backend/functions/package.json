@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "firebase": "^8.6.8",
     "firebase-admin": "^9.8.0",
-    "firebase-functions": "^3.14.1",
+    "firebase-functions": "^3.15.5",
     "handlebars": "^4.7.7",
     "nodemailer": "^6.6.2",
     "uuid": "^8.3.2"
