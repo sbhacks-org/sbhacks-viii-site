@@ -77,9 +77,9 @@ const NavBar = () => {
                     <li><Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link></li>
                     <li><Link href={`${landingPageLink}${mentors}`}>MENTOR</Link></li> */}
                     <li><a className='last' href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a></li>
-                    {/* <li><a href={`${sponsors}`}>SPONSORS</a></li>
-                    <li><a href={`${team}`}>TEAM</a></li>
-                    <li><a href={`${faq}`}>FAQ</a></li> */}
+                    {/* <li><a href={`${sponsors}`}>SPONSORS</a></li> */}
+                    {/* <li><a href={`${team}`}>TEAM</a></li> */}
+                    {/* <li><a href={`${faq}`}>FAQ</a></li> */}
                     <li><a href={`${intro}`}>About Us</a></li>
                     <li><a href={`${landing}`}>SB Hacks VIII</a></li>
                 </ul>
