@@ -84,7 +84,7 @@ const Sponsors = () => {
         className={classes.textPrimary}
       >
         {/* <img src={landmark} className={classes.landmark} /> */}
-        Sponsors
+        Past Sponsors
       </Typography>
 
       {/* Tier 1 */}
