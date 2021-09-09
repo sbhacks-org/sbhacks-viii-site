@@ -83,7 +83,7 @@ const Sponsors = () => {
         color="textPrimary"
         className={classes.textPrimary}
       >
-        <img src={landmark} className={classes.landmark} />
+        {/* <img src={landmark} className={classes.landmark} /> */}
         Sponsors
       </Typography>
 

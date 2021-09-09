@@ -15,7 +15,7 @@
     "react-hot-loader": "^4.13.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^4.0.3",
     "source-sans": "^3.28.0",
     "source-sans-pro": "^3.6.0",
     "web-vitals": "^1.1.2"
