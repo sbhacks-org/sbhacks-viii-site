@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  TextField,
-  Button,
-  makeStyles,
-  Grid,
-  Typography,
-} from "@material-ui/core";
-import axios from "axios";
+import React from "react";
+import { makeStyles, Grid, Typography } from "@material-ui/core";
 
 import landmark from "../assets/images/landmark.svg"; // with import
 import otter from "../assets/images/otter_balloon_cart.svg";
@@ -35,14 +28,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
   },
   textPrimary: {
-    fontFamily: 'NexaBold',
-    fontSize: 34
+    fontFamily: "NexaBold",
+    fontSize: 34,
   },
   text: {
     paddingTop: 30,
     lineHeight: "250%",
-    fontFamily: 'NexaBold',
-    fontSize: 16
+    fontFamily: "NexaBold",
+    fontSize: 16,
   },
   otterContainer: {
     [theme.breakpoints.up("md")]: {
@@ -62,7 +55,11 @@ const About = () => {
       <Grid container justifyContent="center" alignItems="center" spacing={0}>
         <Grid item md={12} lg={7} style={{ padding: 40 }}>
           <div className={classes.textContainer}>
-            <Typography variant="h4" color="textPrimary" className={classes.textPrimary}>
+            <Typography
+              variant="h4"
+              color="textPrimary"
+              className={classes.textPrimary}
+            >
               <img src={landmark} className={classes.landmark} />
               About Us
             </Typography>
