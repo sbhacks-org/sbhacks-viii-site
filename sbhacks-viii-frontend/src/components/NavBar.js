@@ -15,7 +15,7 @@ const NavBar = () => {
 
     const faq = ''; //'#faq';
     const team = ''; //'#team';
-    const sponsors = ''; //'#sponsors';
+    const sponsors = '#sponsors';
     const mentors = ''; //
     const volunteer = ''; // 'volunteer';
     const pastSite = ''; // 'https://sbhacksvii.com';
@@ -52,10 +52,10 @@ const NavBar = () => {
                 {/* <!-- Navigation links (hidden by default) --> */}
                 <div id="navLinks">
                     <a href={`${landing}`}>SB Hacks VIII</a>
-                    <a href={`${intro}`}>About US</a>
+                    <a href={`${intro}`}>About Us</a>
+                    <a href={`${sponsors}`}>Sponsors</a>
                     {/* <a href={`${faq}`}>FAQ</a>
-                    <a href={`${team}`}>TEAM</a>
-                    <a href={`${sponsors}`}>SPONSORS</a> */}
+                    <a href={`${team}`}>TEAM</a> */}
                     <a href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a>
                     {/* <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
                     <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link> */}
@@ -77,7 +77,7 @@ const NavBar = () => {
                     <li><Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link></li>
                     <li><Link href={`${landingPageLink}${mentors}`}>MENTOR</Link></li> */}
                     <li><a className='last' href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a></li>
-                    {/* <li><a href={`${sponsors}`}>SPONSORS</a></li> */}
+                    <li><a href={`${sponsors}`}>Sponsors</a></li>
                     {/* <li><a href={`${team}`}>TEAM</a></li> */}
                     {/* <li><a href={`${faq}`}>FAQ</a></li> */}
                     <li><a href={`${intro}`}>About Us</a></li>

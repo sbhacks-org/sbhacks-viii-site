@@ -77,7 +77,7 @@ const Sponsors = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div id='sponsors' className={classes.root}>
       <Typography
         variant="h4"
         color="textPrimary"
@@ -155,11 +155,11 @@ const Sponsors = () => {
             <img src={amazon} className={classes.tier2Logo} />
           </a>
         </Grid>
-        <Grid item xs={3} className={classes.logoContainer}>
+        {/* <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://www.logmein.com/">
             <img src={logmein} className={classes.tier2Logo} />
           </a>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       {/* Tier 4 */}
