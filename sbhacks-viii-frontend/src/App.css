@@ -52,6 +52,7 @@
 
   --mobile-background-color: #031529;
 
+  --eventTitleColor : #f9b56c;
 }
 body {
   background-color: var(--Background);

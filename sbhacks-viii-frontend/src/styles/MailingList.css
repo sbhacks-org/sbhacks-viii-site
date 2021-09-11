@@ -23,7 +23,7 @@
 }
 .eventTitleContainer .text {
     font-size: 8vw;
-    color: gold;
+    color: var(--eventTitleColor);
     width: fit-content;
 }
 .eventDateContainer {
