@@ -69,6 +69,7 @@ div.content {
   margin-left: 1.5rem; /* Don't want the main page to be too far off-center. */
   padding: 1vh 1.5rem;
   height: auto;
+  width: 100%;
 }
 
 /* On screens that are less than 700px wide, make the sidebar into a bottombar. */

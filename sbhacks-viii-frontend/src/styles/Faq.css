@@ -1,0 +1,45 @@
+#faq {
+    width: 100%;
+}
+#faq .title {
+    color: #fab664;
+    font-size: 42px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+#faq .title .questionMark {
+    height: 75px;
+}
+
+#faq .mainContent {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    width: 90vw;
+    margin: auto;
+}
+#faq .mainContent #otterBooth {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    justify-self: center;
+} 
+#faq .mainContent .questions {
+    justify-self: center;
+}
+
+.sign {
+    position: relative;
+}
+.sign .arrowImg {
+    position: absolute;
+    left: 5px;
+}
+.sign .text {
+    position: absolute;
+    right: 5px;
+}
+.sign .ansText {
+    color: white;
+    width: 80%;
+}

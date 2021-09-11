@@ -11,6 +11,7 @@ import About from "./components/About.js";
 import Sponsors from "./components/Sponsors.js";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
+import FAQ from "./components/Faq";
 
 import axios from "axios";
 
@@ -45,6 +46,7 @@ function App() {
             </div>
             <ThemeProvider theme={theme}>
               <About />
+              <FAQ/>
               <Sponsors />
             </ThemeProvider>
           </div>
