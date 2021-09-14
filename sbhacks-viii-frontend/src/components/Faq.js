@@ -83,21 +83,21 @@ const FAQ = () => {
                             if (index < 6) {
                                 let left = (index % 2 === 0) ? true : false;
                                 let dark = (index % 2 === 0) ? true : false;
-                                return <Sign question={obj.question} answer={obj.answer} dark={dark} left={left} open={isOpen[index]} toggle={() => toggle(index)}/>
+                                return <Sign question={obj.question} answer={obj.answer} dark={dark} left={left} open={isOpen[index]} toggle={() => toggle(index)} />
                             }
                             return undefined;
                         })
 
                     }
                 </div>
-                <img src={OtterBooth} id='otterBooth'/>
+                <img src={OtterBooth} id='otterBooth' />
                 <div className='questions'>
                     {
                         questions.map((obj, index) => {
                             if (index >= 6) {
                                 let left = (index % 2 === 0) ? false : true;
                                 let dark = (index % 2 === 0) ? false : true;
-                                return <Sign question={obj.question} answer={obj.answer} dark={dark} left={left} open={isOpen[index]} toggle={() => toggle(index)}/>
+                                return <Sign key={index} question={obj.question} answer={obj.answer} dark={dark} left={left} open={isOpen[index]} toggle={() => toggle(index)} />
                             }
                             return undefined;
                         })
@@ -113,34 +113,43 @@ export const Sign = (props) => {
     const [signImg, setSignImg] = useState(null);
     const [arrow, setArrow] = useState(null);
     const [style, setStyle] = useState({});
+    const [up, setUp] = useState(false);
 
     useEffect(() => {
         if (props.dark) setSignImg(SignDarkerRight);
         else setSignImg(SignLighterRight);
 
-        if (props.open) setArrow(UpArrow);
-        else setArrow(DownArrow);
+        if (props.open) setUp(true)//setArrow(UpArrow);
+        else setUp(false)//setArrow(DownArrow);
 
         if (props.left) setStyle({ transform: 'rotate(180deg)' })
     }, []);
 
     useEffect(() => {
-        if (props.open) setArrow(UpArrow);
-        else setArrow(DownArrow);
+        if (props.open) {
+            // setArrow(UpArrow);
+            setUp(true);
+        }
+        else {
+            // setArrow(DownArrow);
+            setUp(false);
+        }
     }, [props.open]);
 
     return (
-        <div className='sign' onClick={props.toggle}>
-            <img className='signImg' src={signImg} style={style} />
-            <img className='arrowImg' src={arrow} />
-            <div className='text'>{props.question}</div>
+        <>
+            <div className='sign' onClick={props.toggle}>
+                <img className='signImg' src={signImg} style={style} />
+                <img className='arrowImg' src={DownArrow} style={{ transform: up ? 'rotate(180deg)' : '' }} />
+                <div className='textContainer'><div className='text'> {props.question} </div></div>
+            </div>
             {
-                props.open &&
-                <div className='ansText'>
-                    {props.answer}
-                </div>
-            }
-        </div>
+                    props.open &&
+                    <div className='ansText' style={{marginLeft: props.left ? '20%' : '0%'}}>
+                        {props.answer}
+                    </div>
+                }
+        </>
     )
 }
 

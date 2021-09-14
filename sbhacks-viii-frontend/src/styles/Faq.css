@@ -23,23 +23,47 @@
     grid-column-start: 2;
     grid-column-end: 3;
     justify-self: center;
+    margin-top: 20%;
+    width: 80%;
 } 
 #faq .mainContent .questions {
     justify-self: center;
+    width: 20vw;
 }
 
 .sign {
     position: relative;
 }
+.sign:hover {
+    cursor: pointer;
+}
+.signImg {
+    width: 100%;
+}
 .sign .arrowImg {
     position: absolute;
-    left: 5px;
+    right: 1vw;
+    top: calc(50% - 1vw);
+    width: 2vw;
+}
+.sign .textContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .sign .text {
-    position: absolute;
-    right: 5px;
+    font-size: 0.8vw;
+    width: 14vw;
+    text-align: center;
+    top: calc(50% - 0.4vw);
 }
-.sign .ansText {
+.ansText {
     color: white;
     width: 80%;
+    text-align: left;
 }
