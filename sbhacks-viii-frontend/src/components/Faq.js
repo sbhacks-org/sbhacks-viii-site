@@ -119,19 +119,25 @@ export const Sign = (props) => {
         if (props.dark) setSignImg(SignDarkerRight);
         else setSignImg(SignLighterRight);
 
-        if (props.open) setUp(true)//setArrow(UpArrow);
-        else setUp(false)//setArrow(DownArrow);
+        if (props.open) {
+            setUp(true)
+            setArrow(UpArrow);
+        }
+        else {
+            setUp(false)
+            setArrow(DownArrow);
+        }
 
         if (props.left) setStyle({ transform: 'rotate(180deg)' })
     }, []);
 
     useEffect(() => {
         if (props.open) {
-            // setArrow(UpArrow);
+            setArrow(UpArrow);
             setUp(true);
         }
         else {
-            // setArrow(DownArrow);
+            setArrow(DownArrow);
             setUp(false);
         }
     }, [props.open]);
@@ -140,12 +146,13 @@ export const Sign = (props) => {
         <>
             <div className='sign' onClick={props.toggle}>
                 <img className='signImg' src={signImg} style={style} />
-                <img className='arrowImg' src={DownArrow} style={{ transform: up ? 'rotate(180deg)' : '' }} />
+                <img className='arrowImg' src={arrow} />
+                {/* <img className='arrowImg' src={DownArrow} style={{ transform: up ? 'rotate(180deg)' : '' }} /> */}
                 <div className='textContainer'><div className='text'> {props.question} </div></div>
             </div>
             {
                     props.open &&
-                    <div className='ansText' style={{marginLeft: props.left ? '20%' : '0%'}}>
+                    <div className='ansText' style={{marginLeft: props.left ? '20%' : '5%'}}>
                         {props.answer}
                     </div>
                 }

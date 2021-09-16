@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="500px" height="200px" viewBox="0 0 500 200" style="enable-background:new 0 0 500 200;" xml:space="preserve">
+	 width="2100px" height="380px" viewBox="0 0 2100 380" style="enable-background:new 0 0 2100 380;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#FAB664;}
 </style>
 <g>
 	<g>
-		<path class="st0" d="M493.89,91.27l-41.21-28.9c-2.07-2.21-4.59-4-7.42-5.21l-0.16-0.11c-2.72-1.91-5.83-2.33-8.63-1.64H23.52
-			c-12.12,0-21.95,9.83-21.95,21.95v45.26c0,12.12,9.83,21.95,21.95,21.95h412.94c2.8,0.69,5.91,0.27,8.63-1.64l0.16-0.11
-			c2.83-1.21,5.35-2.99,7.42-5.2l41.21-28.9C499.95,104.49,499.95,95.51,493.89,91.27z"/>
+		<path class="st0" d="M2027.92,155.04L1862.68,39.15c-8.3-8.86-18.4-16.04-29.75-20.89l-0.64-0.44
+			c-10.91-7.66-23.38-9.34-34.6-6.58H141.87c-48.6,0-88.01,39.42-88.01,88.01v181.48c0,48.6,39.42,88.01,88.01,88.01h1655.77
+			c11.23,2.77,23.7,1.08,34.6-6.58l0.64-0.44c11.35-4.85,21.45-11.99,29.75-20.85L2027.88,225
+			C2052.22,208.04,2052.22,172.04,2027.92,155.04z"/>
 	</g>
 </g>
 </svg>

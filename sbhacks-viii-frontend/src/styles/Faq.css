@@ -1,5 +1,6 @@
 #faq {
-    width: 100%;
+    width: 90%;
+    margin: auto;
 }
 #faq .title {
     color: #fab664;
@@ -16,19 +17,19 @@
 #faq .mainContent {
     display: grid;
     grid-template-columns: 30% 40% 30%;
-    width: 90vw;
+    width: 100%;
     margin: auto;
 }
 #faq .mainContent #otterBooth {
     grid-column-start: 2;
     grid-column-end: 3;
     justify-self: center;
-    margin-top: 20%;
+    margin-top: 10%;
     width: 80%;
 } 
 #faq .mainContent .questions {
     justify-self: center;
-    width: 20vw;
+    width: 25vw;
 }
 
 .sign {
@@ -39,10 +40,11 @@
 }
 .signImg {
     width: 100%;
+    padding: 1.5vh 0px;
 }
 .sign .arrowImg {
     position: absolute;
-    right: 1vw;
+    right: 2.5vw;
     top: calc(50% - 1vw);
     width: 2vw;
 }
@@ -64,6 +66,7 @@
 }
 .ansText {
     color: white;
+    font-size: 0.75vw;
     width: 80%;
     text-align: left;
 }
