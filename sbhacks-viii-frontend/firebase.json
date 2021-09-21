@@ -1,16 +1,13 @@
 {
   "hosting": {
-    "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
+    "redirects": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/organize",
+        "destination": "https://forms.gle/bKbdJ1reaNxY5FqT8",
+        "type": 301
       }
-    ]
+    ],
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }
