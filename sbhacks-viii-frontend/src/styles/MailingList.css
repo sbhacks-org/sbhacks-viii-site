@@ -27,7 +27,7 @@
     width: fit-content;
 }
 .eventDateContainer {
-    width: 400px;
+    width: 540px;
     position: absolute;
     top: -65px;
     display: flex;
@@ -54,7 +54,7 @@
 .fish-ticket {
     display: grid;
     width: fit-content;
-    grid-template-columns: 400px;
+    grid-template-columns: 540px;
     grid-template-rows: 37% 20% 43%;
 		position: absolute;
 		right: 20vw;
@@ -68,9 +68,10 @@
 }
 @media (max-width: 1504px) {
     .fish-ticket {
-        grid-template-columns: 350px;
+        grid-template-columns: 450px;
     }
     .eventDateContainer {
+        width: 450px
     }
     #carnival {
         width: 962.5px;
@@ -78,11 +79,11 @@
 }
 @media (max-width: 1330px) {
     .fish-ticket {
-        grid-template-columns: 300px;
+        grid-template-columns: 380px;
 				right: 150px;
     }
     .eventDateContainer {
-        width: 300px;
+        width: 380px;
     }
     #carnival {
         width: 825px;
