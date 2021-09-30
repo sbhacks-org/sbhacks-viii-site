@@ -11,18 +11,67 @@
 #carnival {
     width: 1100px;
 }
+.eventTitleContainer {
+    width: 85vw;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NexaLight';
+    position: absolute;
+    top: calc(-10px - 51px);
+}
+.eventTitleContainer .text {
+    font-size: 8vw;
+    color: var(--eventTitleColor);
+    width: fit-content;
+}
+.eventDateContainer {
+    width: 540px;
+    position: absolute;
+    top: -65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.eventDate {
+    /* text-align: left; */
+}
+.eventDate .text {
+    width: fit-content;
+    font-size: 1.3rem;
+    color: white;
+    font-family: 'NexaLight';
+    text-shadow: 0 0 0 0;
+}
+.eventDate .small {
+    font-size: 1.2rem;
+}
+.eventDate .large {
+    font-size: 1.5rem;
+}
 
 .fish-ticket {
     display: grid;
     width: fit-content;
-    grid-template-columns: 400px;
+    grid-template-columns: 540px;
     grid-template-rows: 37% 20% 43%;
 		position: absolute;
 		right: 20vw;
 }
+@media (max-width: 2259px) {
+    .eventDate {
+        background-color: rgba(24, 75, 122, 0.35);
+        border-radius: 20px;
+        padding: 5px 10px;
+    }
+}
 @media (max-width: 1504px) {
     .fish-ticket {
-        grid-template-columns: 350px;
+        grid-template-columns: 450px;
+    }
+    .eventDateContainer {
+        width: 450px
     }
     #carnival {
         width: 962.5px;
@@ -30,8 +79,11 @@
 }
 @media (max-width: 1330px) {
     .fish-ticket {
-        grid-template-columns: 300px;
+        grid-template-columns: 380px;
 				right: 150px;
+    }
+    .eventDateContainer {
+        width: 380px;
     }
     #carnival {
         width: 825px;
@@ -39,16 +91,36 @@
 }
 @media (max-width: 768px) {
     .mailingListContainer {
-        overflow-x: hidden;
+        overflow-x: clip;
         top: 50%;
-        transform: translateY(-50%);
+        /* transform: translateY(-50%); */
+        /* margin: auto; */
         height: 75%;
         bottom: 0%;
     }
     .fish-ticket {
         grid-template-columns: 85vw;
 				right: auto;
-				position: static;
+				position: relative;
+    }
+    .eventDateContainer {
+        width: 85vw;
+        height: 80px;
+        top: auto;
+        bottom: calc(-45px - 3vh);
+    }
+    .eventDate {
+        background-color: inherit;
+    }
+    .eventDate .text {
+        text-align: center;
+        margin: auto;
+    }
+    .eventDate .small {
+        font-size: 3.5vw;
+    }
+    .eventDate .large {
+        font-size: 4vw;
     }
     #carnival {
         width: 108%;

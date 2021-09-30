@@ -12,10 +12,24 @@ function MailingList() {
   const [emailAddress, setEmailAddress] = useState("");
   const [buttonEnabled, setButtonEnabled] = useState(true);
   const [submitStatus, setSubmitStatus] = useState("Join our mailing list for updates!");
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkIfMobile = () => {
+    if (window.innerWidth <= 768) setIsMobile(true);
+    else setIsMobile(false);
+  }
+  useEffect(() => {
+    checkIfMobile();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  })
 
   const handleSubmit = (event) => {
     console.log('submit called')
-    if(!buttonEnabled) return;
+    if (!buttonEnabled) return;
     setButtonEnabled(false);
     setEmailAddress("");
     event.preventDefault();
@@ -26,7 +40,7 @@ function MailingList() {
     })
       .catch((err) => {
         console.log(err);
-        if(err.response !== undefined){
+        if (err.response !== undefined) {
           setSubmitStatus("error: " + err.response.data.error);
         } else {
           setSubmitStatus("error: uncaught error (likely network)");
@@ -81,7 +95,7 @@ function MailingList() {
           />
         </form>
         <div className='textContainer'>
-           <div className='text' style={{'color': submitStatus.substr(0, 5) === "error" ? "red" : ""}}>{submitStatus}</div>
+          <div className='text' style={{ 'color': submitStatus.substr(0, 5) === "error" ? "red" : "" }}>{submitStatus}</div>
         </div>
         <div className='submitFishContainer'>
           <div className='submitFishButton'>
@@ -89,7 +103,25 @@ function MailingList() {
             <div id="submitTxt" onMouseEnter={fishHover} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
           </div>
         </div>
+        {
+          isMobile && 
+          <div className='eventTitleContainer'>
+            <div className='text'>SB Hacks VIII</div>
+          </div>
+        }
+        <div className='eventDateContainer'>
+          <div className='eventDate'>
+            <div className='text small'>January 14-16, 2022</div>
+            <div className='text large'>Corwin Pavilion, UCSB</div>
+          </div>
+        </div>
       </div>
+      {/* <div className='eventDateContainer'>
+        <div className='eventDate'>
+          <div className='text'>January 14-16, 2022</div>
+          <div className='text'>Corwin Pavilion, UCSB</div>
+        </div>
+      </div> */}
       <img id='carnival' src={Carnival} alt='Carnival' />
     </div>
   );
