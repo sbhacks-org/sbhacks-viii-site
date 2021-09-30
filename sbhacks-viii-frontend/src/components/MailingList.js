@@ -98,13 +98,8 @@ function MailingList() {
           <div className='text' style={{ 'color': submitStatus.substr(0, 5) === "error" ? "red" : "" }}>{submitStatus}</div>
         </div>
         <div className='submitFishContainer'>
-<<<<<<< HEAD
           <div className='submitFishButton'>
             <img id='submitFish' src={FishSubmit} alt='Fish Submit' onMouseEnter={textHover} onMouseLeave={resetFishStyles} onClick={handleSubmit}/>
-=======
-          <div className='submitFishButton' onClick={handleSubmit}>
-            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onMouseEnter={textHover} onMouseLeave={resetFishStyles} />
->>>>>>> Added in event date and event title. Also fixed bug with scrolling.
             <div id="submitTxt" onMouseEnter={fishHover} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
           </div>
         </div>
