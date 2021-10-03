@@ -6,12 +6,14 @@ exports.register = async (req, res) => {
     console.log("Adding hacker to db...");
     const emailAddress = req.body.emailAddress;
     const uid = req.body.uid;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
 
     const hacker_info = {
       uid: uid,
       emailAddress: emailAddress,
-      fname: null,
-      lname: null,
+      fname: fname,
+      lname: lname,
       gender: null,
       ethnicity: null,
       phoneNumber: null,
