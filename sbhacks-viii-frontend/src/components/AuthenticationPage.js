@@ -18,8 +18,8 @@ import "../styles/AuthenticationPage.css";
 const AuthenticationPage = (props) => {
   useEffect(() => { }, []);
   const [showLogin, setShowLogin] = useState(true);
-  const [email, setEmail] = useState("");
   const [resume, setResume] = useState(undefined);
+  
 
   // might be helpful: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
   useEffect(() => {
@@ -48,7 +48,7 @@ const AuthenticationPage = (props) => {
         console.log(user);
 
         // TO DO: Update last signed in time through backend
-        axios.post("/userdb/login", {uid: user.uid});
+        axios.post("/userdb/login", { uid: user.uid });
         // ...
       })
       .catch((error) => {
@@ -58,7 +58,7 @@ const AuthenticationPage = (props) => {
       });
   };
 
-  const registerSubmit = (e, email, password) => {
+  const registerSubmit = (e, email, password, fname, lname,) => {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -77,7 +77,7 @@ const AuthenticationPage = (props) => {
         console.log(user.uid); // use this for identifying user in backend
 
         // TO DO: add to db
-        axios.post("/userdb/register", {uid: user.uid, emailAddress: email});
+        axios.post("/userdb/register", { uid: user.uid, emailAddress: email, fname: fname, lname: lname});
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -86,7 +86,7 @@ const AuthenticationPage = (props) => {
         // ..
       });
   };
-  
+
 
   const update = (e, set) => {
     e.preventDefault();
@@ -136,9 +136,13 @@ const AuthenticationPage = (props) => {
         </button>
       </div>
       {showLogin ? (
-        <AuthenticationForm handlesubmit={loginSubmit} submitTxt="Login" />
+        <AuthenticationForm 
+          askForName={false}
+          handlesubmit={loginSubmit}
+          submitTxt="Login" />
       ) : (
         <AuthenticationForm
+          askForName={true}
           handlesubmit={registerSubmit}
           submitTxt="Register"
         />
@@ -160,6 +164,8 @@ export const AuthenticationForm = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
 
   const update = (e, set) => {
     e.preventDefault();
@@ -167,7 +173,14 @@ export const AuthenticationForm = (props) => {
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e, email, password)}>
+    <form onSubmit={(e) => handleSubmit(e, email, password, fname, lname)}>
+      {
+        props.askForName &&
+        <>
+          <input type='text' value={fname} onChange={(e) => update(e, setFname)} />
+          <input type='text' value={lname} onChange={(e) => update(e, setLname)} />
+        </>
+      }
       <input type="email" value={email} onChange={(e) => update(e, setEmail)} />
       <input
         type="password"
