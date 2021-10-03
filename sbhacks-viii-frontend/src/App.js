@@ -13,6 +13,7 @@ import AuthenticationPage from "./components/AuthenticationPage";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
 import FAQ from "./components/Faq";
+import ResetPassword from "./components/ResetPassword";
 
 import axios from "axios";
 
@@ -39,8 +40,11 @@ function App() {
         <Route path="/unsubscribe">
           <UnsubscribePage />
         </Route>
-        <Route path="/authentication">
+        <Route path="/login">
           <AuthenticationPage />
+        </Route>
+        <Route path='/resetpassword'>
+          <ResetPassword/>
         </Route>
         <Route path="/">
           <div class="content">

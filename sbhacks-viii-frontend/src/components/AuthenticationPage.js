@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import {
   getAuth,
@@ -11,9 +13,10 @@ import {
 } from "firebase/auth";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "../styles/AuthenticationPage.css";
 
 const AuthenticationPage = (props) => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const [showLogin, setShowLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [resume, setResume] = useState(undefined);
@@ -45,6 +48,7 @@ const AuthenticationPage = (props) => {
         console.log(user);
 
         // TO DO: Update last signed in time through backend
+        axios.post("/userdb/login", {uid: user.uid});
         // ...
       })
       .catch((error) => {
@@ -67,12 +71,13 @@ const AuthenticationPage = (props) => {
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
           // ...
-          console.log("verificaiton email sent");
+          console.log("verification email sent");
         });
 
         console.log(user.uid); // use this for identifying user in backend
 
         // TO DO: add to db
+        axios.post("/userdb/register", {uid: user.uid, emailAddress: email});
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -81,22 +86,7 @@ const AuthenticationPage = (props) => {
         // ..
       });
   };
-  const resetPassword = (e, email) => {
-    e.preventDefault();
-    const auth = getAuth();
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        // Password reset email sent!
-        // ..
-        console.log("password email reset sent");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + " | " + errorMessage);
-        // ..
-      });
-  };
+  
 
   const update = (e, set) => {
     e.preventDefault();
@@ -117,8 +107,8 @@ const AuthenticationPage = (props) => {
       const storage = getStorage();
       getDownloadURL(storageRef)
         .then((url) => {
-            // url is resume link string
-            // call API to update resume link here
+          // url is resume link string
+          // call API to update resume link here
         })
         .catch((error) => {
           // Handle any errors
@@ -128,21 +118,23 @@ const AuthenticationPage = (props) => {
   };
 
   return (
-    <div>
-      <button
+    <div id='landingPage'>
+      <div className='title'>Welcome to SB Hacks VIII</div>
+      <div><button
         onClick={() => {
           setShowLogin(true);
         }}
       >
         Login
       </button>
-      <button
-        onClick={() => {
-          setShowLogin(false);
-        }}
-      >
-        Register
-      </button>
+        <button
+          onClick={() => {
+            setShowLogin(false);
+          }}
+        >
+          Register
+        </button>
+      </div>
       {showLogin ? (
         <AuthenticationForm handlesubmit={loginSubmit} submitTxt="Login" />
       ) : (
@@ -151,18 +143,12 @@ const AuthenticationPage = (props) => {
           submitTxt="Register"
         />
       )}
-      <form>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => update(e, setEmail)}
-        />
-        <button onClick={(e) => resetPassword(e, email)}>Reset Password</button>
-      </form>
-      <form>
+      <Link to='resetpassword'>Forgot your password?</Link>
+
+      {/* <form>
         <input type="file" onChange={(e) => setResume(e.target.files[0])} />
         <button onClick={(e) => uploadResume(e)}>Submit Resume</button>
-      </form>
+      </form> */}
     </div>
   );
 };
