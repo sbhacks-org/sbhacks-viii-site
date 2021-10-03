@@ -113,6 +113,18 @@
         font-size: 0.65rem;
     }
 } 
+@media (max-width: 1000px) {
+    #faq .mainContent .questions {
+        justify-self: center;
+        width: 94%;
+    }
+    .ansText {
+        font-size: 0.5rem;
+    }
+    .sign .text {
+        font-size: 0.55rem;
+    }
+} 
 @media (max-width: 768px) {
     #faq .mainContent {
         display: grid;
