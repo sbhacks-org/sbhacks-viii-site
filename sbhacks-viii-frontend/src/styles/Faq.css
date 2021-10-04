@@ -1,5 +1,5 @@
 #faq {
-    width: 95%;
+    width: 90%;
     margin: auto;
 }
 #faq .title {
@@ -42,7 +42,7 @@
 }
 .signImg {
     margin: auto;
-    width: 100%;
+    width: 95%;
     padding: 1.5vh 0px;
 }
 .sign .arrowImg {
