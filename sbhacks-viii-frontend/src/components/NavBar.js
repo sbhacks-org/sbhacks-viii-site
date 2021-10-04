@@ -13,7 +13,7 @@ const NavBar = () => {
     const intro = '#intro'; // '#intro';
     const devpost = 'https://sb-hacks-vii.devpost.com/';
 
-    const faq = ''; //'#faq';
+    const faq = '#faq';
     const team = ''; //'#team';
     const sponsors = '#sponsors';
     const mentors = ''; //
@@ -54,8 +54,8 @@ const NavBar = () => {
                     <a href={`${landing}`}>SB Hacks VIII</a>
                     <a href={`${intro}`}>About Us</a>
                     <a href={`${sponsors}`}>Sponsors</a>
-                    {/* <a href={`${faq}`}>FAQ</a>
-                    <a href={`${team}`}>TEAM</a> */}
+                    <a href={`${faq}`}>FAQ</a>
+                    {/* <a href={`${team}`}>TEAM</a> */}
                     <a href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a>
                     {/* <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
                     <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link> */}
@@ -79,7 +79,7 @@ const NavBar = () => {
                     <li><a className='last' href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a></li>
                     <li><a href={`${sponsors}`}>Sponsors</a></li>
                     {/* <li><a href={`${team}`}>TEAM</a></li> */}
-                    {/* <li><a href={`${faq}`}>FAQ</a></li> */}
+                    <li><a href={`${faq}`}>FAQ</a></li>
                     <li><a href={`${intro}`}>About Us</a></li>
                     <li><a href={`${landing}`}>SB Hacks VIII</a></li>
                 </ul>
