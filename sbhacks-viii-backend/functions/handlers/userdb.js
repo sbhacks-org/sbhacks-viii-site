@@ -105,7 +105,11 @@ exports.saveApp = async (req, res) => {
 exports.getAppFields = async (req, res) => {
   try {
     console.log("Getting hacker info from db...");
-    const uid = req.body.uid;
+    // console.log(req.body)
+    // req.body = JSON.parse(req.body);
+    console.log(req.query)
+    const uid = req.query.uid;
+    console.log(typeof(uid) + ", " + uid)
 
     const hacker_info = (await db.collection("hackers").doc(uid).get()).data();
     console.log("Got info from database...");
