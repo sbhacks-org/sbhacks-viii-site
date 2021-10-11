@@ -20,15 +20,30 @@ import Application from "./components/Application";
 import axios from "axios";
 
 // axios.defaults.baseURL =
-  // "https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
-axios.defaults.baseURL = "http://localhost:5001/sbhacks-viii-site/us-central1/api";
+// "https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
+axios.defaults.baseURL =
+  "http://localhost:5001/sbhacks-viii-site/us-central1/api";
 
-const theme = createMuiTheme({
+const landingTheme = createMuiTheme({
   palette: {
     text: {
       primary: "#fab664",
       secondary: "#ffffff",
     },
+  },
+});
+
+const dashboardTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#365877",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+  typography: {
+    fontFamily: ["NexaBold"],
   },
 });
 
@@ -43,24 +58,28 @@ function App() {
           <UnsubscribePage />
         </Route>
         <Route path="/login">
-          <AuthenticationPage />
+          <ThemeProvider theme={dashboardTheme}>
+            <AuthenticationPage />
+          </ThemeProvider>
         </Route>
         <Route path="/resetpassword">
-          <ResetPassword/>
+          <ResetPassword />
         </Route>
         <Route path="/dashboard">
-          <Dashboard/>
+          <ThemeProvider theme={dashboardTheme}>
+            <Dashboard />
+          </ThemeProvider>
         </Route>
         <Route path="/application">
-          <Application/>
+          <Application />
         </Route>
         <Route path="/">
           <div class="content">
-            <NavBar/>
-            <div id='landing' class="initial-content">
+            <NavBar isLoggedIn={false} />
+            <div id="landing" class="initial-content">
               <MailingList />
             </div>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={landingTheme}>
               <About />
               <FAQ/>
               <Sponsors />
