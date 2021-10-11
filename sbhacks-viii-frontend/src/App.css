@@ -1,65 +1,73 @@
 @font-face {
-  font-family: 'NexaLight';
-  src: url('./assets/fonts/Nexa Light.otf');
+  font-family: "NexaLight";
+  src: url("./assets/fonts/Nexa Light.otf");
 }
 
 @font-face {
-  font-family: 'NexaBold';
-  src: url('./assets/fonts/Nexa Bold.otf');
+  font-family: "NexaBold";
+  src: url("./assets/fonts/Nexa Bold.otf");
 }
 
 .App {
   text-align: center;
+  height: 100%;
+  display: "block";
 }
 
 :root {
   /* variables */
-  --submit: #85632C;
-  --mailing-list: #6B4303;
-  --Background : #043563;
+  --submit: #85632c;
+  --mailing-list: #6b4303;
+  --Background: #043563;
 
-  --Background-rocks-dark : #46729C;
-  --Background-rocks-medium : #5881A8;
-  --Background-rocks-light : #6D92B5;
+  --Background-rocks-dark: #46729c;
+  --Background-rocks-medium: #5881a8;
+  --Background-rocks-light: #6d92b5;
 
-  --Left-Rollercoaster-dark : #1F5282;
-  --Left-Rollercoaster-light : #25598A;
+  --Left-Rollercoaster-dark: #1f5282;
+  --Left-Rollercoaster-light: #25598a;
 
-  --Right-Rollercoaster : #184B7A;
+  --Right-Rollercoaster: #184b7a;
 
-  --Darkest-Background-Plants : #1C6466;
-  --Medium-Background-Plants : #218558;
-  --Light-Background-Plants : #7EBA5B;
+  --Darkest-Background-Plants: #1c6466;
+  --Medium-Background-Plants: #218558;
+  --Light-Background-Plants: #7eba5b;
 
-  --Ferris-Wheel-orange : #F29252;
+  --Ferris-Wheel-orange: #f29252;
 
-  --Light-yellow-ticket-background-plant : #FFCC7A;
-  --Medium-yellow-shadow-on-plant : #FAB664;
-  --Dark-yellow-submit-button : #D9AB62;
+  --Light-yellow-ticket-background-plant: #ffcc7a;
+  --Medium-yellow-shadow-on-plant: #fab664;
+  --Dark-yellow-submit-button: #d9ab62;
 
-  --Lighter-pink : #C9598B;
-  --Darker-pink : #B84679;
+  --Lighter-pink: #c9598b;
+  --Darker-pink: #b84679;
 
-  --Brown-ground : #917060;
-  --Brown-shadow-on-ground : #785543;
+  --Brown-ground: #917060;
+  --Brown-shadow-on-ground: #785543;
 
-  --navbar-text : rgba(255, 255, 255, .6); 
+  --navbar-text: rgba(255, 255, 255, 0.6);
   --navbar-hover-text: rgba(255, 255, 255, 1);
   --navbar-active-text: #fad27b;
 
   --navbar-hover-background: #042a4f;
-  --navbar-border: rgba(255, 255, 255, .3);
+  --navbar-border: rgba(255, 255, 255, 0.3);
 
   --mobile-background-color: #031529;
 
-  --eventTitleColor : #f9b56c;
+  --eventTitleColor: #f9b56c;
 }
 body {
   background-color: var(--Background);
   overflow-x: hidden;
-	font-family: 'NexaBold';
+  font-family: "NexaBold";
 }
 
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
 .initial-content {
   height: 98vh;
 }
@@ -82,4 +90,3 @@ div.content {
     padding-bottom: 5rem;
   }
 }
-
