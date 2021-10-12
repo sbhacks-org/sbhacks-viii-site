@@ -10,18 +10,12 @@ import HamburgerIcon from "../assets/images/hamburger_menu_icon.png";
 const NavBar = (props) => {
   const isLoggedIn = props.isLoggedIn;
 
-  const faq = '#faq';
-  const team = ''; //'#team';
-  const sponsors = '#sponsors';
-  const mentors = ''; //
-  const volunteer = ''; // 'volunteer';
-  const pastSite = ''; // 'https://sbhacksvii.com';
   const landingPageLink = "https://sbhacks.com/";
   const landing = "#landing"; //'#landing';
   const intro = "#intro"; // '#intro';
   const devpost = "https://sb-hacks-vii.devpost.com/";
 
-  const faq = ""; //'#faq';
+  const faq = "#faq"; //'#faq';
   const team = ""; //'#team';
   const sponsors = "#sponsors";
   const mentors = ""; //
@@ -83,18 +77,6 @@ const NavBar = (props) => {
           </a>
         </div>
 
-<<<<<<< HEAD
-            <div className="mobNavBar" style={{backgroundColor: (open) ? 'var(--mobile-background-color)': 'inherit'}}>
-                {/* <!-- Navigation links (hidden by default) --> */}
-                <div id="navLinks">
-                    <a href={`${landing}`}>SB Hacks VIII</a>
-                    <a href={`${intro}`}>About Us</a>
-                    <a href={`${sponsors}`}>Sponsors</a>
-                    <a href={`${faq}`}>FAQ</a>
-                    {/* <a href={`${team}`}>TEAM</a> */}
-                    <a href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a>
-                    {/* <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
-=======
         <div id="navBar">
           <ul>
             {/* <li><Link className='last' href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link></li>
@@ -131,7 +113,6 @@ const NavBar = (props) => {
               Devpost
             </a>
             {/* <Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link>
->>>>>>> added styles to login/register page
                     <Link href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link> */}
           </div>
           {/* <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links --> */}
@@ -153,17 +134,6 @@ const NavBar = (props) => {
             {/* <li><Link className='last' href={`${landingPageLink}${pastSite}`}>SB HACKS VII</Link></li>
                     <li><Link href={`${landingPageLink}${volunteer}`}>VOLUNTEER</Link></li>
                     <li><Link href={`${landingPageLink}${mentors}`}>MENTOR</Link></li> */}
-<<<<<<< HEAD
-                    <li><a className='last' href={`${devpost}`} target="_blank" rel="noopener noreferrer">Devpost</a></li>
-                    <li><a href={`${sponsors}`}>Sponsors</a></li>
-                    {/* <li><a href={`${team}`}>TEAM</a></li> */}
-                    <li><a href={`${faq}`}>FAQ</a></li>
-                    <li><a href={`${intro}`}>About Us</a></li>
-                    <li><a href={`${landing}`}>SB Hacks VIII</a></li>
-                </ul>
-            </div>
-
-=======
             <li>
               <a
                 className="last"
@@ -178,7 +148,7 @@ const NavBar = (props) => {
               <a href={`${sponsors}`}>Sponsors</a>
             </li>
             {/* <li><a href={`${team}`}>TEAM</a></li> */}
-            {/* <li><a href={`${faq}`}>FAQ</a></li> */}
+            <li><a href={`${faq}`}>FAQ</a></li>
             <li>
               <a href={`${intro}`}>About Us</a>
             </li>
@@ -186,7 +156,6 @@ const NavBar = (props) => {
               <a href={`${landing}`}>SB Hacks VIII</a>
             </li>
           </ul>
->>>>>>> added styles to login/register page
         </div>
       </div>
     );
