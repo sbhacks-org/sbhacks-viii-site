@@ -288,7 +288,9 @@ export const AuthenticationForm = (props) => {
 
   const update = (e, set) => {
     e.preventDefault();
-    set(e.target.value);
+    if(e.target.value.length < 320) {
+      set(e.target.value);
+    }
   };
 
   return (
