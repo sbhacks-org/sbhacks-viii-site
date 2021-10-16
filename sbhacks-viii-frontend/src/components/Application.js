@@ -6,15 +6,17 @@ import {
     signOut,
 } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import "../styles/Application.css";
 
 const Application = () => {
+    const [appFields, setAppFields] = useState(undefined);
+
     const [phoneN, setPhoneN] = useState('');
     const [lvlStudy, setLvlStudy] = useState('');
     const [school, setSchool] = useState('');
     const [gradYr, setGradYr] = useState('');
     const [major, setMajor] = useState('');
-    const [tShrtSize, , setTShrtSize] = useState('');
+    const [tShrtSize, setTShrtSize] = useState('');
     const [resume, setResume] = useState(undefined);
     const [resumeURL, setResumeUrl] = useState('');
     const [gender, setGender] = useState('');
@@ -36,19 +38,102 @@ const Application = () => {
     const [frq2, setFrq2] = useState('');
 
     const [agrMLH, setAgrMLH] = useState(false);
-    const [agrEmail, , setAgrEmail] = useState(false);
+    const [agrEmail, setAgrEmail] = useState(false);
     const [shareInfo, setShareInfo] = useState(false);
+
+
+    // user data
+    const [uid, setUid] = useState(undefined);
+    const [emailAddress, setEmailAddress] = useState(undefined);
+    const [fname, setFname] = useState(undefined);
+    const [lname, setLname] = useState(undefined);
 
     useEffect(() => {
         const auth = getAuth();
+
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
-                const uid = user.uid;
+                // const uid = user.uid;
                 axios.get("/userdb/getAppFields", { params: { uid: user.uid } })
-                    .then((res) => {
+                    .then(async (res) => {
                         console.log(res.data);
+
+                        setAppFields(res.data);
+
+                        setPhoneN(res.data.phoneNumber);
+                        setLvlStudy(res.data.studyLevel);
+                        setSchool(res.data.universityName);
+                        setGradYr(res.data.gradYear);
+                        setTShrtSize(res.data.tshirtSize);
+                        if (res.data.resumeLink != null && res.data.resumeLink.length > 0) {
+                            try {
+                                /* resume cant really be used i think
+                                    I don't think im getting file properly*/
+                                // const resumeFile = await axios.get(res.data.resumeLink);
+                                const resumeFile = <img src={res.data.resumeLink}/>
+                                // let resumeFile;
+                                // const storage = getStorage();
+                                // const resumeRef = ref(storage, res.data.resumeLink);
+                                // getDownloadURL(resumeRef(storage, res.data.uid + "_resume"))
+                                //     .then((url) => {
+                                //         resumeFile = <img src={url}/>
+                                //         setResumeUrl(resumeFile);
+                                        
+                                //     })
+                                //     .catch(error => {
+                                //         switch (error.code) {
+                                //             case 'storage/object-not-found':
+                                //                 // File doesn't exist
+                                //                 break;
+                                //             case 'storage/unauthorized':
+                                //                 // User doesn't have permission to access the object
+                                //                 break;
+                                //             case 'storage/canceled':
+                                //                 // User canceled the upload
+                                //                 break;
+
+                                //             // ...
+
+                                //             case 'storage/unknown':
+                                //                 // Unknown error occurred, inspect the server response
+                                //                 break;
+                                //         }
+                                //     })
+                                setResume(resumeFile);
+                                setResumeUrl(res.data.resumeLink);
+                            }
+                            catch (err) {
+                                console.log("Error in getting resume: " + err);
+                            }
+                        }
+                        setGender(res.data.gender);
+                        setEthnicity(res.data.ethnicity);
+                        setDidHackathon(res.data.beenToHackathon);
+                        setAttendSbHacks(res.data.beenToSBHacks);
+                        setHearSbHacks(res.data.hearAboutSBHacks);
+
+                        setAddress1(res.data.shippingAddressLine1);
+                        setAddress2(res.data.shippingAddressLine2);
+                        setState(res.data.state);
+                        setCountry(res.data.country);
+
+                        setGitHub(res.data.github);
+                        setLinkedIn(res.data.linkedin);
+                        setPWebsite(res.data.website);
+
+                        setFrq1(res.data.essay_answer1);
+                        setFrq2(res.data.essay_answer2);
+
+                        setAgrMLH(res.data.mlhCodeAgree);
+                        setAgrEmail(res.data.mlhCommAgree);
+                        setShareInfo(res.data.privacyAgree);
+
+                        setUid(res.data.uid);
+                        setEmailAddress(res.data.emailAddress);
+                        setFname(res.data.fname);
+                        setLname(res.data.lname);
                     })
                     .catch(err => {
                         console.log("Error in getting user data: " + err);
@@ -59,10 +144,11 @@ const Application = () => {
                 // ...
             }
         });
+        // */
 
-    })
+    }, [])
     const uploadResume = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const auth = getAuth();
         const resumeName = auth.currentUser.uid + "_resume";
         const storage = getStorage();
@@ -77,6 +163,7 @@ const Application = () => {
                 .then((url) => {
                     // url is resume link string
                     // call API to update resume link here
+                    console.log(url);
                     setResumeUrl(url);
                 })
                 .catch((error) => {
@@ -88,6 +175,56 @@ const Application = () => {
 
     const saveApp = (e) => {
         e.preventDefault();
+
+        const auth = getAuth();
+        const user = auth.currentUser;
+        console.log(user);
+
+        if (user != null) {
+            const newAppFields = (appFields === undefined) ? {} : { ...appFields };
+            newAppFields.uid = uid;
+            newAppFields.emailAddress = emailAddress;
+            newAppFields.fname = fname;
+            newAppFields.lname = lname;
+            newAppFields.gender = gender;
+            newAppFields.ethnicity = ethnicity;
+            newAppFields.phoneNumber = phoneN;
+            newAppFields.tShirtSize = tShrtSize;
+            newAppFields.shippingAddressLine1 = address1;
+            newAppFields.shippingAddressLine2 = address2;
+            newAppFields.city = null;
+            newAppFields.state = state;
+            newAppFields.zipCode = null;
+            newAppFields.country = country;
+            newAppFields.resumeLink = resumeURL;
+            newAppFields.website = pWebsite;
+            newAppFields.github = gitHub;
+            newAppFields.linkedin = linkedIn;
+            newAppFields.gradYear = gradYr;
+            newAppFields.universityName = school;
+            newAppFields.major = major;
+            newAppFields.beenToHackathon = didHackathon;
+            newAppFields.beenToSBHacks = attendSbHacks;
+            newAppFields.hearAboutSBHacks = hearSbHacks;
+            newAppFields.essay_answer1 = frq1;
+            newAppFields.essay_answer2 = frq2;
+            newAppFields.mlhCodeAgree = agrMLH;
+            newAppFields.privacyAgree = shareInfo;
+            newAppFields.mlhCommAgree = agrEmail;
+
+            uploadResume();
+
+            setAppFields(newAppFields);
+            axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
+                .then(res => {
+                    console.log("Successfully saved data!");
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log("Error when saving application data: " + err);
+                })
+        }
+
     }
 
     const update = (e, set) => {
@@ -95,50 +232,51 @@ const Application = () => {
         set(e.target.value);
     };
 
+    /* Make required fields not required to save app. They are only required for status to be complete */
     return (
-        <div>
+        <div id='hackerApp'>
             <h1>SB Hacks VIII Hacker Application</h1>
             <form onSubmit={saveApp}>
                 <h2>General Info</h2>
-                <input type='text' placeholder="Phone Number" value={phoneN} onChange={(e) => update(e, setPhoneN)} required={true} />
-                <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} required={true} />
-                <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} required={true} />
-                <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} required={true} />
-                <input type='text' placeholder="Major/Field of Study" value={major} onChange={(e) => update(e, setMajor)} required={true} />
-                <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} required={true} />
+                <input type='text' placeholder="Phone Number" value={phoneN} onChange={(e) => update(e, setPhoneN)} />
+                <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} />
+                <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} />
+                <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} />
+                <input type='text' placeholder="Major/Field of Study" value={major} onChange={(e) => update(e, setMajor)} />
+                <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} />
                 <input type="file" onChange={(e) => setResume(e.target.files[0])} />
-                <button onClick={(e) => uploadResume(e)}>Submit Resume</button>
-                <input type='text' placeholder="Gender"  value={gender} onChange={(e) => update(e, setGender)} />
+                <img src={(resumeURL) ? resumeURL : ''}/>
+                <input type='text' placeholder="Gender" value={gender} onChange={(e) => update(e, setGender)} />
                 <input type='text' placeholder="Ethnicity" value={ethnicity} onChange={(e) => update(e, setEthnicity)} />
-                <input type='text' placeholder="have you participated in a hackathon before"  value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
-                <input type='text' placeholder="Have you attended SB Hacks"  value={attendSbHacks} onChange={(e) => update(e, setAttendSbHacks)} />
-                <input type='text' placeholder="How did you hear about SB Hacks"  value={hearSbHacks} onChange={(e) => update(e,setHearSbHacks )} />
+                <input type='text' placeholder="have you participated in a hackathon before" value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
+                <input type='text' placeholder="Have you attended SB Hacks" value={attendSbHacks} onChange={(e) => update(e, setAttendSbHacks)} />
+                <input type='text' placeholder="How did you hear about SB Hacks" value={hearSbHacks} onChange={(e) => update(e, setHearSbHacks)} />
 
                 <h2>Shipping Address</h2>
-                <input type='text' placeholder="Address Line 1"  value={address1} onChange={(e) => update(e, setAddress1)} required={true}/>
-                <input type='text' placeholder="Address Line 2"  value={address2} onChange={(e) => update(e, setAddress2)} />
-                <input type='text' placeholder="State"  value={state} onChange={(e) => update(e, setState)} />
-                <input type='text' placeholder="Country"  value={country} onChange={(e) => update(e, setCountry)} required={true}/>
+                <input type='text' placeholder="Address Line 1" value={address1} onChange={(e) => update(e, setAddress1)} />
+                <input type='text' placeholder="Address Line 2" value={address2} onChange={(e) => update(e, setAddress2)} />
+                <input type='text' placeholder="State" value={state} onChange={(e) => update(e, setState)} />
+                <input type='text' placeholder="Country" value={country} onChange={(e) => update(e, setCountry)} />
 
                 <h2>Additional Links</h2>
-                <input type='text' placeholder="GitHub"  value={gitHub} onChange={(e) => update(e, setGitHub)} />
-                <input type='text' placeholder="LinkedIn"  value={linkedIn} onChange={(e) => update(e, setLinkedIn)} />
-                <input type='text' placeholder="Personal Website/Portfolio"  value={pWebsite} onChange={(e) => update(e, setPWebsite)} />
+                <input type='text' placeholder="GitHub" value={gitHub} onChange={(e) => update(e, setGitHub)} />
+                <input type='text' placeholder="LinkedIn" value={linkedIn} onChange={(e) => update(e, setLinkedIn)} />
+                <input type='text' placeholder="Personal Website/Portfolio" value={pWebsite} onChange={(e) => update(e, setPWebsite)} />
 
                 <h2>Free Response</h2>
-                <label for="frq1">Tell us about your favorite project and the challenges you overcame (180 words max)</label>
-                <input id="frq1" type='textfield' placeholder="This is the answer to a free response question"  value={frq1} onChange={(e) => update(e, setFrq1)} />
-                <label for="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (180 words max) (180 words max)</label>
-                <input id="frq2" type='textfield' placeholder="This is the answer to a free response question"  value={frq2} onChange={(e) => update(e, setFrq2)} />
+                <label htmlFor="frq1">Tell us about your favorite project and the challenges you overcame (180 words max)</label>
+                <input id="frq1" type='textfield' placeholder="This is the answer to a free response question" value={frq1} onChange={(e) => update(e, setFrq1)} />
+                <label htmlFor="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (180 words max) (180 words max)</label>
+                <input id="frq2" type='textfield' placeholder="This is the answer to a free response question" value={frq2} onChange={(e) => update(e, setFrq2)} />
 
                 <input type="checkbox" id="agreeMLH" value={agrMLH} onChange={(e) => update(e, setAgrMLH)} />
-                <label for="agreeMLH">I have read and agree to the MLH Code of Conduct</label>
+                <label htmlFor="agreeMLH">I have read and agree to the MLH Code of Conduct</label>
                 <input type="checkbox" id="agrEmail" value={agrEmail} onChange={(e) => update(e, setAgrEmail)} />
-                <label for="agrEMail">I authorize MLH to send me pre- and post-event informaitonal emails, which contian free credit and opportunites from their partners.</label>
+                <label htmlFor="agrEMail">I authorize MLH to send me pre- and post-event informaitonal emails, which contian free credit and opportunites from their partners.</label>
                 <input type="checkbox" id="shareInfo" value={shareInfo} onChange={(e) => update(e, setShareInfo)} />
-                <label for="shareInfo">I authorize you to share my application/registration information with Major League Hacking for event adminstration, ranking, and MLH adminsitraation in line with the MLH Privacy Policy. I further agree to the terms of both the MLH COntest Terms and Conditions and the MLH Privacy Policy.</label>
+                <label htmlFor="shareInfo">I authorize you to share my application/registration information with Major League Hacking for event adminstration, ranking, and MLH adminsitraation in line with the MLH Privacy Policy. I further agree to the terms of both the MLH COntest Terms and Conditions and the MLH Privacy Policy.</label>
 
-                <input type="submit" value="Save"/>
+                <input type="submit" value="Save" />
             </form>
         </div>
     )
