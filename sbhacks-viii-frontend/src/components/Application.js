@@ -8,7 +8,42 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "../styles/Application.scss";
 
+import {
+    makeStyles,
+    Grid,
+    Typography,
+    TextField,
+    FormControl,
+    FormLabel,
+} from "@material-ui/core";
+import Background from "../assets/backgrounds/tileable_background.jpg";
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+        backgroundImage: `url(${Background})`,
+        height: 'fit-content'
+    },
+    centerContainer: {
+        paddingTop: "80px",
+    },
+    formContainer: {
+        // paddingTop: "20px",
+        padding: "35px",
+        margin: "0 auto",
+        [theme.breakpoints.up("md")]: {
+            width: "600px",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "80vw",
+        },
+        background: "#EEFFFF",
+        borderRadius: '50px'
+    }
+}))
+
 const Application = () => {
+    const classes = useStyles();
+
     const [appFields, setAppFields] = useState(undefined);
 
     const [phoneN, setPhoneN] = useState('');
@@ -72,7 +107,7 @@ const Application = () => {
                                 /* resume cant really be used i think
                                     I don't think im getting file properly*/
                                 // const resumeFile = await axios.get(res.data.resumeLink);
-                                const resumeFile = <img src={res.data.resumeLink}/>
+                                const resumeFile = <img src={res.data.resumeLink} />
                                 // let resumeFile;
                                 // const storage = getStorage();
                                 // const resumeRef = ref(storage, res.data.resumeLink);
@@ -80,7 +115,7 @@ const Application = () => {
                                 //     .then((url) => {
                                 //         resumeFile = <img src={url}/>
                                 //         setResumeUrl(resumeFile);
-                                        
+
                                 //     })
                                 //     .catch(error => {
                                 //         switch (error.code) {
@@ -229,7 +264,7 @@ const Application = () => {
 
     const update = (e, set) => {
         e.preventDefault();
-        if (typeof(e.target.value) == "string") {
+        if (typeof (e.target.value) == "string") {
             if (e.target.value.length > 1200) return;
         }
         set(e.target.value);
@@ -238,50 +273,54 @@ const Application = () => {
 
     /* Make required fields not required to save app. They are only required for status to be complete */
     return (
-        <div id='hackerApp'>
-            <h1>SB Hacks VIII Hacker Application</h1>
-            <form onSubmit={saveApp}>
-                <h2>General Info</h2>
-                <input type='text' placeholder="Phone Number" value={phoneN} onChange={(e) => update(e, setPhoneN)} />
-                <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} />
-                <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} />
-                <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} />
-                <input type='text' placeholder="Major/Field of Study" value={major} onChange={(e) => update(e, setMajor)} />
-                <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} />
-                <input type="file" onChange={(e) => setResume(e.target.files[0])} />
-                <img src={(resumeURL) ? resumeURL : ''}/>
-                <input type='text' placeholder="Gender" value={gender} onChange={(e) => update(e, setGender)} />
-                <input type='text' placeholder="Ethnicity" value={ethnicity} onChange={(e) => update(e, setEthnicity)} />
-                <input type='text' placeholder="have you participated in a hackathon before" value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
-                <input type='text' placeholder="Have you attended SB Hacks" value={attendSbHacks} onChange={(e) => update(e, setAttendSbHacks)} />
-                <input type='text' placeholder="How did you hear about SB Hacks" value={hearSbHacks} onChange={(e) => update(e, setHearSbHacks)} />
+        <div id='hackerApp' className={classes.container}>
+            <div className={classes.centerContainer}>
+                <div className={classes.formContainer}>
+                    <h1>SB Hacks VIII Hacker Application</h1>
+                    <form onSubmit={saveApp}>
+                        <h2>General Info</h2>
+                        <input type='text' placeholder="Phone Number" value={phoneN} onChange={(e) => update(e, setPhoneN)} />
+                        <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} />
+                        <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} />
+                        <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} />
+                        <input type='text' placeholder="Major/Field of Study" value={major} onChange={(e) => update(e, setMajor)} />
+                        <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} />
+                        <input type="file" onChange={(e) => setResume(e.target.files[0])} />
+                        <img src={(resumeURL) ? resumeURL : ''} />
+                        <input type='text' placeholder="Gender" value={gender} onChange={(e) => update(e, setGender)} />
+                        <input type='text' placeholder="Ethnicity" value={ethnicity} onChange={(e) => update(e, setEthnicity)} />
+                        <input type='text' placeholder="have you participated in a hackathon before" value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
+                        <input type='text' placeholder="Have you attended SB Hacks" value={attendSbHacks} onChange={(e) => update(e, setAttendSbHacks)} />
+                        <input type='text' placeholder="How did you hear about SB Hacks" value={hearSbHacks} onChange={(e) => update(e, setHearSbHacks)} />
 
-                <h2>Shipping Address</h2>
-                <input type='text' placeholder="Address Line 1" value={address1} onChange={(e) => update(e, setAddress1)} />
-                <input type='text' placeholder="Address Line 2" value={address2} onChange={(e) => update(e, setAddress2)} />
-                <input type='text' placeholder="State" value={state} onChange={(e) => update(e, setState)} />
-                <input type='text' placeholder="Country" value={country} onChange={(e) => update(e, setCountry)} />
+                        <h2>Shipping Address</h2>
+                        <input type='text' placeholder="Address Line 1" value={address1} onChange={(e) => update(e, setAddress1)} />
+                        <input type='text' placeholder="Address Line 2" value={address2} onChange={(e) => update(e, setAddress2)} />
+                        <input type='text' placeholder="State" value={state} onChange={(e) => update(e, setState)} />
+                        <input type='text' placeholder="Country" value={country} onChange={(e) => update(e, setCountry)} />
 
-                <h2>Additional Links</h2>
-                <input type='text' placeholder="GitHub" value={gitHub} onChange={(e) => update(e, setGitHub)} />
-                <input type='text' placeholder="LinkedIn" value={linkedIn} onChange={(e) => update(e, setLinkedIn)} />
-                <input type='text' placeholder="Personal Website/Portfolio" value={pWebsite} onChange={(e) => update(e, setPWebsite)} />
+                        <h2>Additional Links</h2>
+                        <input type='text' placeholder="GitHub" value={gitHub} onChange={(e) => update(e, setGitHub)} />
+                        <input type='text' placeholder="LinkedIn" value={linkedIn} onChange={(e) => update(e, setLinkedIn)} />
+                        <input type='text' placeholder="Personal Website/Portfolio" value={pWebsite} onChange={(e) => update(e, setPWebsite)} />
 
-                <h2>Free Response</h2>
-                <label htmlFor="frq1">Tell us about your favorite project and the challenges you overcame (1200 characters max)</label>
-                <textarea id="frq1" rows="8" placeholder="This is the answer to a free response question" value={frq1} onChange={(e) => update(e, setFrq1)} />
-                <label htmlFor="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (1200 characters max)</label>
-                <textarea id="frq2" rows="8" placeholder="This is the answer to a free response question" value={frq2} onChange={(e) => update(e, setFrq2)} />
+                        <h2>Free Response</h2>
+                        <label htmlFor="frq1">Tell us about your favorite project and the challenges you overcame (1200 characters max)</label>
+                        <textarea id="frq1" rows="8" placeholder="This is the answer to a free response question" value={frq1} onChange={(e) => update(e, setFrq1)} />
+                        <label htmlFor="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (1200 characters max)</label>
+                        <textarea id="frq2" rows="8" placeholder="This is the answer to a free response question" value={frq2} onChange={(e) => update(e, setFrq2)} />
 
-                <input type="checkbox" id="agreeMLH" value={agrMLH} onChange={(e) => update(e, setAgrMLH)} />
-                <label htmlFor="agreeMLH">I have read and agree to the MLH Code of Conduct</label>
-                <input type="checkbox" id="agrEmail" value={agrEmail} onChange={(e) => update(e, setAgrEmail)} />
-                <label htmlFor="agrEMail">I authorize MLH to send me pre- and post-event informaitonal emails, which contian free credit and opportunites from their partners.</label>
-                <input type="checkbox" id="shareInfo" value={shareInfo} onChange={(e) => update(e, setShareInfo)} />
-                <label htmlFor="shareInfo">I authorize you to share my application/registration information with Major League Hacking for event adminstration, ranking, and MLH adminsitraation in line with the MLH Privacy Policy. I further agree to the terms of both the MLH COntest Terms and Conditions and the MLH Privacy Policy.</label>
+                        <input type="checkbox" id="agreeMLH" value={agrMLH} onChange={(e) => update(e, setAgrMLH)} />
+                        <label htmlFor="agreeMLH">I have read and agree to the MLH Code of Conduct</label>
+                        <input type="checkbox" id="agrEmail" value={agrEmail} onChange={(e) => update(e, setAgrEmail)} />
+                        <label htmlFor="agrEMail">I authorize MLH to send me pre- and post-event informaitonal emails, which contian free credit and opportunites from their partners.</label>
+                        <input type="checkbox" id="shareInfo" value={shareInfo} onChange={(e) => update(e, setShareInfo)} />
+                        <label htmlFor="shareInfo">I authorize you to share my application/registration information with Major League Hacking for event adminstration, ranking, and MLH adminsitraation in line with the MLH Privacy Policy. I further agree to the terms of both the MLH COntest Terms and Conditions and the MLH Privacy Policy.</label>
 
-                <input type="submit" value="Save" />
-            </form>
+                        <input type="submit" value="Save" />
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
