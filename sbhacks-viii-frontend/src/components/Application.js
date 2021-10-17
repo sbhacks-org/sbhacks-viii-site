@@ -6,7 +6,7 @@ import {
     signOut,
 } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import "../styles/Application.css";
+import "../styles/Application.scss";
 
 const Application = () => {
     const [appFields, setAppFields] = useState(undefined);
@@ -229,8 +229,12 @@ const Application = () => {
 
     const update = (e, set) => {
         e.preventDefault();
+        if (typeof(e.target.value) == "string") {
+            if (e.target.value.length > 1200) return;
+        }
         set(e.target.value);
     };
+
 
     /* Make required fields not required to save app. They are only required for status to be complete */
     return (
@@ -264,10 +268,10 @@ const Application = () => {
                 <input type='text' placeholder="Personal Website/Portfolio" value={pWebsite} onChange={(e) => update(e, setPWebsite)} />
 
                 <h2>Free Response</h2>
-                <label htmlFor="frq1">Tell us about your favorite project and the challenges you overcame (180 words max)</label>
-                <input id="frq1" type='textfield' placeholder="This is the answer to a free response question" value={frq1} onChange={(e) => update(e, setFrq1)} />
-                <label htmlFor="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (180 words max) (180 words max)</label>
-                <input id="frq2" type='textfield' placeholder="This is the answer to a free response question" value={frq2} onChange={(e) => update(e, setFrq2)} />
+                <label htmlFor="frq1">Tell us about your favorite project and the challenges you overcame (1200 characters max)</label>
+                <textarea id="frq1" rows="8" placeholder="This is the answer to a free response question" value={frq1} onChange={(e) => update(e, setFrq1)} />
+                <label htmlFor="frq2">How would you defend yourself during a zombie apocalypse with only items in your backpack that you brought to SB Hacks? (1200 characters max)</label>
+                <textarea id="frq2" rows="8" placeholder="This is the answer to a free response question" value={frq2} onChange={(e) => update(e, setFrq2)} />
 
                 <input type="checkbox" id="agreeMLH" value={agrMLH} onChange={(e) => update(e, setAgrMLH)} />
                 <label htmlFor="agreeMLH">I have read and agree to the MLH Code of Conduct</label>
