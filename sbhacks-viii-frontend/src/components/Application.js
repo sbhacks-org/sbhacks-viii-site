@@ -115,7 +115,6 @@ const Application = () => {
                                 //     .then((url) => {
                                 //         resumeFile = <img src={url}/>
                                 //         setResumeUrl(resumeFile);
-
                                 //     })
                                 //     .catch(error => {
                                 //         switch (error.code) {
