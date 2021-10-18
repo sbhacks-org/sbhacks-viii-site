@@ -17,6 +17,7 @@ import {
     FormLabel,
 } from "@material-ui/core";
 import Background from "../assets/backgrounds/tileable_background.jpg";
+import { flatMap } from "lodash";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -24,13 +25,17 @@ const useStyles = makeStyles((theme) => ({
         height: 'fit-content'
     },
     centerContainer: {
-        paddingTop: "80px",
+        paddingTop: "134px",
     },
     formContainer: {
         // paddingTop: "20px",
         padding: "35px",
         margin: "0 auto",
-        [theme.breakpoints.up("md")]: {
+        color: "#365877",
+        [theme.breakpoints.up("xl")]: {
+            width: "800px",
+        },
+        [theme.breakpoints.between("md","lg")]: {
             width: "600px",
         },
         [theme.breakpoints.down("sm")]: {
@@ -38,7 +43,42 @@ const useStyles = makeStyles((theme) => ({
         },
         background: "#EEFFFF",
         borderRadius: '50px'
-    }
+    },
+    formControl : {
+        width: '65%',
+        margin: "auto"
+    },
+    textField: {
+        marginBottom: "40px",
+        fontFamily: 'NexaBold',
+        fontSize: '24px',
+        [theme.breakpoints.up("md")]: {
+            width: "150%",
+            transform: "translate(-15%)",
+        },
+        [theme.breakpoints.down("sm")]: {
+            width: "100%",
+            transform: "translate(0%)",
+        },
+    },
+    saveBtn: {
+        border: "none",
+        textAlign: "center",
+        padding: "15px 32px",
+        display: "inline-block",
+        color: "white",
+        background: "#2FA0DF",
+        borderRadius: "75px",
+        fontSize: '36px',
+        width: "40%",
+        fontFamily: 'NexaBold',
+        "&:hover": {
+            background: "#5FC5FF",
+            cursor: "pointer"
+        },
+        marginBottom: "40px",
+        marginTop: "20px",
+    },
 }))
 
 const Application = () => {
@@ -278,7 +318,20 @@ const Application = () => {
                     <h1>SB Hacks VIII Hacker Application</h1>
                     <form onSubmit={saveApp}>
                         <h2>General Info</h2>
-                        <input type='text' placeholder="Phone Number" value={phoneN} onChange={(e) => update(e, setPhoneN)} />
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Phone Number"
+                                type='text'
+                                value={phoneN}
+                                onChange={(e) => update(e, setPhoneN)}
+                                inputProps={{ style: { fontSize: 20, textAlign: "left", fontFamily: "NexaBold", fontSize: "24px" } }}
+                                InputLabelProps={{ style: { fontSize: 20 } }}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
                         <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} />
                         <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} />
                         <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} />
@@ -316,7 +369,7 @@ const Application = () => {
                         <input type="checkbox" id="shareInfo" value={shareInfo} onChange={(e) => update(e, setShareInfo)} />
                         <label htmlFor="shareInfo">I authorize you to share my application/registration information with Major League Hacking for event adminstration, ranking, and MLH adminsitraation in line with the MLH Privacy Policy. I further agree to the terms of both the MLH COntest Terms and Conditions and the MLH Privacy Policy.</label>
 
-                        <input type="submit" value="Save" />
+                        <input className={classes.saveBtn} type="submit" value="SAVE" />
                     </form>
                 </div>
             </div>
