@@ -40,7 +40,7 @@ const questions = [
     },
     {
         question: 'When can I apply, and when will acceptances come out?',
-        answer: 'Applications open October 14th, 2021, and close on December 10th, 2021. Acceptances will start going out on December 27, 2021.'
+        answer: 'Applications open in early November, and close on December 10th, 2021. Acceptances will start going out on December 27, 2021.'
     },
     {
         question: 'Can I compete in a team?',
