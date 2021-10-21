@@ -1,0 +1,28 @@
+.appnavbar{
+    font-size: 2vh;
+    color: white;
+    width: 100vw;
+    padding: none;
+    height: 5vh;
+    background-color: rgb(19, 168, 194);
+    position:absolute;
+    left:0px;
+    top:0px;
+  }
+  
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+    margin-right: 7vw;
+    margin-top: .9vw;
+  }
+  
+  .navLogo{
+    height: 3vh;
+    width: 3vh;
+    margin-left: 4vw;
+    margin-top: .6vw;
+  }
+  
