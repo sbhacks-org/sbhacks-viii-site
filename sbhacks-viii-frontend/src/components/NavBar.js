@@ -15,6 +15,7 @@ const NavBar = (props) => {
   const intro = "#intro"; // '#intro';
   const devpost = "https://sb-hacks-vii.devpost.com/";
 
+
   const faq = "#faq"; //'#faq';
   const team = ""; //'#team';
   const sponsors = "#sponsors";

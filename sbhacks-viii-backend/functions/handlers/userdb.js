@@ -1,4 +1,5 @@
 const { admin, db } = require("../utils/admin");
+
 const { validateEmail } = require("../utils/mailingListUtils");
 
 require("dotenv").config();
@@ -62,6 +63,8 @@ exports.register = async (req, res) => {
     console.log("Adding hacker to db...");
     const emailAddress = req.body.emailAddress;
     const uid = req.body.uid;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
 
     if (!validateEmail(emailAddress)) {
       res.status(400).json({
@@ -82,8 +85,8 @@ exports.register = async (req, res) => {
     const hacker_info = {
       uid: uid,
       emailAddress: emailAddress,
-      fname: null,
-      lname: null,
+      fname: fname,
+      lname: lname,
       gender: null,
       ethnicity: null,
       phoneNumber: null,
@@ -132,7 +135,9 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     console.log("Updating hacker login in db...");
+    const emailAddress = req.body.emailAddress;
     const uid = req.body.uid;
+
 
     const doc = await db.collection("hackers").doc(uid).get();
     if (!doc.exists) {
@@ -158,6 +163,7 @@ exports.saveApp = async (req, res) => {
     console.log("Saving hacker info to db...");
     const update_info = req.body.update_info;
     const uid = req.body.uid;
+
 
     const doc = await db.collection("hackers").doc(uid).get();
     if (!doc.exists) {
@@ -186,7 +192,7 @@ exports.saveApp = async (req, res) => {
 
     hacker_info.saveAppTimeStamps.push(admin.firestore.Timestamp.now());
     update_info.saveAppTimeStamps = hacker_info.saveAppTimeStamps;
-
+    // add timestamp to completedAppTimes for when all required fields are completed
     let completeAppFlag = true;
     for (let key of reqAppFields) {
       if (update_info[key] === null) {
@@ -212,7 +218,11 @@ exports.saveApp = async (req, res) => {
 exports.getAppFields = async (req, res) => {
   try {
     console.log("Getting hacker info from db...");
-    const uid = req.body.uid;
+    // console.log(req.body)
+    // req.body = JSON.parse(req.body);
+    // console.log(req.query)
+    const uid = req.query.uid;
+    // console.log(typeof(uid) + ", " + uid)
 
     const doc = await db.collection("hackers").doc(uid).get();
     if (!doc.exists) {
@@ -234,7 +244,7 @@ exports.getAppFields = async (req, res) => {
   }
 };
 
-exports.openApp = async (req, res) => {
+exports.openApp =  async(req, res) => {
   try {
     console.log("Getting hacker info from db...");
     const uid = req.body.uid;
@@ -259,3 +269,4 @@ exports.openApp = async (req, res) => {
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
+
