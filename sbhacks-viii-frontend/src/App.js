@@ -12,6 +12,7 @@ import Sponsors from "./components/Sponsors.js";
 import AuthenticationPage from "./components/AuthenticationPage";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
+import FAQ from "./components/Faq";
 import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
@@ -80,6 +81,7 @@ function App() {
             </div>
             <ThemeProvider theme={landingTheme}>
               <About />
+              <FAQ/>
               <Sponsors />
             </ThemeProvider>
           </div>
