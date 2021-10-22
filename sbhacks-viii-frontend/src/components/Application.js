@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
             background: "#5FC5FF",
             cursor: "pointer"
         },
+        margin: "auto",
         marginBottom: "40px",
         marginTop: "20px",
     },
