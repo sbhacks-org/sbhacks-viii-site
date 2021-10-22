@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up("xl")]: {
             width: "800px",
         },
-        [theme.breakpoints.between("md","lg")]: {
+        [theme.breakpoints.between("md", "lg")]: {
             width: "600px",
         },
         [theme.breakpoints.down("sm")]: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         background: "#EEFFFF",
         borderRadius: '50px'
     },
-    formControl : {
+    formControl: {
         width: '65%',
         margin: "auto"
     },
@@ -149,33 +149,6 @@ const Application = () => {
                                     I don't think im getting file properly*/
                                 // const resumeFile = await axios.get(res.data.resumeLink);
                                 const resumeFile = <img src={res.data.resumeLink} />
-                                // let resumeFile;
-                                // const storage = getStorage();
-                                // const resumeRef = ref(storage, res.data.resumeLink);
-                                // getDownloadURL(resumeRef(storage, res.data.uid + "_resume"))
-                                //     .then((url) => {
-                                //         resumeFile = <img src={url}/>
-                                //         setResumeUrl(resumeFile);
-                                //     })
-                                //     .catch(error => {
-                                //         switch (error.code) {
-                                //             case 'storage/object-not-found':
-                                //                 // File doesn't exist
-                                //                 break;
-                                //             case 'storage/unauthorized':
-                                //                 // User doesn't have permission to access the object
-                                //                 break;
-                                //             case 'storage/canceled':
-                                //                 // User canceled the upload
-                                //                 break;
-
-                                //             // ...
-
-                                //             case 'storage/unknown':
-                                //                 // Unknown error occurred, inspect the server response
-                                //                 break;
-                                //         }
-                                //     })
                                 setResume(resumeFile);
                                 setResumeUrl(res.data.resumeLink);
                             }
@@ -222,7 +195,7 @@ const Application = () => {
         // */
 
     }, [])
-    const uploadResume = (e) => {
+    const uploadResume = async (e) => {
         if (e) e.preventDefault();
         const auth = getAuth();
         const resumeName = auth.currentUser.uid + "_resume";
@@ -232,23 +205,15 @@ const Application = () => {
         // 'file' comes from the Blob or File API
         console.log(resume);
         const file = resume;
-        uploadBytes(storageRef, file).then((snapshot) => {
-            const storage = getStorage();
-            getDownloadURL(storageRef)
-                .then((url) => {
-                    // url is resume link string
-                    // call API to update resume link here
-                    console.log(url);
-                    setResumeUrl(url);
-                })
-                .catch((error) => {
-                    // Handle any errors
-                });
-            console.log("Uploaded a blob or file!");
-        });
+
+        await uploadBytes(storageRef, file);
+        const url = await getDownloadURL(storageRef);
+        console.log(url);
+        setResumeUrl(url);  // is async but I cant await it so I must return url
+        return url;
     };
 
-    const saveApp = (e) => {
+    const saveApp = async (e) => {
         e.preventDefault();
 
         const auth = getAuth();
@@ -256,6 +221,9 @@ const Application = () => {
         console.log(user);
 
         if (user != null) {
+            await uploadResume();
+            console.log(resumeURL)
+
             const newAppFields = (appFields === undefined) ? {} : { ...appFields };
             newAppFields.uid = uid;
             newAppFields.emailAddress = emailAddress;
@@ -271,7 +239,7 @@ const Application = () => {
             newAppFields.state = state;
             newAppFields.zipCode = null;
             newAppFields.country = country;
-            newAppFields.resumeLink = resumeURL;
+            newAppFields.resumeLink = await uploadResume();
             newAppFields.website = pWebsite;
             newAppFields.github = gitHub;
             newAppFields.linkedin = linkedIn;
@@ -287,7 +255,6 @@ const Application = () => {
             newAppFields.privacyAgree = shareInfo;
             newAppFields.mlhCommAgree = agrEmail;
 
-            uploadResume();
 
             setAppFields(newAppFields);
             axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
@@ -301,6 +268,7 @@ const Application = () => {
         }
 
     }
+
 
     const update = (e, set) => {
         e.preventDefault();
@@ -340,6 +308,7 @@ const Application = () => {
                         <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} />
                         <input type="file" onChange={(e) => setResume(e.target.files[0])} />
                         <img src={(resumeURL) ? resumeURL : ''} />
+                        <img id="myimg" />
                         <input type='text' placeholder="Gender" value={gender} onChange={(e) => update(e, setGender)} />
                         <input type='text' placeholder="Ethnicity" value={ethnicity} onChange={(e) => update(e, setEthnicity)} />
                         <input type='text' placeholder="have you participated in a hackathon before" value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
