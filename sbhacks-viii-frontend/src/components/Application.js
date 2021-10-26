@@ -48,19 +48,19 @@ const useStyles = makeStyles((theme) => ({
         width: '65%',
         margin: "auto"
     },
-    textField: {
-        marginBottom: "40px",
-        fontFamily: 'NexaBold',
-        fontSize: '24px',
-        [theme.breakpoints.up("md")]: {
-            width: "150%",
-            transform: "translate(-15%)",
-        },
-        [theme.breakpoints.down("sm")]: {
-            width: "100%",
-            transform: "translate(0%)",
-        },
-    },
+    // textField: {
+    //     marginBottom: "40px",
+    //     fontFamily: 'NexaBold',
+    //     fontSize: '24px',
+    //     [theme.breakpoints.up("md")]: {
+    //         width: "150%",
+    //         transform: "translate(-15%)",
+    //     },
+    //     [theme.breakpoints.down("sm")]: {
+    //         width: "100%",
+    //         transform: "translate(0%)",
+    //     },
+    // },
     saveBtn: {
         border: "none",
         textAlign: "center",
@@ -81,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "20px",
     },
 }))
+const inputProps = { style: { textAlign: "left", fontFamily: "NexaBold", fontSize: "24px", color: "#365877" } }
+const InputLabelProps = { style: {  } }
 
 const Application = () => {
     const classes = useStyles();
@@ -97,8 +99,8 @@ const Application = () => {
     const [resumeURL, setResumeUrl] = useState('');
     const [gender, setGender] = useState('');
     const [ethnicity, setEthnicity] = useState('');
-    const [didHackathon, setDidHackathon] = useState(false);
-    const [attendSbHacks, setAttendSbHacks] = useState(false);
+    const [didHackathon, setDidHackathon] = useState('');
+    const [attendSbHacks, setAttendSbHacks] = useState('');
     const [hearSbHacks, setHearSbHacks] = useState('');
 
     const [address1, setAddress1] = useState('');
@@ -284,7 +286,7 @@ const Application = () => {
         <div id='hackerApp' className={classes.container}>
             <div className={classes.centerContainer}>
                 <div className={classes.formContainer}>
-                    <h1>SB Hacks VIII Hacker Application</h1>
+                    <h1 className={classes.title}>SB Hacks VIII Hacker Application</h1>
                     <form onSubmit={saveApp}>
                         <h2>General Info</h2>
                         <FormControl className={classes.formControl}>
@@ -293,33 +295,209 @@ const Application = () => {
                                 type='text'
                                 value={phoneN}
                                 onChange={(e) => update(e, setPhoneN)}
-                                inputProps={{ style: { fontSize: 20, textAlign: "left", fontFamily: "NexaBold", fontSize: "24px" } }}
-                                InputLabelProps={{ style: { fontSize: 20 } }}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
                                 size="small"
                                 margin="normal"
                                 fullWidth
                                 required
                             />
                         </FormControl>
-                        <input type='text' placeholder="Level of Study" value={lvlStudy} onChange={(e) => update(e, setLvlStudy)} />
-                        <input type='text' placeholder="School" value={school} onChange={(e) => update(e, setSchool)} />
-                        <input type='text' placeholder="Expected Graduation Year" value={gradYr} onChange={(e) => update(e, setGradYr)} />
-                        <input type='text' placeholder="Major/Field of Study" value={major} onChange={(e) => update(e, setMajor)} />
-                        <input type='text' placeholder="T-Shirt Size" value={tShrtSize} onChange={(e) => update(e, setTShrtSize)} />
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Level of Study"
+                                type='text'
+                                value={lvlStudy}
+                                onChange={(e) => update(e, setLvlStudy)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="School"
+                                type='text'
+                                value={school}
+                                onChange={(e) => update(e, setSchool)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Expected Graduation Year"
+                                type='text'
+                                value={gradYr}
+                                onChange={(e) => update(e, setGradYr)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Major/Field of Study"
+                                type='text'
+                                value={major}
+                                onChange={(e) => update(e, setMajor)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="T-Shirt Size"
+                                type='text'
+                                value={tShrtSize}
+                                onChange={(e) => update(e, setTShrtSize)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+
                         <input type="file" onChange={(e) => setResume(e.target.files[0])} />
                         <img src={(resumeURL) ? resumeURL : ''} />
-                        <img id="myimg" />
-                        <input type='text' placeholder="Gender" value={gender} onChange={(e) => update(e, setGender)} />
-                        <input type='text' placeholder="Ethnicity" value={ethnicity} onChange={(e) => update(e, setEthnicity)} />
-                        <input type='text' placeholder="have you participated in a hackathon before" value={didHackathon} onChange={(e) => update(e, setDidHackathon)} />
-                        <input type='text' placeholder="Have you attended SB Hacks" value={attendSbHacks} onChange={(e) => update(e, setAttendSbHacks)} />
-                        <input type='text' placeholder="How did you hear about SB Hacks" value={hearSbHacks} onChange={(e) => update(e, setHearSbHacks)} />
+
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Gender"
+                                type='text'
+                                value={gender}
+                                onChange={(e) => update(e, setGender)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Ethnicity"
+                                type='text'
+                                value={ethnicity}
+                                onChange={(e) => update(e, setEthnicity)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Have you participated in a hackathon before?"
+                                type='text'
+                                value={didHackathon}
+                                onChange={(e) => update(e, setDidHackathon)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Have you attended SB Hacks?"
+                                type='text'
+                                value={attendSbHacks}
+                                onChange={(e) => update(e, setAttendSbHacks)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="How did you hear about SB Hacks?"
+                                type='text'
+                                value={hearSbHacks}
+                                onChange={(e) => update(e, setHearSbHacks)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
 
                         <h2>Shipping Address</h2>
-                        <input type='text' placeholder="Address Line 1" value={address1} onChange={(e) => update(e, setAddress1)} />
-                        <input type='text' placeholder="Address Line 2" value={address2} onChange={(e) => update(e, setAddress2)} />
-                        <input type='text' placeholder="State" value={state} onChange={(e) => update(e, setState)} />
-                        <input type='text' placeholder="Country" value={country} onChange={(e) => update(e, setCountry)} />
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Address Line 1"
+                                type='text'
+                                value={address1}
+                                onChange={(e) => update(e, setAddress1)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Address Line 2"
+                                type='text'
+                                value={address2}
+                                onChange={(e) => update(e, setAddress2)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="State"
+                                type='text'
+                                value={state}
+                                onChange={(e) => update(e, setState)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Country"
+                                type='text'
+                                value={country}
+                                onChange={(e) => update(e, setCountry)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                                required
+                            />
+                        </FormControl>
 
                         <h2>Additional Links</h2>
                         <input type='text' placeholder="GitHub" value={gitHub} onChange={(e) => update(e, setGitHub)} />
