@@ -18,6 +18,7 @@ import {
 } from "@material-ui/core";
 import Background from "../assets/backgrounds/tileable_background.jpg";
 import { flatMap } from "lodash";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -126,6 +127,7 @@ const Application = () => {
     const [fname, setFname] = useState(undefined);
     const [lname, setLname] = useState(undefined);
 
+    const history = useHistory();
     useEffect(() => {
         const auth = getAuth();
 
@@ -134,6 +136,12 @@ const Application = () => {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 // const uid = user.uid;
+
+                if(!user.emailVerified) {
+                    // email not verified so redirect to login
+                    history.push("/login");
+                }
+
                 axios.get("/userdb/getAppFields", { params: { uid: user.uid } })
                     .then(async (res) => {
                         console.log(res.data);

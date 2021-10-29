@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   makeStyles,
   Grid,
@@ -109,7 +109,8 @@ const AuthenticationPage = (props) => {
   useEffect(() => {}, []);
   const classes = useStyles();
   const [showLogin, setShowLogin] = useState(true);
-  const [resume, setResume] = useState(undefined);
+  const [submitStatus, setSubmitStatus] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
 
   // might be helpful: https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
   useEffect(() => {
@@ -126,7 +127,8 @@ const AuthenticationPage = (props) => {
       }
     });
   }, []);
-
+  
+  const history = useHistory();
   const loginSubmit = (e, email, password) => {
     e.preventDefault();
     const auth = getAuth();
@@ -137,14 +139,26 @@ const AuthenticationPage = (props) => {
         console.log("Successful sign in");
         console.log(user);
 
-        // TO DO: Update last signed in time through backend
-        axios.post("/userdb/login", { uid: user.uid });
-        // ...
+        if(!user.emailVerified) {
+          // set error message to check email from noreply@sbhacks-viii-site.firebaseapp.com
+          setSubmitStatus("your email has not been verified. check for an email from noreply@sbhacks-viii-site.firebaseapp.com");
+          setErrorStatus(true);
+        }
+        else {
+          axios.post("/userdb/login", { uid: user.uid });
+        
+          // redirect to dashboard
+          history.push("/dashboard");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
+
+        // set error message that account doesn't exist
+        setSubmitStatus("something went wrong with logging in: " + errorMessage);
+        setErrorStatus(true);
       });
   };
 
@@ -162,6 +176,8 @@ const AuthenticationPage = (props) => {
           // Email verification sent!
           // ...
           console.log("verification email sent");
+          setSubmitStatus("check your email to verify your account");
+          setErrorStatus(false);
         });
 
         console.log(user.uid); // use this for identifying user in backend
@@ -178,38 +194,13 @@ const AuthenticationPage = (props) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
+
+        setSubmitStatus("something went wrong with creating your account: " + errorMessage);
+        setErrorStatus(true);
         // ..
       });
   };
 
-  const update = (e, set) => {
-    e.preventDefault();
-    set(e.target.value);
-  };
-
-  const uploadResume = (e) => {
-    e.preventDefault();
-    const auth = getAuth();
-    const resumeName = auth.currentUser.uid + "_resume";
-    const storage = getStorage();
-    const storageRef = ref(storage, resumeName);
-
-    // 'file' comes from the Blob or File API
-    console.log(resume);
-    const file = resume;
-    uploadBytes(storageRef, file).then((snapshot) => {
-      const storage = getStorage();
-      getDownloadURL(storageRef)
-        .then((url) => {
-          // url is resume link string
-          // call API to update resume link here
-        })
-        .catch((error) => {
-          // Handle any errors
-        });
-      console.log("Uploaded a blob or file!");
-    });
-  };
 
   return (
     <div className={classes.container}>
@@ -229,6 +220,7 @@ const AuthenticationPage = (props) => {
             }}
             onClick={() => {
               setShowLogin(true);
+              setSubmitStatus("");
             }}
           >
             <Typography variant="subtitle2" color="primary">
@@ -244,6 +236,7 @@ const AuthenticationPage = (props) => {
             }}
             onClick={() => {
               setShowLogin(false);
+              setSubmitStatus("");
             }}
           >
             <Typography variant="subtitle2" color="primary">
@@ -257,14 +250,18 @@ const AuthenticationPage = (props) => {
               <AuthenticationForm
                 askForName={false}
                 handlesubmit={loginSubmit}
+                submitStatus={submitStatus}
+                errorStatus={errorStatus}
                 submitTxt="LOG IN"
               />
-              <Link to="resetpassword">Forgot your password?</Link>
+              <Link to="/resetpassword">Forgot your password?</Link>
             </>
           ) : (
             <AuthenticationForm
               askForName={true}
               handlesubmit={registerSubmit}
+              submitStatus={submitStatus}
+              errorStatus={errorStatus}
               submitTxt="REGISTER"
             />
           )}
@@ -356,6 +353,9 @@ export const AuthenticationForm = (props) => {
               InputLabelProps={{ style: { fontSize: 20 } }}
             />
           </FormControl>
+        </div>
+        <div style={{ 'color': props.errorStatus ? "red" : "" }}>
+          {props.submitStatus}
         </div>
       </div>
       <button type="submit" className={classes.submitBtn}>
