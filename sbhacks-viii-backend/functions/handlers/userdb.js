@@ -5,6 +5,7 @@ const { validateEmail } = require("../utils/mailingListUtils");
 require("dotenv").config();
 
 const appFields = [
+  "status",
   "fname",
   "lname",
   "gender",

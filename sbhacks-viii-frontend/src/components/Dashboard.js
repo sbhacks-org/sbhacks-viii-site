@@ -100,7 +100,8 @@ const Dashboard = () => {
         console.log("not signed in");
         // User is signed out
         // ...
-        // redirect to landing page
+        // redirect to login page
+        history.push("/login");
       }
     });
   }, []);
