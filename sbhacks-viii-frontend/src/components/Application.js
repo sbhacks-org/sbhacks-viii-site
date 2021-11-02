@@ -59,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "30px",
         padding: "0px 30px 30px 30px",
     },
+    charCount : {
+        position: "absolute",
+        right: "10px",
+        bottom: "10px",
+        fotnSize: "15px"
+    },
     // textField: {
     //     marginBottom: "40px",
     //     fontFamily: 'NexaBold',
@@ -318,7 +324,7 @@ const Application = () => {
                         <h2>General Info</h2>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Phone Number"
+                                label="Phone Number *"
                                 type="text"
                                 value={phoneN}
                                 onChange={(e) => update(e, setPhoneN)}
@@ -327,12 +333,12 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Level of Study"
+                                label="Level of Study *"
                                 type="text"
                                 value={lvlStudy}
                                 onChange={(e) => update(e, setLvlStudy)}
@@ -341,12 +347,12 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="School"
+                                label="School *"
                                 type="text"
                                 value={school}
                                 onChange={(e) => update(e, setSchool)}
@@ -355,12 +361,12 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Expected Graduation Year"
+                                label="Expected Graduation Year *"
                                 type="text"
                                 value={gradYr}
                                 onChange={(e) => update(e, setGradYr)}
@@ -369,12 +375,12 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Major/Field of Study"
+                                label="Major/Field of Study *"
                                 type="text"
                                 value={major}
                                 onChange={(e) => update(e, setMajor)}
@@ -383,12 +389,12 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="T-Shirt Size"
+                                label="T-Shirt Size *"
                                 type="text"
                                 value={tShrtSize}
                                 onChange={(e) => update(e, setTShrtSize)}
@@ -397,7 +403,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
 
@@ -491,7 +497,7 @@ const Application = () => {
                         <h2>Shipping Address</h2>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Address Line 1"
+                                label="Address Line 1 *"
                                 type="text"
                                 value={address1}
                                 onChange={(e) => update(e, setAddress1)}
@@ -500,7 +506,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -531,7 +537,7 @@ const Application = () => {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Country"
+                                label="Country *"
                                 type="text"
                                 value={country}
                                 onChange={(e) => update(e, setCountry)}
@@ -540,7 +546,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
 
@@ -556,7 +562,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -570,7 +576,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -584,7 +590,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                required
+                                // required
                             />
                         </FormControl>
 
@@ -608,8 +614,9 @@ const Application = () => {
                                     // size="small"
                                     margin="normal"
                                     fullWidth
-                                    required
+                                    // required
                                 />
+                                <div class={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -633,8 +640,9 @@ const Application = () => {
                                     // size="small"
                                     margin="normal"
                                     fullWidth
-                                    required
+                                    // required
                                 />
+                                <div class={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -668,7 +676,7 @@ const Application = () => {
                             label="I authorize you to share my application/registration information
               with Major League Hacking for event adminstration, ranking, and
               MLH adminsitraation in line with the MLH Privacy Policy. I further
-              agree to the terms of both the MLH COntest Terms and Conditions
+              agree to the terms of both the MLH Contest Terms and Conditions
               and the MLH Privacy Policy."
                             control={
                                 <Checkbox
