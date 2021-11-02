@@ -100,7 +100,7 @@ function MailingList() {
         <div className='submitFishContainer'>
           <div className='submitFishButton'>
             <img id='submitFish' src={FishSubmit} alt='Fish Submit' onMouseEnter={textHover} onMouseLeave={resetFishStyles} onClick={handleSubmit}/>
-            <div id="submitTxt" onMouseEnter={fishHover} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
+            <div id="submitTxt" onMouseEnter={fishHover} onClick={handleSubmit} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
           </div>
         </div>
         {
