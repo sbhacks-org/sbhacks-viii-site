@@ -141,6 +141,8 @@ const Application = () => {
                     // email not verified so redirect to login
                     history.push("/login");
                 }
+                // console.log(user.uid)
+                setUid(user.uid)
 
                 axios.get("/userdb/getAppFields", { params: { uid: user.uid } })
                     .then(async (res) => {
@@ -152,6 +154,7 @@ const Application = () => {
                         setLvlStudy(res.data.studyLevel);
                         setSchool(res.data.universityName);
                         setGradYr(res.data.gradYear);
+                        setMajor(res.data.major);
                         setTShrtSize(res.data.tshirtSize);
                         if (res.data.resumeLink != null && res.data.resumeLink.length > 0) {
                             try {
@@ -188,7 +191,7 @@ const Application = () => {
                         setAgrEmail(res.data.mlhCommAgree);
                         setShareInfo(res.data.privacyAgree);
 
-                        setUid(res.data.uid);
+                        // setUid(res.data.uid);
                         setEmailAddress(res.data.emailAddress);
                         setFname(res.data.fname);
                         setLname(res.data.lname);
@@ -235,14 +238,13 @@ const Application = () => {
             console.log(resumeURL)
 
             const newAppFields = (appFields === undefined) ? {} : { ...appFields };
-            newAppFields.uid = uid;
             newAppFields.emailAddress = emailAddress;
             newAppFields.fname = fname;
             newAppFields.lname = lname;
             newAppFields.gender = gender;
             newAppFields.ethnicity = ethnicity;
             newAppFields.phoneNumber = phoneN;
-            newAppFields.tShirtSize = tShrtSize;
+            newAppFields.tshirtSize = tShrtSize;
             newAppFields.shippingAddressLine1 = address1;
             newAppFields.shippingAddressLine2 = address2;
             newAppFields.city = null;
@@ -267,6 +269,7 @@ const Application = () => {
 
 
             setAppFields(newAppFields);
+            // console.log(uid)
             axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
                 .then(res => {
                     console.log("Successfully saved data!");
@@ -274,6 +277,7 @@ const Application = () => {
                 })
                 .catch(err => {
                     console.log("Error when saving application data: " + err);
+                    console.log(err.response.data.error)
                 })
         }
 
