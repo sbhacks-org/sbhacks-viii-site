@@ -534,7 +534,7 @@ const Application = () => {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="City"
+                                label="City *"
                                 type="text"
                                 value={city}
                                 onChange={(e) => update(e, setCity)}
@@ -547,7 +547,7 @@ const Application = () => {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="State"
+                                label="State *"
                                 type="text"
                                 value={state}
                                 onChange={(e) => update(e, setState)}
@@ -560,7 +560,7 @@ const Application = () => {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
-                                label="Zip Code"
+                                label="Zip Code *"
                                 type="text"
                                 value={zipCode}
                                 onChange={(e) => update(e, setZipCode)}
@@ -685,7 +685,7 @@ const Application = () => {
                         <br />
                         <FormControlLabel
                             className={classes.formControlFrq}
-                            label="I have read and agree to the MLH Code of Conduct"
+                            label="I have read and agree to the MLH Code of Conduct *"
                             control={
                                 <Checkbox
                                     checked={agrMLH}
@@ -697,7 +697,7 @@ const Application = () => {
                         <br />
                         <FormControlLabel
                             className={classes.formControlFrq}
-                            label="I authorize MLH to send me pre- and post-event informaitonal emails, which contain free credit and opportunites from their partners."
+                            label="I authorize MLH to send me pre- and post-event informaitonal emails, which contain free credit and opportunites from their partners. *"
                             control={
                                 <Checkbox
                                     checked={agrEmail}
@@ -713,7 +713,7 @@ const Application = () => {
               with Major League Hacking for event adminstration, ranking, and
               MLH adminsitraation in line with the MLH Privacy Policy. I further
               agree to the terms of both the MLH Contest Terms and Conditions
-              and the MLH Privacy Policy."
+              and the MLH Privacy Policy. *"
                             control={
                                 <Checkbox
                                     checked={shareInfo}
