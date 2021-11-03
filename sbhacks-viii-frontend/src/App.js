@@ -16,6 +16,7 @@ import FAQ from "./components/Faq";
 import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
+import AppPortalNavBar from "./components/AppPortalNavBar";
 
 import axios from "axios";
 
@@ -66,16 +67,18 @@ function App() {
           <ResetPassword />
         </Route>
         <Route path="/dashboard">
+          <AppPortalNavBar />
           <ThemeProvider theme={dashboardTheme}>
             <Dashboard />
           </ThemeProvider>
         </Route>
         <Route path="/application">
+          <AppPortalNavBar />
           <Application />
         </Route>
         <Route path="/">
           <div class="content">
-            <NavBar isLoggedIn={false} />
+            <NavBar />
             <div id="landing" class="initial-content">
               <MailingList />
             </div>
