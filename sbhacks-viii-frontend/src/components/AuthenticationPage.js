@@ -265,6 +265,11 @@ const AuthenticationPage = (props) => {
               submitTxt="REGISTER"
             />
           )}
+          
+          <Typography variant="subtitle2" className={classes.frqLabel}>
+                            Encountering problems? Email us at{" "}
+                            <a href="mailto:team@sbhacks.com">team@sbhacks.com</a>!
+                        </Typography>
         </div>
       </div>
     </div>
