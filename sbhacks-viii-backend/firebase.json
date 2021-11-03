@@ -1,11 +1,5 @@
 {
 	"functions": {
 		"runtime": "nodejs14"
-	},
-	"hosting": {
-		"rewrites": [ {
-			"source": "**",
-			"function": "app"
-		} ]
 	}
 }
