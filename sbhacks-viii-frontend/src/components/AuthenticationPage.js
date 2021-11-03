@@ -127,7 +127,7 @@ const AuthenticationPage = (props) => {
       }
     });
   }, []);
-  
+
   const history = useHistory();
   const loginSubmit = (e, email, password) => {
     e.preventDefault();
@@ -139,14 +139,15 @@ const AuthenticationPage = (props) => {
         console.log("Successful sign in");
         console.log(user);
 
-        if(!user.emailVerified) {
+        if (!user.emailVerified) {
           // set error message to check email from noreply@sbhacks-viii-site.firebaseapp.com
-          setSubmitStatus("your email has not been verified. check for an email from noreply@sbhacks-viii-site.firebaseapp.com");
+          setSubmitStatus(
+            "your email has not been verified. check for an email from noreply@sbhacks-viii-site.firebaseapp.com"
+          );
           setErrorStatus(true);
-        }
-        else {
+        } else {
           axios.post("/userdb/login", { uid: user.uid });
-        
+
           // redirect to dashboard
           history.push("/dashboard");
         }
@@ -157,7 +158,9 @@ const AuthenticationPage = (props) => {
         console.log(errorCode + " | " + errorMessage);
 
         // set error message that account doesn't exist
-        setSubmitStatus("something went wrong with logging in: " + errorMessage);
+        setSubmitStatus(
+          "something went wrong with logging in: " + errorMessage
+        );
         setErrorStatus(true);
       });
   };
@@ -195,12 +198,13 @@ const AuthenticationPage = (props) => {
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
 
-        setSubmitStatus("something went wrong with creating your account: " + errorMessage);
+        setSubmitStatus(
+          "something went wrong with creating your account: " + errorMessage
+        );
         setErrorStatus(true);
         // ..
       });
   };
-
 
   return (
     <div className={classes.container}>
@@ -265,11 +269,11 @@ const AuthenticationPage = (props) => {
               submitTxt="REGISTER"
             />
           )}
-          
+
           <Typography variant="subtitle2" className={classes.frqLabel}>
-                            Encountering problems? Email us at{" "}
-                            <a href="mailto:team@sbhacks.com">team@sbhacks.com</a>!
-                        </Typography>
+            Encountering problems? Email us at{" "}
+            <a href="mailto:team@sbhacks.com">team@sbhacks.com</a>!
+          </Typography>
         </div>
       </div>
     </div>
@@ -290,7 +294,7 @@ export const AuthenticationForm = (props) => {
 
   const update = (e, set) => {
     e.preventDefault();
-    if(e.target.value.length < 320) {
+    if (e.target.value.length < 320) {
       set(e.target.value);
     }
   };
@@ -359,7 +363,7 @@ export const AuthenticationForm = (props) => {
             />
           </FormControl>
         </div>
-        <div style={{ 'color': props.errorStatus ? "red" : "" }}>
+        <div style={{ color: props.errorStatus ? "red" : "" }}>
           {props.submitStatus}
         </div>
       </div>
