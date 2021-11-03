@@ -5,9 +5,6 @@ const { validateEmail } = require("../utils/mailingListUtils");
 require("dotenv").config();
 
 const appFields = [
-  "status",
-  "fname",
-  "lname",
   "gender",
   "ethnicity",
   "phoneNumber",
@@ -18,10 +15,10 @@ const appFields = [
   "state",
   "zipCode",
   "country",
-  "resumeLink",
   "website",
   "github",
   "linkedin",
+  "resumeLink",
   "studyLevel",
   "gradYear",
   "universityName",
@@ -33,14 +30,10 @@ const appFields = [
   "essay_answer2",
   "mlhCodeAgree",
   "privacyAgree",
-  "mlhCommAgree"
+  "mlhCommAgree",
 ];
 
 const reqAppFields = [
-  "fname",
-  "lname",
-  "gender",
-  "ethnicity",
   "phoneNumber",
   "tshirtSize",
   "shippingAddressLine1",
@@ -49,14 +42,14 @@ const reqAppFields = [
   "state",
   "zipCode",
   "country",
+  "resumeLink",
   "studyLevel",
   "gradYear",
   "universityName",
   "major",
-  "hearAboutSBHacks",
   "mlhCodeAgree",
   "privacyAgree",
-  "mlhCommAgree"
+  "mlhCommAgree",
 ];
 
 exports.register = async (req, res) => {
@@ -139,7 +132,6 @@ exports.login = async (req, res) => {
     const emailAddress = req.body.emailAddress;
     const uid = req.body.uid;
 
-
     const doc = await db.collection("hackers").doc(uid).get();
     if (!doc.exists) {
       res.status(400).json({ error: "user does not exist" });
@@ -164,7 +156,6 @@ exports.saveApp = async (req, res) => {
     console.log("Saving hacker info to db...");
     const update_info = req.body.update_info;
     const uid = req.body.uid;
-
 
     const doc = await db.collection("hackers").doc(uid).get();
     if (!doc.exists) {
@@ -193,10 +184,16 @@ exports.saveApp = async (req, res) => {
 
     hacker_info.saveAppTimeStamps.push(admin.firestore.Timestamp.now());
     update_info.saveAppTimeStamps = hacker_info.saveAppTimeStamps;
+
     // add timestamp to completedAppTimes for when all required fields are completed
     let completeAppFlag = true;
     for (let key of reqAppFields) {
-      if (update_info[key] === null) {
+      if (
+        update_info[key] === null ||
+        update_info[key] === "" ||
+        !update_info[key]
+      ) {
+        console.log(key);
         completeAppFlag = false;
       }
     }
@@ -204,6 +201,9 @@ exports.saveApp = async (req, res) => {
     if (completeAppFlag) {
       hacker_info.completedAppTimeStamps.push(admin.firestore.Timestamp.now());
       update_info.completedAppTimeStamps = hacker_info.completedAppTimeStamps;
+      update_info.status = "complete";
+    } else {
+      update_info.status = "incomplete";
     }
 
     await db.collection("hackers").doc(uid).update(update_info);
@@ -238,14 +238,13 @@ exports.getAppFields = async (req, res) => {
       ret_hacker_info[key] = hacker_info[key];
     }
     res.json(ret_hacker_info);
-
   } catch (err) {
     console.log("Something went wrong");
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
 
-exports.openApp =  async(req, res) => {
+exports.openApp = async (req, res) => {
   try {
     console.log("Getting hacker info from db...");
     const uid = req.body.uid;
@@ -271,3 +270,30 @@ exports.openApp =  async(req, res) => {
   }
 };
 
+exports.getDashFields = async (req, res) => {
+  try {
+    console.log("Getting hacker info from db...");
+    // console.log(req.body)
+    // req.body = JSON.parse(req.body);
+    // console.log(req.query)
+    const uid = req.query.uid;
+    // console.log(typeof(uid) + ", " + uid)
+
+    const doc = await db.collection("hackers").doc(uid).get();
+    if (!doc.exists) {
+      res.status(400).json({ error: "user does not exist" });
+      return;
+    }
+
+    const hacker_info = (await db.collection("hackers").doc(uid).get()).data();
+    console.log("Got info from database...");
+    let ret_hacker_info = {
+      status: hacker_info.status,
+      fname: hacker_info.fname,
+    };
+    res.json(ret_hacker_info);
+  } catch (err) {
+    console.log("Something went wrong");
+    res.status(500).json({ error: `something went wrong: ${err}` });
+  }
+};

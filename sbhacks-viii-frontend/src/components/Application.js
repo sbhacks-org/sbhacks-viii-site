@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
         height: "fit-content",
     },
     centerContainer: {
-        paddingTop: "134px",
+        paddingTop: "7%",
+        paddingBottom: "7%",
     },
     formContainer: {
         // paddingTop: "20px",
@@ -121,6 +122,7 @@ const Application = () => {
     const [tShrtSize, setTShrtSize] = useState('');
     const [resume, setResume] = useState(undefined);
     const [resumeURL, setResumeUrl] = useState('');
+    const [resumeUploadFlag, setResumeUploadFlag] = useState(false);
     const [gender, setGender] = useState('');
     const [ethnicity, setEthnicity] = useState('');
     const [didHackathon, setDidHackathon] = useState('');
@@ -129,12 +131,14 @@ const Application = () => {
 
     const [address1, setAddress1] = useState('');
     const [address2, setAddress2] = useState('');
+    const [city, setCity] = useState('');
     const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState('');
     const [country, setCountry] = useState('');
 
+    const [pWebsite, setPWebsite] = useState('');
     const [gitHub, setGitHub] = useState('');
     const [linkedIn, setLinkedIn] = useState('');
-    const [pWebsite, setPWebsite] = useState('');
 
     const [frq1, setFrq1] = useState('');
     const [frq2, setFrq2] = useState('');
@@ -187,6 +191,7 @@ const Application = () => {
                                 const resumeFile = <img src={res.data.resumeLink} />
                                 setResume(resumeFile);
                                 setResumeUrl(res.data.resumeLink);
+                                console.log("link to resume: " + res.data.resumeLink);
                             }
                             catch (err) {
                                 console.log("Error in getting resume: " + err);
@@ -200,7 +205,9 @@ const Application = () => {
 
                         setAddress1(res.data.shippingAddressLine1);
                         setAddress2(res.data.shippingAddressLine2);
+                        setCity(res.data.city);
                         setState(res.data.state);
+                        setZipCode(res.data.zipCode);
                         setCountry(res.data.country);
 
                         setGitHub(res.data.github);
@@ -238,12 +245,12 @@ const Application = () => {
         const storageRef = ref(storage, resumeName);
 
         // 'file' comes from the Blob or File API
-        console.log(resume);
+        console.log("resume var: " + resume);
         const file = resume;
 
         await uploadBytes(storageRef, file);
         const url = await getDownloadURL(storageRef);
-        console.log(url);
+        console.log("download url: " + url);
         setResumeUrl(url); // is async but I cant await it so I must return url
         return url;
     };
@@ -256,8 +263,6 @@ const Application = () => {
         console.log(user);
 
         if (user != null) {
-            await uploadResume();
-            console.log(resumeURL)
 
             const newAppFields = (appFields === undefined) ? {} : { ...appFields };
             newAppFields.emailAddress = emailAddress;
@@ -266,14 +271,17 @@ const Application = () => {
             newAppFields.gender = gender;
             newAppFields.ethnicity = ethnicity;
             newAppFields.phoneNumber = phoneN;
+            newAppFields.studyLevel = lvlStudy;
             newAppFields.tshirtSize = tShrtSize;
             newAppFields.shippingAddressLine1 = address1;
             newAppFields.shippingAddressLine2 = address2;
-            newAppFields.city = null;
+            newAppFields.city = city;
             newAppFields.state = state;
-            newAppFields.zipCode = null;
+            newAppFields.zipCode = zipCode;
             newAppFields.country = country;
-            newAppFields.resumeLink = await uploadResume();
+            if(resumeUploadFlag) {
+              newAppFields.resumeLink = await uploadResume();
+            }
             newAppFields.website = pWebsite;
             newAppFields.github = gitHub;
             newAppFields.linkedin = linkedIn;
@@ -296,13 +304,16 @@ const Application = () => {
                 .then(res => {
                     console.log("Successfully saved data!");
                     console.log(res.data);
+
+                    history.push("/dashboard");
                 })
                 .catch(err => {
                     console.log("Error when saving application data: " + err);
                     console.log(err.response.data.error)
+
+                    history.push("/dashboard");
                 })
         }
-
     }
 
 
@@ -423,9 +434,8 @@ const Application = () => {
                             </Typography>
                             <input
                                 type="file"
-                                onChange={(e) => setResume(e.target.files[0])}
+                                onChange={(e) => {setResume(e.target.files[0]); setResumeUploadFlag(true)}}
                             />
-                            <img src={resumeURL ? resumeURL : ""} />
                         </FormControl>
 
                         <FormControl className={classes.formControl}>
@@ -524,10 +534,36 @@ const Application = () => {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
+                                label="City"
+                                type="text"
+                                value={city}
+                                onChange={(e) => update(e, setCity)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
                                 label="State"
                                 type="text"
                                 value={state}
                                 onChange={(e) => update(e, setState)}
+                                inputProps={inputProps}
+                                InputLabelProps={InputLabelProps}
+                                size="small"
+                                margin="normal"
+                                fullWidth
+                            />
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <TextField
+                                label="Zip Code"
+                                type="text"
+                                value={zipCode}
+                                onChange={(e) => update(e, setZipCode)}
                                 inputProps={inputProps}
                                 InputLabelProps={InputLabelProps}
                                 size="small"

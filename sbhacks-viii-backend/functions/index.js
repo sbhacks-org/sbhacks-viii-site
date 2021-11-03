@@ -16,6 +16,7 @@ const {
   saveApp,
   getAppFields,
   openApp,
+  getDashFields,
 } = require("./handlers/userdb");
 
 const app = require("express")();
@@ -33,6 +34,7 @@ app.post("/userdb/register", register);
 app.post("/userdb/login", login);
 app.post("/userdb/saveApp", saveApp);
 app.get("/userdb/getAppFields", getAppFields);
+app.get("/userdb/getDashFields", getDashFields);
 app.post("/userdb/openApp", openApp);
 
 exports.api = functions.https.onRequest(app);

@@ -84,7 +84,7 @@ const Dashboard = () => {
         }
 
         axios
-          .get("/userdb/getAppFields", { params: { uid: user.uid } })
+          .get("/userdb/getDashFields", { params: { uid: user.uid } })
           .then(async (res) => {
             console.log(res.data);
 
