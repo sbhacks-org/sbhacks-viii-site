@@ -18,10 +18,10 @@ const AppPortalNavBar = () => {
 
   return (
     <div className="appnavbar">
-      <div class="right" onClick={logOut}>
+      <div className="right container clickable" onClick={logOut}>
         LOG OUT
       </div>
-      <div class="left">
+      <div className="left container">
         <img className="navLogo" src={logo} alt="Logo" />;
       </div>
     </div>

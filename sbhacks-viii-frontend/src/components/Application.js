@@ -163,6 +163,8 @@ const Application = () => {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 // const uid = user.uid;
+                console.log(user)
+                console.log(user.emailVerified)
 
                 if (!user.emailVerified) {
                     // email not verified so redirect to login
@@ -652,7 +654,7 @@ const Application = () => {
                                     fullWidth
                                     // required
                                 />
-                                <div class={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
+                                <div className={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -678,7 +680,7 @@ const Application = () => {
                                     fullWidth
                                     // required
                                 />
-                                <div class={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
+                                <div className={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -711,7 +713,7 @@ const Application = () => {
                             className={classes.formControlFrq}
                             label="I authorize you to share my application/registration information
               with Major League Hacking for event adminstration, ranking, and
-              MLH adminsitraation in line with the MLH Privacy Policy. I further
+              MLH administration in line with the MLH Privacy Policy. I further
               agree to the terms of both the MLH Contest Terms and Conditions
               and the MLH Privacy Policy. *"
                             control={

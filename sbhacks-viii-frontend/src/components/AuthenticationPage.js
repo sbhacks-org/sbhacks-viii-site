@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AuthenticationPage = (props) => {
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   const classes = useStyles();
   const [showLogin, setShowLogin] = useState(true);
   const [submitStatus, setSubmitStatus] = useState("");
@@ -138,6 +138,7 @@ const AuthenticationPage = (props) => {
         const user = userCredential.user;
         console.log("Successful sign in");
         console.log(user);
+        console.log(user.emailVerified)
 
         if (!user.emailVerified) {
           // set error message to check email from noreply@sbhacks-viii-site.firebaseapp.com
@@ -216,7 +217,7 @@ const AuthenticationPage = (props) => {
         </div>
         <div style={{ textAlign: "left" }}>
           <button
-            className={classes.loginTab}
+            className={`${classes.loginTab} clickable`}
             style={{
               background: showLogin ? "#EEFFFF" : "#C6E9F4",
               position: "relative",
@@ -232,7 +233,7 @@ const AuthenticationPage = (props) => {
             </Typography>
           </button>
           <button
-            className={classes.registerTab}
+            className={`${classes.registerTab} clickable`}
             style={{
               background: showLogin ? "#C6E9F4" : "#EEFFFF",
               position: "relative",
@@ -314,8 +315,8 @@ export const AuthenticationForm = (props) => {
                   onChange={(e) => update(e, setFname)}
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 20 } }}
-                  InputLabelProps={{ style: { fontSize: 20 } }}
-                  fullWidth
+                  InputLabelProps={{ style: { fontSize: 20 }, required: false }}  // required: false hides the asterik                  fullWidth
+                  required  // makes it required
                 />
               </FormControl>
             </div>
@@ -329,7 +330,8 @@ export const AuthenticationForm = (props) => {
                   onChange={(e) => update(e, setLname)}
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 20 } }}
-                  InputLabelProps={{ style: { fontSize: 20 } }}
+                  InputLabelProps={{ style: { fontSize: 20 }, required: false }}  // required: false hides the asterik
+                  required  // makes it required
                 />
               </FormControl>
             </div>
@@ -367,7 +369,7 @@ export const AuthenticationForm = (props) => {
           {props.submitStatus}
         </div>
       </div>
-      <button type="submit" className={classes.submitBtn}>
+      <button type="submit" className={`${classes.submitBtn} clickable`}>
         <Typography variant="subtitle1">{props.submitTxt}</Typography>
       </button>
     </form>
