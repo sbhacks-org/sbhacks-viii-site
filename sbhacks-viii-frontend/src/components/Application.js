@@ -250,6 +250,16 @@ const Application = () => {
         console.log("resume var: " + resume);
         const file = resume;
 
+        console.log(file.name.substring(file.name.length-3));
+
+        // if(file.size >= 5000000 ){
+        //     alert("Resume not saved: please keep file size under 5MB")
+        // }else if(file.name.substring(file.name.length-3) !== "pdf"){
+        //     alert("Resume not saved: please upload pdfs only")
+        // }else{
+
+        //}
+
         await uploadBytes(storageRef, file);
         const url = await getDownloadURL(storageRef);
         console.log("download url: " + url);
@@ -436,7 +446,16 @@ const Application = () => {
                             </Typography>
                             <input
                                 type="file"
-                                onChange={(e) => {setResume(e.target.files[0]); setResumeUploadFlag(true)}}
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    if(file.size >= 5000000 ){
+                                        alert("Resume not saved: please keep file size under 5MB")
+                                    }else if(file.name.substring(file.name.length-3) !== "pdf"){
+                                        alert("Resume not saved: please upload pdfs only")
+                                    }else{
+                                        setResume(e.target.files[0]); setResumeUploadFlag(true)}
+                                    }
+                                }
                             />
                         </FormControl>
 

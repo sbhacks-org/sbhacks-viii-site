@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ApplicationNavBar.css";
-import logo from "../assets/logo_white.png";
+import logo from "../assets/flatLogo_white.png";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Link, useHistory } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const AppPortalNavBar = () => {
         LOG OUT
       </div>
       <div className="left container">
-        <img className="navLogo" src={logo} alt="Logo" />;
+        <img className="navLogo" src={logo} alt="Logo" />
       </div>
     </div>
   );
