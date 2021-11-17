@@ -77,6 +77,8 @@ const Dashboard = () => {
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
         console.log(uid);
+        console.log(user)
+        console.log(user.emailVerified)
 
         if (!user.emailVerified) {
           // email not verified so redirect to login
@@ -114,7 +116,7 @@ const Dashboard = () => {
 
         <h1> {appStatus} </h1>
 
-        <button type="submit" className={classes.submitBtn} onClick={editApp}>
+        <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
         <Typography variant="subtitle1">Edit Application</Typography>
         </button>
       </div>

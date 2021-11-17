@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
+  const [sentStatus, setSentStatus] = useState("");
+  const [errorStatus, setErrorStatus] = useState(false);
 
   const history = useHistory();
   const classes = useStyles();
@@ -68,13 +70,17 @@ const ResetPassword = () => {
         // Password reset email sent!
         // ..
         console.log("password email reset sent");
-        history.push("/login");
+
+        setSentStatus(`password reset email sent to ${email}`);
+        setErrorStatus(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
-        // ..
+        
+        setSentStatus(errorMessage);
+        setErrorStatus(true);
       });
   };
   const update = (e, set) => {
@@ -110,8 +116,11 @@ const ResetPassword = () => {
               />
             </FormControl>
           </div>
-          <div>
+          <div style={{"padding-top": "20px"}}>
           After submitting, check your email for instructions to reset your password.
+          </div>
+          <div style={{ color: errorStatus ? "red" : "", "padding-top": "20px" }}>
+            {sentStatus}
           </div>
           <button type="submit" className={classes.submitBtn}>
             <Typography variant="subtitle1">Reset</Typography>
