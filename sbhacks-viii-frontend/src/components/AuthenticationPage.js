@@ -314,7 +314,7 @@ export const AuthenticationForm = (props) => {
                   onChange={(e) => update(e, setFname)}
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 20 } }}
-                  InputLabelProps={{ style: { fontSize: 20 }, required: false }}  // required: false hides the asterik                  fullWidth
+                  InputLabelProps={{ style: { fontSize: 20 }}}  // required: false hides the asterik                  fullWidth
                   required  // makes it required
                 />
               </FormControl>
@@ -329,7 +329,7 @@ export const AuthenticationForm = (props) => {
                   onChange={(e) => update(e, setLname)}
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 20 } }}
-                  InputLabelProps={{ style: { fontSize: 20 }, required: false }}  // required: false hides the asterik
+                  InputLabelProps={{ style: { fontSize: 20 }}}  // required: false hides the asterik
                   required  // makes it required
                 />
               </FormControl>
