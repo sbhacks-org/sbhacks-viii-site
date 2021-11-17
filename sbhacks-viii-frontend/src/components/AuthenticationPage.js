@@ -348,6 +348,7 @@ export const AuthenticationForm = (props) => {
               className={classes.textField}
               inputProps={{ style: { fontSize: 20 } }}
               InputLabelProps={{ style: { fontSize: 20 } }}
+              required
             />
           </FormControl>
         </div>
@@ -362,6 +363,7 @@ export const AuthenticationForm = (props) => {
               className={classes.textField}
               inputProps={{ style: { fontSize: 20 } }}
               InputLabelProps={{ style: { fontSize: 20 } }}
+              required
             />
           </FormControl>
         </div>
