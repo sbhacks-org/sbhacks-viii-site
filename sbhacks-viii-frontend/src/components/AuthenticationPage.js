@@ -158,9 +158,8 @@ const AuthenticationPage = (props) => {
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
 
-        // set error message that account doesn't exist
         setSubmitStatus(
-          "something went wrong with logging in: " + errorMessage
+          "incorrect email or password"
         );
         setErrorStatus(true);
       });
@@ -200,7 +199,7 @@ const AuthenticationPage = (props) => {
         console.log(errorCode + " | " + errorMessage);
 
         setSubmitStatus(
-          "something went wrong with creating your account: " + errorMessage
+          "incorrect email or password is too weak"
         );
         setErrorStatus(true);
         // ..
