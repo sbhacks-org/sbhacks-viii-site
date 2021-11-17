@@ -233,8 +233,7 @@ const Application = () => {
                     })
                 // ...
             } else {
-                // User is signed out
-                // ...
+                history.push("/login");
             }
         });
         // */

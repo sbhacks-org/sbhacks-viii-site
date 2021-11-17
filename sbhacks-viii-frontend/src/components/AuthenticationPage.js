@@ -117,10 +117,10 @@ const AuthenticationPage = (props) => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
+        if (user.emailVerified) {
+          // logged in and email verified so redirect to dashboard
+          history.push("/dashboard");
+        }
       } else {
         // User is signed out
         // ...
