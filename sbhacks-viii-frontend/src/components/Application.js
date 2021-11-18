@@ -306,11 +306,19 @@ const Application = () => {
             newAppFields.mlhCodeAgree = agrMLH;
             newAppFields.privacyAgree = shareInfo;
             newAppFields.mlhCommAgree = agrEmail;
-
+            
 
             setAppFields(newAppFields);
-            // console.log(uid)
-            axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
+
+
+            if( newAppFields.studyLevel === null || newAppFields.universityName === '' || newAppFields.gradYear === '' ||
+                newAppFields.major === '' || newAppFields.resumeLink === '' || newAppFields.city === '' ||
+                newAppFields.state === '' || newAppFields.zipCode === '' || newAppFields.country === ''){
+                alert("Please fill out all application fields marked with a '*' before submitting")
+                history.push("/dashboard");
+            }
+            else{
+                axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
                 .then(res => {
                     console.log("Successfully saved data!");
                     console.log(res.data);
@@ -323,6 +331,8 @@ const Application = () => {
 
                     history.push("/dashboard");
                 })
+            }
+            // console.log(uid)
         }
     }
 
@@ -358,6 +368,13 @@ const Application = () => {
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
+                            {/* <label for="Level of Study *">Level of Study *</label>
+                            <select value={lvlStudy} margin="normal" size="small" onChange={(e) => update(e, setLvlStudy)} id="cars" name="cars">
+                                <option value="volvo">Freshman</option>
+                                <option value="saab">Sophomore</option>
+                                <option value="fiat">Junior</option>
+                                <option value="audi">Senior</option>
+                            </select> */}
                             <TextField
                                 label="Level of Study *"
                                 type="text"
