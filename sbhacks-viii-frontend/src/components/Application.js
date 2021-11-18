@@ -20,7 +20,10 @@ import { Link, useHistory } from "react-router-dom";
 import Schools from "../consts/Schools";
 import Genders from "../consts/Genders";
 import Majors from "../consts/Majors";
+import ShirtSizes from "../consts/ShirtSizes";
 import Autocomplete from '@mui/material/Autocomplete';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,6 +106,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "40px",
         marginTop: "20px",
     },
+    mcLabel: {
+        textAlign: "left",
+        paddingTop:"32px"
+    }
 }));
 const inputProps = {
     style: {
@@ -432,7 +439,21 @@ const Application = () => {
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
-                            <TextField
+                            <FormLabel component="legend" className={classes.mcLabel}>T-Shirt Size *</FormLabel>
+                                <RadioGroup
+                                    aria-label="TShirtSize"
+                                    defaultValue={tShrtSize}
+                                    name="TShirtSIze"
+                                    value={tShrtSize}
+                                    onChange={(e, newVal) => {
+                                        setTShrtSize(newVal);
+                                    }}
+                                >
+                                    {ShirtSizes.map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
+                            {/* <TextField
                                 label="T-Shirt Size *"
                                 type="text"
                                 value={tShrtSize}
@@ -443,7 +464,7 @@ const Application = () => {
                                 margin="normal"
                                 fullWidth
                             // required
-                            />
+                            /> */}
                         </FormControl>
 
                         <FormControl
@@ -476,8 +497,22 @@ const Application = () => {
                             />
                         </FormControl>
 
-                        <FormControl className={classes.formControl}>
-                            <TextField
+                        <FormControl component="fieldset" className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Gender</FormLabel>
+                            <RadioGroup
+                                aria-label="gender"
+                                defaultValue={gender}
+                                name="genders"
+                                value={gender}
+                                onChange={(e, newGender) => {
+                                    setGender(newGender);
+                                }}
+                            >
+                                {Genders.map((val, id) => {
+                                    return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                })}
+                            </RadioGroup>
+                            {/* <TextField
                                 label="Gender"
                                 type="text"
                                 value={gender}
@@ -487,7 +522,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                            />
+                            /> */}
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <TextField
