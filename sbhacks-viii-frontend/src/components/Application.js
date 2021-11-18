@@ -17,6 +17,11 @@ import {
 import Background from "../assets/backgrounds/tileable_background.jpg";
 import { flatMap } from "lodash";
 import { Link, useHistory } from "react-router-dom";
+import Schools from "../consts/Schools";
+import Genders from "../consts/Genders";
+import Majors from "../consts/Majors";
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -66,19 +71,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: "10px",
     fotnSize: "15px",
   },
-  // textField: {
-  //     marginBottom: "40px",
-  //     fontFamily: 'NexaBold',
-  //     fontSize: '24px',
-  //     [theme.breakpoints.up("md")]: {
-  //         width: "150%",
-  //         transform: "translate(-15%)",
-  //     },
-  //     [theme.breakpoints.down("sm")]: {
-  //         width: "100%",
-  //         transform: "translate(0%)",
-  //     },
-  // },
   saveBtn: {
     border: "none",
     textAlign: "center",
