@@ -17,6 +17,11 @@ import {
 import Background from "../assets/backgrounds/tileable_background.jpg";
 import { flatMap } from "lodash";
 import { Link, useHistory } from "react-router-dom";
+import Schools from "../consts/Schools";
+import Genders from "../consts/Genders";
+import Majors from "../consts/Majors";
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -60,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "30px",
         padding: "0px 30px 30px 30px",
     },
-    charCount : {
+    charCount: {
         position: "absolute",
         right: "10px",
         bottom: "10px",
@@ -248,7 +253,7 @@ const Application = () => {
         console.log("resume var: " + resume);
         const file = resume;
 
-        console.log(file.name.substring(file.name.length-3));
+        console.log(file.name.substring(file.name.length - 3));
 
         // if(file.size >= 5000000 ){
         //     alert("Resume not saved: please keep file size under 5MB")
@@ -289,8 +294,8 @@ const Application = () => {
             newAppFields.state = state;
             newAppFields.zipCode = zipCode;
             newAppFields.country = country;
-            if(resumeUploadFlag) {
-              newAppFields.resumeLink = await uploadResume();
+            if (resumeUploadFlag) {
+                newAppFields.resumeLink = await uploadResume();
             }
             newAppFields.website = pWebsite;
             newAppFields.github = gitHub;
@@ -306,31 +311,31 @@ const Application = () => {
             newAppFields.mlhCodeAgree = agrMLH;
             newAppFields.privacyAgree = shareInfo;
             newAppFields.mlhCommAgree = agrEmail;
-            
+
 
             setAppFields(newAppFields);
 
 
-            if( newAppFields.studyLevel === null || newAppFields.universityName === '' || newAppFields.gradYear === '' ||
+            if (newAppFields.studyLevel === null || newAppFields.universityName === '' || newAppFields.gradYear === '' ||
                 newAppFields.major === '' || newAppFields.resumeLink === '' || newAppFields.city === '' ||
-                newAppFields.state === '' || newAppFields.zipCode === '' || newAppFields.country === ''){
+                newAppFields.state === '' || newAppFields.zipCode === '' || newAppFields.country === '') {
                 alert("Please fill out all application fields marked with a '*' before submitting")
                 history.push("/dashboard");
             }
-            else{
+            else {
                 axios.post('/userdb/saveApp', { uid: uid, update_info: newAppFields })
-                .then(res => {
-                    console.log("Successfully saved data!");
-                    console.log(res.data);
+                    .then(res => {
+                        console.log("Successfully saved data!");
+                        console.log(res.data);
 
-                    history.push("/dashboard");
-                })
-                .catch(err => {
-                    console.log("Error when saving application data: " + err);
-                    console.log(err.response.data.error)
+                        history.push("/dashboard");
+                    })
+                    .catch(err => {
+                        console.log("Error when saving application data: " + err);
+                        console.log(err.response.data.error)
 
-                    history.push("/dashboard");
-                })
+                        history.push("/dashboard");
+                    })
             }
             // console.log(uid)
         }
@@ -364,7 +369,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -385,21 +390,19 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
-                            <TextField
-                                label="School *"
-                                type="text"
+                            <Autocomplete
+                                id="school-dropdown"
+                                freeSolo
                                 value={school}
-                                onChange={(e) => update(e, setSchool)}
-                                inputProps={inputProps}
-                                InputLabelProps={InputLabelProps}
-                                size="small"
-                                margin="normal"
-                                fullWidth
-                                // required
+                                options={Schools}
+                                onChange={(e, newSchool) => {
+                                    setSchool(newSchool);
+                                }}
+                                renderInput={(params) => <TextField {...params} label="School" />}
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -413,21 +416,19 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
-                            <TextField
-                                label="Major/Field of Study *"
-                                type="text"
+                            <Autocomplete
+                                id="school-dropdown"
+                                freeSolo
                                 value={major}
-                                onChange={(e) => update(e, setMajor)}
-                                inputProps={inputProps}
-                                InputLabelProps={InputLabelProps}
-                                size="small"
-                                margin="normal"
-                                fullWidth
-                                // required
+                                options={Majors}
+                                onChange={(e, newMajor) => {
+                                    setMajor(newMajor);
+                                }}
+                                renderInput={(params) => <TextField {...params} label="Major" />}
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -441,7 +442,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
 
@@ -463,13 +464,14 @@ const Application = () => {
                                 type="file"
                                 onChange={(e) => {
                                     const file = e.target.files[0];
-                                    if(file.size >= 5000000 ){
+                                    if (file.size >= 5000000) {
                                         alert("Resume not saved: please keep file size under 5MB")
-                                    }else if(file.name.substring(file.name.length-3) !== "pdf"){
+                                    } else if (file.name.substring(file.name.length - 3) !== "pdf") {
                                         alert("Resume not saved: please upload pdfs only")
-                                    }else{
-                                        setResume(e.target.files[0]); setResumeUploadFlag(true)}
+                                    } else {
+                                        setResume(e.target.files[0]); setResumeUploadFlag(true)
                                     }
+                                }
                                 }
                             />
                         </FormControl>
@@ -552,7 +554,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -618,7 +620,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
 
@@ -634,7 +636,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -648,7 +650,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -662,7 +664,7 @@ const Application = () => {
                                 size="small"
                                 margin="normal"
                                 fullWidth
-                                // required
+                            // required
                             />
                         </FormControl>
 
@@ -686,7 +688,7 @@ const Application = () => {
                                     // size="small"
                                     margin="normal"
                                     fullWidth
-                                    // required
+                                // required
                                 />
                                 <div class={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
                             </div>
@@ -712,7 +714,7 @@ const Application = () => {
                                     // size="small"
                                     margin="normal"
                                     fullWidth
-                                    // required
+                                // required
                                 />
                                 <div class={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
                             </div>
