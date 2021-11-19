@@ -112,7 +112,7 @@ exports.register = async (req, res) => {
       privacyAgree: false,
       mlhCommAgree: false,
       role: "hacker",
-      status: "incomplete",
+      status: "notStarted",//"incomplete",
       lastLoggedInTimeStamp: admin.firestore.Timestamp.now(),
       registeredTimeStamp: admin.firestore.Timestamp.now(),
       openAppTimeStamps: [],
@@ -294,6 +294,7 @@ exports.getDashFields = async (req, res) => {
     let ret_hacker_info = {
       status: hacker_info.status,
       fname: hacker_info.fname,
+      lname: hacker_info.lname,
     };
     res.json(ret_hacker_info);
   } catch (err) {
