@@ -21,6 +21,10 @@ import Schools from "../consts/Schools";
 import Genders from "../consts/Genders";
 import Majors from "../consts/Majors";
 import ShirtSizes from "../consts/ShirtSizes";
+import EthnicityOptions from "../consts/EthnicityOptions";
+import LevelOfStudyOptions from "../consts/LevelOfStudy";
+import GradYearOptions from "../consts/GradYearOptions";
+
 import Autocomplete from '@mui/material/Autocomplete';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
@@ -357,14 +361,7 @@ const Application = () => {
                             // required
                             />
                         </FormControl>
-                        <FormControl className={classes.formControl}>
-                            {/* <label for="Level of Study *">Level of Study *</label>
-                            <select value={lvlStudy} margin="normal" size="small" onChange={(e) => update(e, setLvlStudy)} id="cars" name="cars">
-                                <option value="volvo">Freshman</option>
-                                <option value="saab">Sophomore</option>
-                                <option value="fiat">Junior</option>
-                                <option value="audi">Senior</option>
-                            </select> */}
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="Level of Study *"
                                 type="text"
@@ -377,7 +374,24 @@ const Application = () => {
                                 fullWidth
                             // required
                             />
+                        </FormControl> */}
+                        <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Level of Study *</FormLabel>
+                                <RadioGroup
+                                    aria-label="Level of Study"
+                                    defaultValue={lvlStudy}
+                                    name="Level of Study"
+                                    value={lvlStudy}
+                                    onChange={(e, newVal) => {
+                                        setLvlStudy(newVal);
+                                    }}
+                                >
+                                    {LevelOfStudyOptions.map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
                         </FormControl>
+
                         <FormControl className={classes.formControl}>
                             <Autocomplete
                                 id="school-dropdown"
@@ -387,10 +401,10 @@ const Application = () => {
                                 onChange={(e, newSchool) => {
                                     setSchool(newSchool);
                                 }}
-                                renderInput={(params) => <TextField {...params} label="School" />}
+                                renderInput={(params) => <TextField {...params} label="School *" />}
                             />
                         </FormControl>
-                        <FormControl className={classes.formControl}>
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="Expected Graduation Year *"
                                 type="text"
@@ -403,6 +417,22 @@ const Application = () => {
                                 fullWidth
                             // required
                             />
+                        </FormControl> */}
+                        <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Expected Graduation Year *</FormLabel>
+                                <RadioGroup
+                                    aria-label="Expected Graduation Year"
+                                    defaultValue={gradYr}
+                                    name="Expected Graduation Year"
+                                    value={gradYr}
+                                    onChange={(e, newVal) => {
+                                        setGradYr(newVal);
+                                    }}
+                                >
+                                    {GradYearOptions.map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <Autocomplete
@@ -413,7 +443,7 @@ const Application = () => {
                                 onChange={(e, newMajor) => {
                                     setMajor(newMajor);
                                 }}
-                                renderInput={(params) => <TextField {...params} label="Major" />}
+                                renderInput={(params) => <TextField {...params} label="Major *" />}
                             />
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -431,18 +461,6 @@ const Application = () => {
                                         return <FormControlLabel value={val} control={<Radio />} label={val} />
                                     })}
                                 </RadioGroup>
-                            {/* <TextField
-                                label="T-Shirt Size *"
-                                type="text"
-                                value={tShrtSize}
-                                onChange={(e) => update(e, setTShrtSize)}
-                                inputProps={inputProps}
-                                InputLabelProps={InputLabelProps}
-                                size="small"
-                                margin="normal"
-                                fullWidth
-                            // required
-                            /> */}
                         </FormControl>
 
                         <FormControl
@@ -503,6 +521,22 @@ const Application = () => {
                             /> */}
                         </FormControl>
                         <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Ethnicity</FormLabel>
+                                <RadioGroup
+                                    aria-label="Ethnicity"
+                                    defaultValue={ethnicity}
+                                    name="Ethnicity"
+                                    value={ethnicity}
+                                    onChange={(e, newVal) => {
+                                        setEthnicity(newVal);
+                                    }}
+                                >
+                                    {EthnicityOptions.map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
+                        </FormControl>
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="Ethnicity"
                                 type="text"
@@ -514,8 +548,8 @@ const Application = () => {
                                 margin="normal"
                                 fullWidth
                             />
-                        </FormControl>
-                        <FormControl className={classes.formControl}>
+                        </FormControl> */}
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="Have you participated in a hackathon before?"
                                 type="text"
@@ -527,8 +561,24 @@ const Application = () => {
                                 margin="normal"
                                 fullWidth
                             />
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Have you participated in a hackathon before?</FormLabel>
+                                <RadioGroup
+                                    aria-label="Have you participated in a hackathon before?"
+                                    defaultValue={didHackathon}
+                                    name="Have you participated in a hackathon before?"
+                                    value={didHackathon}
+                                    onChange={(e, newVal) => {
+                                        setDidHackathon(newVal);
+                                    }}
+                                >
+                                    {["Yes", "No"].map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
+                        </FormControl>
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="Have you attended SB Hacks?"
                                 type="text"
@@ -540,8 +590,24 @@ const Application = () => {
                                 margin="normal"
                                 fullWidth
                             />
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>Have you attended SB Hacks?</FormLabel>
+                                <RadioGroup
+                                    aria-label="Have you attended SB Hacks?"
+                                    defaultValue={attendSbHacks}
+                                    name="Have you attended SB Hacks?"
+                                    value={attendSbHacks}
+                                    onChange={(e, newVal) => {
+                                        setAttendSbHacks(newVal);
+                                    }}
+                                >
+                                    {["Yes", "No"].map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
+                        </FormControl>
+                        {/* <FormControl className={classes.formControl}>
                             <TextField
                                 label="How did you hear about SB Hacks?"
                                 type="text"
@@ -553,8 +619,23 @@ const Application = () => {
                                 margin="normal"
                                 fullWidth
                             />
+                        </FormControl> */}
+                        <FormControl className={classes.formControl}>
+                            <FormLabel component="legend" className={classes.mcLabel}>How did you hear about SB Hacks?</FormLabel>
+                                <RadioGroup
+                                    aria-label="How did you hear about SB Hacks?"
+                                    defaultValue={hearSbHacks}
+                                    name="How did you hear about SB Hacks?"
+                                    value={hearSbHacks}
+                                    onChange={(e, newVal) => {
+                                        setHearSbHacks(newVal);
+                                    }}
+                                >
+                                    {["Email", "Website", "Social Media", "Friend/Colleague", "Workshop", "Other"].map((val, id) => {
+                                        return <FormControlLabel value={val} control={<Radio />} label={val} />
+                                    })}
+                                </RadioGroup>
                         </FormControl>
-
                         <h2>Shipping Address</h2>
                         <FormControl className={classes.formControl}>
                             <TextField
