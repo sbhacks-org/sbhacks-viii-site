@@ -15,6 +15,8 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import Background from "../assets/backgrounds/tileable_background.jpg";
+import Back from "../assets/images/back_arrow.png";
+
 import { flatMap } from "lodash";
 import { Link, useHistory } from "react-router-dom";
 import Schools from "../consts/Schools";
@@ -38,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   centerContainer: {
     paddingTop: "7%",
     paddingBottom: "7%",
+  },
+  backArrow: {
+    position: "relative",
   },
   formContainer: {
     // paddingTop: "20px",
@@ -343,6 +348,7 @@ const Application = () => {
     return (
         <div id="hackerApp" className={classes.container}>
             <div className={classes.centerContainer}>
+                <img className="backArrow clickable" src={Back} onClick={() => history.push('/dashboard')}/>
                 <div className={classes.formContainer}>
                     <h1 className={classes.title}>SB Hacks VIII Hacker Application</h1>
                     <form onSubmit={saveApp}>
@@ -784,7 +790,7 @@ const Application = () => {
                                     fullWidth
                                 // required
                                 />
-                                <div class={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
+                                <div className={classes.charCount}>{frq1 ? frq1.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -810,7 +816,7 @@ const Application = () => {
                                     fullWidth
                                 // required
                                 />
-                                <div class={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
+                                <div className={classes.charCount}>{frq2 ? frq2.length : 0}/1200</div>
                             </div>
                         </FormControl>
                         <br />
@@ -861,6 +867,10 @@ const Application = () => {
               You can edit and save your application as many times as you wish
               before the deadline. It will be automatically submitted for review
               past the deadline.
+            </Typography>
+            <br/>
+            <Typography variant="subtitle2" className={classes.frqLabel}>
+              *Questions marked with an asterisk are required for a complete application.
             </Typography>
             <input className={classes.saveBtn} type="submit" value="SAVE" />
             <Typography variant="subtitle2" className={classes.frqLabel}>

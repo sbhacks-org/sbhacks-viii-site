@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { Link, useHistory } from "react-router-dom";
 import Background from "../assets/backgrounds/tileable_background.jpg";
+import Back from "../assets/images/back_arrow.png";
 
 import {
   makeStyles,
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     backgroundImage: `url(${Background})`,
     height: "100%",
+  },
+  backArrow: {
+    position: "relative",
   },
   formContainer: {
     position: "absolute",
@@ -90,6 +94,7 @@ const ResetPassword = () => {
 
   return (
     <div className={classes.container}>
+      <img className="backArrow clickable" src={Back} onClick={() => history.push('/login')}/>
       {/* <form>
         <input
           type="email"
