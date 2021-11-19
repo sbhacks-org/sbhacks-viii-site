@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "7%",
   },
   backArrow: {
-    position: "relative",
+    position: "absolute",
+    left: "85px",
   },
   formContainer: {
     // paddingTop: "20px",
@@ -348,7 +349,7 @@ const Application = () => {
     return (
         <div id="hackerApp" className={classes.container}>
             <div className={classes.centerContainer}>
-                <img className="backArrow clickable" src={Back} onClick={() => history.push('/dashboard')}/>
+                <img className={`${classes.backArrow} clickable`} src={Back} onClick={() => history.push('/dashboard')}/>
                 <div className={classes.formContainer}>
                     <h1 className={classes.title}>SB Hacks VIII Hacker Application</h1>
                     <form onSubmit={saveApp}>

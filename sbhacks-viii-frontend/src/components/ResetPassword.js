@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   backArrow: {
-    position: "relative",
+    position: "absolute",
+    left: "85px",
+    top:"35px"
   },
   formContainer: {
     position: "absolute",
@@ -94,7 +96,7 @@ const ResetPassword = () => {
 
   return (
     <div className={classes.container}>
-      <img className="backArrow clickable" src={Back} onClick={() => history.push('/login')}/>
+      <img className={`${classes.backArrow} clickable`} src={Back} onClick={() => history.push('/login')}/>
       {/* <form>
         <input
           type="email"
