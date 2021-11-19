@@ -112,7 +112,7 @@ exports.register = async (req, res) => {
       privacyAgree: false,
       mlhCommAgree: false,
       role: "hacker",
-      status: "notStarted",//"incomplete",
+      status: "incomplete",
       lastLoggedInTimeStamp: admin.firestore.Timestamp.now(),
       registeredTimeStamp: admin.firestore.Timestamp.now(),
       openAppTimeStamps: [],
