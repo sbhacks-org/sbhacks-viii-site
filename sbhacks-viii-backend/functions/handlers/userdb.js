@@ -60,12 +60,16 @@ exports.register = async (req, res) => {
     const fname = req.body.fname;
     const lname = req.body.lname;
 
+    if (emailAddress === "" || uid === "" || fname === "" || lname === "") {
+      res.status(400).json({
+        error: "empty fields",
+      });
+      return;
+    }
+
     if (!validateEmail(emailAddress)) {
       res.status(400).json({
-        error:
-          emailAddress === ""
-            ? "email cannot be empty"
-            : `${emailAddress} is an invalid email`,
+        error: `${emailAddress} is an invalid email`,
       });
       return;
     }

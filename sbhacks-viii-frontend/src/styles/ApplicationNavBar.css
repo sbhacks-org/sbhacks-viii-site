@@ -4,20 +4,30 @@
     width: 100vw;
     padding: none;
     height: 5vh;
-    background-color: #5FC5FF;
+    background-color: #2FA0DF;
     position:absolute;
     left:0px;
     top:0px;
     z-index: 1;
   }
   
+  .container {
+    height: 100%;
+  }
   .left{
     float: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 7vw;
   }
   .right{
     float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-right: 7vw;
-    margin-top: .9vw;
+    /* margin-top: .9vw; */
   }
   .right:hover {
     transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
@@ -25,8 +35,11 @@
   
   .navLogo{
     height: 3vh;
-    width: 2.5vh;
+    /* width: 2.5vh; */
     margin-left: 4vw;
     margin-top: .6vw;
+    width: 3vh;
+    /* margin-left: 4vw;
+    margin-top: .6vw; */
   }
   
