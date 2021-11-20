@@ -35,6 +35,9 @@
   
   .navLogo{
     height: 3vh;
+    /* width: 2.5vh; */
+    margin-left: 4vw;
+    margin-top: .6vw;
     width: 3vh;
     /* margin-left: 4vw;
     margin-top: .6vw; */

@@ -37,7 +37,6 @@ const reqAppFields = [
   "phoneNumber",
   "tshirtSize",
   "shippingAddressLine1",
-  "shippingAddressLine2",
   "city",
   "state",
   "zipCode",
@@ -294,6 +293,7 @@ exports.getDashFields = async (req, res) => {
     let ret_hacker_info = {
       status: hacker_info.status,
       fname: hacker_info.fname,
+      lname: hacker_info.lname,
     };
     res.json(ret_hacker_info);
   } catch (err) {
