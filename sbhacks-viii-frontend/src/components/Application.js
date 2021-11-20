@@ -43,7 +43,16 @@ const useStyles = makeStyles((theme) => ({
   },
   backArrow: {
     position: "absolute",
-    left: "85px",
+    [theme.breakpoints.up("xl")]: {
+        left: "85px",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+        left: "15px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "0vw",
+        visibility: "hidden",
+      },
   },
   formContainer: {
     // paddingTop: "20px",

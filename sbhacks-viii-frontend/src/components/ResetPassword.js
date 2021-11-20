@@ -21,7 +21,16 @@ const useStyles = makeStyles((theme) => ({
   },
   backArrow: {
     position: "absolute",
-    left: "85px",
+    [theme.breakpoints.up("xl")]: {
+        left: "85px",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+        left: "35px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        left: "5vw",
+        width: "10vw",
+      },
     top:"35px"
   },
   formContainer: {
