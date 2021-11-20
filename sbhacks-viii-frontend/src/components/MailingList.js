@@ -83,37 +83,8 @@ function MailingList() {
       {/* <FishTicket /> */}
       <div className='fish-ticket'>
         <img id='ticketImg' src={TicketPlain} alt='Ticket' />
-        <form noValidate onSubmit={handleSubmit} id='form'>
-          <TextField
-            id="email"
-            name="email"
-            type="email"
-            label="Email"
-            value={emailAddress}
-            placeholder="youremail@example.com"
-            onChange={handleChange}
-          />
-        </form>
         <div className='textContainer'>
-          <div className='text' style={{ 'color': submitStatus.substr(0, 5) === "error" ? "red" : "" }}>{submitStatus}</div>
-        </div>
-        <div className='submitFishContainer'>
-          <div className='submitFishButton'>
-            <img id='submitFish' src={FishSubmit} alt='Fish Submit' onMouseEnter={textHover} onMouseLeave={resetFishStyles} onClick={handleSubmit}/>
-            <div id="submitTxt" onMouseEnter={fishHover} onClick={handleSubmit} >{buttonEnabled ? "SUBMIT" : "submitting..."}</div>
-          </div>
-        </div>
-        {
-          isMobile && 
-          <div className='eventTitleContainer'>
-            <div className='text'>SB Hacks VIII</div>
-          </div>
-        }
-        <div className='eventDateContainer'>
-          <div className='eventDate'>
-            <div className='text small'>January 14-16, 2022</div>
-            <div className='text large'>Corwin Pavilion, UCSB</div>
-          </div>
+          <div className='text' > APPLY NOW </div>
         </div>
       </div>
       {/* <div className='eventDateContainer'>
