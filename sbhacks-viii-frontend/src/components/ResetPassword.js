@@ -94,7 +94,7 @@ const ResetPassword = () => {
         const errorMessage = error.message;
         console.log(errorCode + " | " + errorMessage);
         
-        setSentStatus(errorMessage);
+        setSentStatus("something went wrong: is that the correct email?");
         setErrorStatus(true);
       });
   };
