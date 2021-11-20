@@ -61,6 +61,14 @@ const useStyles = makeStyles((theme) => ({
     gridColumnStart: "2",
     gridColumnEnd: "3",
   },
+  dash: {
+    position: "relative",
+    top: "50%",
+    transform: "translateY(-50%)",
+  },
+  byLine: {
+    color: "#6F86AA",
+  },
   otterPic: {
     marginTop: "10%",
     [theme.breakpoints.up("xl")]: {
@@ -162,16 +170,22 @@ const Dashboard = () => {
           <div className={classes.border}></div>
         </div>
         <div className={classes.right}>
-          <h2> Dashboard </h2>
-          Hi {fname}, your application status is
+          <div className={classes.dash}>
+            Hi {fname}, your application status is
 
-          <h1> {appStatus} </h1>
-
-          <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
-            <Typography variant="subtitle1">Edit Application</Typography>
-          </button>
+            <h1 style={{ color: appStatus === "incomplete" ? "#F29252" : "#7EBA5B" }}> {appStatus} </h1>
+            <div className={classes.byLine}>
+            {appStatus === "incomplete" ? "Make sure to answer all required questions marked with an * to complete your application." : "You can still edit your application. It’ll be automatically submitted by the deadline."}
+            </div>
+            
+            <br />
+            <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
+              <Typography variant="subtitle1">Edit Application</Typography>
+            </button>
+            <br />
+            Application Deadline: December 25, 2021, 11:59 pm PST
+          </div>
         </div>
-        
       </div>
     </div>
   );
