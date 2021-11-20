@@ -37,7 +37,6 @@ const reqAppFields = [
   "phoneNumber",
   "tshirtSize",
   "shippingAddressLine1",
-  "shippingAddressLine2",
   "city",
   "state",
   "zipCode",
