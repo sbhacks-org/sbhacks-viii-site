@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%,-50%)",
     color: "#365877",
+    padding: "10px",
     [theme.breakpoints.up("xl")]: {
       width: "800px",
     },
@@ -67,6 +68,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "40px",
     marginTop: "20px",
   },
+  submitBtnTxt: {
+    fontFamily: "NexaBold",
+    fontSize: "1rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "24px",
+    },
+  }
 }));
 
 const ResetPassword = () => {
@@ -139,7 +147,7 @@ const ResetPassword = () => {
             {sentStatus}
           </div>
           <button type="submit" className={classes.submitBtn}>
-            <Typography variant="subtitle1">Reset</Typography>
+            <Typography variant="subtitle1" className={classes.submitBtnText}>Reset</Typography>
           </button>
         </form>
       </div>

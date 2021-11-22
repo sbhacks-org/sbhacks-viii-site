@@ -49,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.between("md", "lg")]: {
         left: "15px",
       },
-      [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("sm")]: {
         width: "0vw",
         visibility: "hidden",
-      },
+    },
   },
   formContainer: {
     // paddingTop: "20px",
@@ -66,14 +66,35 @@ const useStyles = makeStyles((theme) => ({
       width: "600px",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "80vw",
+      width: "60vw",
+      marginTop:"5vh",
     },
     background: "#EEFFFF",
     borderRadius: "50px",
   },
+  title: {
+    color: "#2FA0DF",
+    [theme.breakpoints.between("md", "xl")]: {
+        fontSize: "36px"
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        fontSize: "24px",
+    },
+  },
   formControl: {
-    width: "65%",
     margin: "auto",
+    [theme.breakpoints.between("md", "xl")]: {
+        width: "65%",
+    },
+    [theme.breakpoints.down("sm")]: {
+        width: "75%",
+    },
+  },
+  mcText: {
+    [theme.breakpoints.down("sm")]: {
+        fontSize: "12px",
+    },
   },
   formControlFrq: {
     margin: "auto",
@@ -102,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2FA0DF",
     borderRadius: "75px",
     fontSize: "36px",
-    width: "40%",
+    minWidth: "40%",
     fontFamily: "NexaBold",
     "&:hover": {
       background: "#5FC5FF",
@@ -115,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     mcLabel: {
         textAlign: "left",
         paddingTop:"32px"
-    }
+    },
 }));
 const inputProps = {
   style: {
