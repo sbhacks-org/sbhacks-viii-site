@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down("sm")]: {
       width: "80vw",
+      gridTemplateColumns: "25% 75%",
     },
     background: "#EEFFFF",
     borderRadius: "50px",
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   right :{
     gridColumnStart: "2",
     gridColumnEnd: "3",
+    padding:"5px",
   },
   otterPic: {
     marginTop: "10%",
@@ -70,12 +72,14 @@ const useStyles = makeStyles((theme) => ({
       width: "80px",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "5vw",
+      width: "10vw",
+      marginTop:"40%",
     },
   },
   fname: {
     fontFamily: "NexaBold",
     fontSize: "18px",
+
   },
   lname: {
     fontFamily: "NexaLight",
@@ -96,7 +100,22 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: "40px",
     marginTop: "20px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "8px 15px",
+      width: "65%",
+    },
   },
+  btnText :{
+    [theme.breakpoints.up("xl")]: {
+      fontSize : "1rem",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+      fontSize : "1rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize:"14px"
+    },
+  }
 }));
 
 const Dashboard = () => {
@@ -168,7 +187,7 @@ const Dashboard = () => {
           <h1> {appStatus} </h1>
 
           <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
-            <Typography variant="subtitle1">Edit Application</Typography>
+            <Typography variant="subtitle1" className={classes.btnText}>Edit Application</Typography>
           </button>
         </div>
         
