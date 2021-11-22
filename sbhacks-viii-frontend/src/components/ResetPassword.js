@@ -70,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
   submitBtnTxt: {
     fontFamily: "NexaBold",
-    fontSize: "1rem",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "24px",
-    },
   }
 }));
 
@@ -147,7 +143,11 @@ const ResetPassword = () => {
             {sentStatus}
           </div>
           <button type="submit" className={classes.submitBtn}>
-            <Typography variant="subtitle1" className={classes.submitBtnText}>Reset</Typography>
+            <Typography variant="subtitle1" className={classes.submitBtnText}>
+              <div className={classes.submitBtnTxt}>
+                RESET
+              </div>
+              </Typography>
           </button>
         </form>
       </div>

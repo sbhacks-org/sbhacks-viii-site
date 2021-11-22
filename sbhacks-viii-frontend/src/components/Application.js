@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: "auto",
+    textAlign: "left",
     [theme.breakpoints.between("md", "xl")]: {
         width: "65%",
     },
