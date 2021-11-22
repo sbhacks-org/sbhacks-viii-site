@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2FA0DF",
     borderRadius: "75px",
     fontSize: 15,
-    width: "40%",
+    minWidth: "40%",
     "&:hover": {
       background: "#5FC5FF",
     },
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
       height: "50px",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "125px",
+      width: "110px",
       height: "40px",
     },
     width: "8vw",
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
       height: "50px",
     },
     [theme.breakpoints.down("sm")]: {
-      width: "125px",
+      width: "110px",
       height: "40px",
     },
     transform: "translateX(-10%)",
