@@ -32,7 +32,7 @@ const questions = [
     },
     {
         question: 'Are there any rules I should follow?',
-        answer: 'You can find the MLH code of conduct here.'
+        answer: 'You can find the MLH code of conduct at https://static.mlh.io/docs/mlh-code-of-conduct.pdf.'
     },
     {
         question: 'Do you offer travel assistance?',
@@ -40,7 +40,7 @@ const questions = [
     },
     {
         question: 'When can I apply, and when will acceptances come out?',
-        answer: 'Applications open in early November, and close on December 10th, 2021. Acceptances will start going out on December 27, 2021.'
+        answer: 'Applications are now open and will close on December 25th, 2021. Acceptances will be released in waves starting December 27, 2021.'
     },
     {
         question: 'Can I compete in a team?',
@@ -48,7 +48,7 @@ const questions = [
     },
     {
         question: 'Will SB Hacks VIII be in-person?',
-        answer: 'We are tentatively planning for an in-person event, though we may switch to a hybrid or virtual setting should university or FDA guidelines change.'
+        answer: 'We are tentatively planning for an in-person event, though we may switch to a hybrid or virtual setting should university or CDC guidelines change.'
     },
     {
         question: 'Do I have to be a super experienced coder to attend?',

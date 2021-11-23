@@ -3,8 +3,10 @@ import { TextField, Button } from "@material-ui/core";
 import axios from 'axios'
 
 import Carnival from '../assets/carnival.svg';
-import TicketPlain from '../assets/ticket_plain.svg';
+import TicketPlain from '../assets/ticket_blank.svg';
 import FishSubmit from '../assets/fish_submit(2).svg';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { Link, useHistory } from "react-router-dom";
 
 import '../styles/MailingList.css';
 
@@ -13,6 +15,26 @@ function MailingList() {
   const [buttonEnabled, setButtonEnabled] = useState(true);
   const [submitStatus, setSubmitStatus] = useState("Join our mailing list for updates!");
   const [isMobile, setIsMobile] = useState(false);
+
+  const history = useHistory();
+
+  let validRedirect;
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (user.emailVerified) {
+          validRedirect = true;
+        }
+        else {
+          validRedirect = false;
+        }
+      } else {
+        validRedirect = false
+      }
+    });
+  }, []);
 
   const checkIfMobile = () => {
     if (window.innerWidth <= 768) setIsMobile(true);
@@ -84,7 +106,22 @@ function MailingList() {
       <div className='fish-ticket'>
         <img id='ticketImg' src={TicketPlain} alt='Ticket' />
         <div className='textContainer'>
-          <div className='text' > APPLY NOW </div>
+          <div className='eventDate2 clickable' onClick={() => { if (validRedirect) history.push('/dashboard'); else history.push('/login') }} >
+              <div className='text2' > APPLY HERE </div>
+            </div>
+          </div>
+          
+        {
+          isMobile && 
+          <div className='eventTitleContainer'>
+            <div className='text'>SB Hacks VIII</div>
+          </div>
+        }
+        <div className='eventDateContainer'>
+          <div className='eventDate'>
+            <div className='text small'>January 14-16, 2022</div>
+            <div className='text large'>Corwin Pavilion, UCSB</div>
+          </div>
         </div>
       </div>
       {/* <div className='eventDateContainer'>
