@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       },
       [theme.breakpoints.down("sm")]: {
         left: "5vw",
-        width: "10vw",
+        width: "45px",
       },
     top:"35px"
   },
