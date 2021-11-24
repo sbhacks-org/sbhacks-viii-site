@@ -145,7 +145,7 @@
         margin: auto;
     }
     .eventDate2 {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     .eventDate .small {
         font-size: 3.5vw;
@@ -157,6 +157,11 @@
         width: 108%;
         margin-right: -4%;
         /* transform: translateY(20vh); */
+    }
+}
+@media (max-width: 500px) {
+    .eventDate2 {
+        font-size: 0.8rem;
     }
 }
 #ticketImg {
