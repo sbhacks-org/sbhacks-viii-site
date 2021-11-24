@@ -23,6 +23,8 @@ import {
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import Background from "../assets/backgrounds/tileable_background.jpg";
+import Back from "../assets/images/back_arrow.png";
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -47,6 +49,20 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "0px 50px 50px 50px",
     background: "#EEFBFF",
     padding: "40px 10px",
+  },
+  backArrow: {
+    position: "absolute",
+    [theme.breakpoints.up("xl")]: {
+        left: "85px",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+        left: "35px",
+      },
+    [theme.breakpoints.down("sm")]: {
+      left: "5vw",
+      width: "45px",
+    },
+    top:"35px"
   },
   textField: {
     marginBottom: "40px",
@@ -208,6 +224,7 @@ const AuthenticationPage = (props) => {
 
   return (
     <div className={classes.container}>
+      <img className={`${classes.backArrow} clickable`} src={Back} onClick={() => history.push('/')}/>
       <div className={classes.centerContainer}>
         <div className={classes.titleContainer}>
           <Typography color="secondary" variant="h4">
