@@ -8,6 +8,7 @@ const {
 
 const {
   getMailingListAddresses,
+  getFilteredEmails,
 } = require("./handlers/adminFeatures");
 
 const {
@@ -29,6 +30,7 @@ app.get("/mailing-list/unsubscribe", mailingListUnsubscribe);
 app.get("/mailing-list/confirm", mailingListConfirm);
 
 app.get("/admin/mailingListAddresses", getMailingListAddresses);
+app.get("/admin/getFilteredEmails", getFilteredEmails);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);
@@ -38,4 +40,3 @@ app.get("/userdb/getDashFields", getDashFields);
 app.post("/userdb/openApp", openApp);
 
 exports.api = functions.https.onRequest(app);
-
