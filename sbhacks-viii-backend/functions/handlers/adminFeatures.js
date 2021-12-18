@@ -43,6 +43,7 @@ exports.getFilteredEmails = async (req, res) => {
       doc.data().emailAddress,
       doc.data().status,
       doc.data().role,
+      doc.data().universityName,
     ]);
 
     const hackerEmailAddresses = emailAddresses.filter(email => email[2] === "hacker");
@@ -53,7 +54,7 @@ exports.getFilteredEmails = async (req, res) => {
         completeApplications.push(email[0]);
       }
     }
-    const completeApplicationCount = completeApplications.length
+    const completeApplicationCount = completeApplications.length;
 
     const incompleteApplications = [];
     for (const email of hackerEmailAddresses) {
@@ -61,13 +62,53 @@ exports.getFilteredEmails = async (req, res) => {
         incompleteApplications.push(email[0]);
       }
     }
-    const incompleteApplicationsCount = incompleteApplications.length
+    const incompleteApplicationsCount = incompleteApplications.length;
+
+    const completeApplicationsBySchool = {};
+    for (const email of hackerEmailAddresses) {
+      if (email[1] !== "complete") {
+        continue;
+      }
+      if (email[3] in completeApplicationsBySchool) {
+        completeApplicationsBySchool[email[3]].push(email[0]);
+      }
+      else {
+        completeApplicationsBySchool[email[3]] = [email[0]];
+      }
+    }
+
+    const completeApplicationsBySchoolCounts = {};
+    for (const [school, emails] of Object.entries(completeApplicationsBySchool)) {
+      completeApplicationsBySchoolCounts[school] = emails.length;
+    }
+
+    const incompleteApplicationsBySchool = {};
+    for (const email of hackerEmailAddresses) {
+      if (email[1] !== "incomplete") {
+        continue;
+      }
+      if (email[3] in incompleteApplicationsBySchool) {
+        incompleteApplicationsBySchool[email[3]].push(email[0]);
+      }
+      else {
+        incompleteApplicationsBySchool[email[3]] = [email[0]];
+      }
+    }
+
+    const incompleteApplicationsBySchoolCounts = {};
+    for (const [school, emails] of Object.entries(incompleteApplicationsBySchool)) {
+      incompleteApplicationsBySchoolCounts[school] = emails.length;
+    }
 
     res.json({
       completeApplications: completeApplications,
       incompleteApplications: incompleteApplications,
       completeApplicationCount: completeApplicationCount,
       incompleteApplicationsCount: incompleteApplicationsCount,
+      completeApplicationsBySchool: completeApplicationsBySchool,
+      incompleteApplicationsBySchool: incompleteApplicationsBySchool,
+      completeApplicationsBySchoolCounts: completeApplicationsBySchoolCounts,
+      incompleteApplicationsBySchoolCounts: incompleteApplicationsBySchoolCounts,
     });
 
   } catch (err) {
