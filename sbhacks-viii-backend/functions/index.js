@@ -9,6 +9,7 @@ const {
 const {
   getMailingListAddresses,
   getFilteredEmails,
+  getFilteredEmails2,
 } = require("./handlers/adminFeatures");
 
 const {
@@ -31,6 +32,7 @@ app.get("/mailing-list/confirm", mailingListConfirm);
 
 app.get("/admin/mailingListAddresses", getMailingListAddresses);
 app.get("/admin/getFilteredEmails", getFilteredEmails);
+app.get("/admin/getFilteredEmails2", getFilteredEmails2);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);
