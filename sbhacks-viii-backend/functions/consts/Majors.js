@@ -174,4 +174,5 @@ const Majors = [
 	"SOCIOLOGY",
 	"MISCELLANEOUS SOCIAL SCIENCES",
 ]
-export default Majors;
+
+module.exports = {Majors};
