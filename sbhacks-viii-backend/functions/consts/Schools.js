@@ -1,4 +1,4 @@
-const schools = [
+const Schools = [
 	"21st Century Cyber Charter School",
 	"Aalto University",
 	"Aarhus University",
@@ -2176,4 +2176,4 @@ const schools = [
 	"Zespół szkół nr 1 im. Stanisława Staszica w Bochni",
 	"Zespół Szkół Nr.2 im. Jana Pawła II w Miechowi",
 ]
-export default schools;
+module.exports = {Schools};

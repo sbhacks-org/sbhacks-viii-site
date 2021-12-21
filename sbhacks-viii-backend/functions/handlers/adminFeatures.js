@@ -1,14 +1,7 @@
 const { admin, db } = require("../utils/admin");
+const { FilterOptions } = require("../consts/FilterOptions");
 
 require("dotenv").config();
-
-import Schools from "../consts/Schools";
-import Genders from "../consts/Genders";
-import Majors from "../consts/Majors";
-import ShirtSizes from "../consts/ShirtSizes";
-import EthnicityOptions from "../consts/EthnicityOptions";
-import LevelOfStudyOptions from "../consts/LevelOfStudy";
-import GradYearOptions from "../consts/GradYearOptions";
 
 exports.getMailingListAddresses = async (req, res) => {
   try {
@@ -178,64 +171,38 @@ exports.getFilterOptions = async (req, res) => {
       return;
     }
 
-    res.json({
-      filterOptions: [
+    let locations_options = [];
+
+    await  Promise.all(["city", "state", "country"].map(async (field) => {
+      // Get options
+      const field_options = (await db.collection("filters").doc(field).get()).data();
+      // check if options were updated in database within 6 hours
+      if (field_options.lastUpdated.toDate() < new Date(Date.now() - 6 * 60 * 60 * 1000)) {
+        // set new options
+        await db.collection("hackers").get().then(function(querySnapshot) {
+          querySnapshot.docs.forEach((doc) => {
+            // if the field option is new, add it to the options array
+            if (!(field_options.options.includes(doc.data()[field])) && doc.data()[field] != "" && doc.data()[field] != null) {
+              field_options.options.push(doc.data()[field]);
+            }
+          });
+        });
+        // set new timestamp
+        field_options.lastUpdated = admin.firestore.Timestamp.now();
+        // Update database
+        await db.collection("filters").doc(field).update(field_options);
+      }
+      locations_options.push(
         {
-          name: "Level of Study",
-          key: "studyLevel",
-          options: LevelOfStudyOptions,
-        }, 
-        {
-          name: "School",
-          key: "universityName",
-          options: Schools,
-        },
-        {
-          name: "Graduation Year",
-          key: "gradYear",
-          options: GradYearOptions,
-        },
-        {
-          name: "Major",
-          key: "major",
-          options: Majors,
-        },
-        {
-          name: "T-shirt Size",
-          key: "tshirtSize",
-          options: ShirtSizes,
-        },
-        {
-          name: "Gender",
-          key: "gender",
-          options: Genders,
-        },
-        {
-          name: "Ethnicity",
-          key: "ethnicity",
-          options: EthnicityOptions,
-        },
-        {
-          name: "Hear about SB Hacks",
-          key: "hearAboutSBHacks",
-          options: ["Email", "Website", "Social Media", "Friend/Colleague", "Workshop", "Other"],
-        },
-        {
-          name: "Attended SB Hacks",
-          key: "beenToSBHacks",
-          options: ["Yes", "No"],
-        },
-        {
-          name: "Attended Hackathon",
-          key: "beenToHackathon",
-          options: ["Yes", "No"],
-        },
-        {
-          name: "Application Status",
-          key: "status",
-          options: ["complete", "incomplete"],
+          name: field,
+          key: field,
+          options: field_options.options,
         }
-      ]
+      );
+    }));
+
+    res.json({
+      filterOptions: locations_options.concat(FilterOptions),
     });
 
   } catch (err) {
