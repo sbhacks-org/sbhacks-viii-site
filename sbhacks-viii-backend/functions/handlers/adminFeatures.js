@@ -2,6 +2,14 @@ const { admin, db } = require("../utils/admin");
 
 require("dotenv").config();
 
+import Schools from "../consts/Schools";
+import Genders from "../consts/Genders";
+import Majors from "../consts/Majors";
+import ShirtSizes from "../consts/ShirtSizes";
+import EthnicityOptions from "../consts/EthnicityOptions";
+import LevelOfStudyOptions from "../consts/LevelOfStudy";
+import GradYearOptions from "../consts/GradYearOptions";
+
 exports.getMailingListAddresses = async (req, res) => {
   try {
     const { authToken } = req.query;
@@ -157,3 +165,78 @@ exports.getFilteredEmails2 = async (req, res) => {
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
+
+exports.getFilterOptions = async (req, res) => {
+  try {
+    const { authToken } = req.query;
+
+    if (authToken != process.env.ADMIN_AUTH_TOKEN) {
+      res.status(400).json({ error: "invalid admin auth token" });
+      return;
+    }
+
+    res.json({
+      filterOptions: [
+        {
+          name: "Level of Study",
+          key: "studyLevel",
+          options: LevelOfStudyOptions,
+        }, 
+        {
+          name: "School",
+          key: "universityName",
+          options: Schools,
+        },
+        {
+          name: "Graduation Year",
+          key: "gradYear",
+          options: GradYearOptions,
+        },
+        {
+          name: "Major",
+          key: "major",
+          options: Majors,
+        },
+        {
+          name: "T-shirt Size",
+          key: "tshirtSize",
+          options: ShirtSizes,
+        },
+        {
+          name: "Gender",
+          key: "gender",
+          options: Genders,
+        },
+        {
+          name: "Ethnicity",
+          key: "ethnicity",
+          options: EthnicityOptions,
+        },
+        {
+          name: "Hear about SB Hacks",
+          key: "hearAboutSBHacks",
+          options: ["Email", "Website", "Social Media", "Friend/Colleague", "Workshop", "Other"],
+        },
+        {
+          name: "Attended SB Hacks",
+          key: "beenToSBHacks",
+          options: ["Yes", "No"],
+        },
+        {
+          name: "Attended Hackathon",
+          key: "beenToHackathon",
+          options: ["Yes", "No"],
+        },
+        {
+          name: "Application Status",
+          key: "status",
+          options: ["complete", "incomplete"],
+        }
+      ]
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: `something went wrong: ${err}` });
+  }
+}
