@@ -17,6 +17,7 @@ import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
 import AppPortalNavBar from "./components/AppPortalNavBar";
+import ReportsMicroservice from "./components/ReportsMicroservice";
 
 import axios from "axios";
 
@@ -52,6 +53,9 @@ function App() {
   return (
     <div className="App">
       <Switch>
+      <Route path="/admin/reportsmicroservice">
+          <ReportsMicroservice />
+        </Route>
         <Route path="/confirm">
           <ConfirmPage />
         </Route>
