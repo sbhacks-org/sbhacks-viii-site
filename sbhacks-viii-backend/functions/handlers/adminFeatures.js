@@ -12,10 +12,7 @@ exports.getMailingListAddresses = async (req, res) => {
     }
 
     const snapshot = await db.collection("mailing-list-subscribers").get();
-    const emailAddresses = snapshot.docs.map((doc) => [
-      doc.id,
-      doc.data().confirmed,
-    ]);
+    const emailAddresses = snapshot.docs.map((doc) => [doc.id, doc.data().confirmed]);
 
     const validEmailAddresses = [];
     for (let email of emailAddresses) {
@@ -43,16 +40,9 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const snapshot = await db.collection("hackers").get();
-    const emailAddresses = snapshot.docs.map((doc) => [
-      doc.data().emailAddress,
-      doc.data().status,
-      doc.data().role,
-      doc.data().universityName,
-    ]);
+    const emailAddresses = snapshot.docs.map((doc) => [doc.data().emailAddress, doc.data().status, doc.data().role, doc.data().universityName]);
 
-    const hackerEmailAddresses = emailAddresses.filter(
-      (email) => email[2] === "hacker"
-    );
+    const hackerEmailAddresses = emailAddresses.filter((email) => email[2] === "hacker");
 
     const completeApplications = [];
     for (const email of hackerEmailAddresses) {
@@ -83,9 +73,7 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const completeApplicationsBySchoolCounts = {};
-    for (const [school, emails] of Object.entries(
-      completeApplicationsBySchool
-    )) {
+    for (const [school, emails] of Object.entries(completeApplicationsBySchool)) {
       completeApplicationsBySchoolCounts[school] = emails.length;
     }
 
@@ -102,9 +90,7 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const incompleteApplicationsBySchoolCounts = {};
-    for (const [school, emails] of Object.entries(
-      incompleteApplicationsBySchool
-    )) {
+    for (const [school, emails] of Object.entries(incompleteApplicationsBySchool)) {
       incompleteApplicationsBySchoolCounts[school] = emails.length;
     }
 
@@ -116,8 +102,7 @@ exports.getFilteredEmails = async (req, res) => {
       completeApplicationsBySchool: completeApplicationsBySchool,
       incompleteApplicationsBySchool: incompleteApplicationsBySchool,
       completeApplicationsBySchoolCounts: completeApplicationsBySchoolCounts,
-      incompleteApplicationsBySchoolCounts:
-        incompleteApplicationsBySchoolCounts,
+      incompleteApplicationsBySchoolCounts: incompleteApplicationsBySchoolCounts,
     });
   } catch (err) {
     console.error(err);
@@ -145,9 +130,7 @@ exports.getFilteredEmails2 = async (req, res) => {
     let emailAddresses = snapshot.docs.map((doc) => doc.data());
 
     for (const key in Object.keys(filters)) {
-      emailAddresses = emailAddresses.filter(
-        (email) => email.key in filters.key
-      );
+      emailAddresses = emailAddresses.filter((email) => email.key in filters.key);
     }
 
     const filteredEmails = emailAddresses.map((hacker) => hacker.emailAddress);
@@ -155,6 +138,56 @@ exports.getFilteredEmails2 = async (req, res) => {
     res.json({
       filteredEmails: filteredEmails,
       filteredEmailsCSV: filteredEmails.join(", "),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: `something went wrong: ${err}` });
+  }
+};
+
+const refreshFilterOptionsForField = async (field) => {
+  try {
+    // Get options
+    const field_options = (await db.collection("filters").doc(field).get()).data();
+    field_options.options = [];
+    // set new options
+    await db
+      .collection("hackers")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.docs.forEach((doc) => {
+          // if the field option is new, add it to the options array
+          if (!field_options.options.includes(doc.data()[field]) && doc.data()[field] != null && doc.data()[field].trim() != "") {
+            field_options.options.push(doc.data()[field]);
+          }
+        });
+      });
+    // set new timestamp
+    field_options.lastUpdated = admin.firestore.Timestamp.now();
+    // Update database
+    await db.collection("filters").doc(field).update(field_options);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.refreshLocationFilterOptions = async (req, res) => {
+  try {
+    const { authToken } = req.query;
+
+    if (authToken != process.env.ADMIN_AUTH_TOKEN) {
+      res.status(400).json({ error: "invalid admin auth token" });
+      return;
+    }
+
+    await Promise.all(
+      ["city", "state", "country"].map(async (field) => {
+        await refreshFilterOptionsForField(field);
+      })
+    );
+
+    res.json({
+      status: "success",
     });
   } catch (err) {
     console.error(err);
@@ -171,42 +204,28 @@ exports.getFilterOptions = async (req, res) => {
       return;
     }
 
-    let locations_options = [];
+    let locations_options = {};
 
-    await  Promise.all(["city", "state", "country"].map(async (field) => {
-      // Get options
-      const field_options = (await db.collection("filters").doc(field).get()).data();
-      // check if options were updated in database within 6 hours
-      if (field_options.lastUpdated.toDate() < new Date(Date.now() - 6 * 60 * 60 * 1000)) {
-        // set new options
-        await db.collection("hackers").get().then(function(querySnapshot) {
-          querySnapshot.docs.forEach((doc) => {
-            // if the field option is new, add it to the options array
-            if (!(field_options.options.includes(doc.data()[field])) && doc.data()[field] != "" && doc.data()[field] != null) {
-              field_options.options.push(doc.data()[field]);
-            }
-          });
-        });
-        // set new timestamp
-        field_options.lastUpdated = admin.firestore.Timestamp.now();
-        // Update database
-        await db.collection("filters").doc(field).update(field_options);
-      }
-      locations_options.push(
-        {
-          name: field,
-          key: field,
-          options: field_options.options,
+    await Promise.all(
+      ["city", "state", "country"].map(async (field) => {
+        // Get options
+        let field_options = (await db.collection("filters").doc(field).get()).data();
+        // check if options were updated in database within 6 hours
+        if (field_options.lastUpdated.toDate() < new Date(Date.now() - 6 * 60 * 60 * 1000)) {
+          await refreshFilterOptionsForField(field);
+          // Get new options
+          field_options = (await db.collection("filters").doc(field).get()).data();
         }
-      );
-    }));
+        locations_options[field] = field_options.options;
+      })
+    );
 
     res.json({
-      filterOptions: locations_options.concat(FilterOptions),
+      locations_options,
+      ...FilterOptions,
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
-}
+};
