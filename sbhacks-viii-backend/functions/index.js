@@ -1,6 +1,10 @@
 const functions = require("firebase-functions");
 
-const { mailingListSubscribe, mailingListUnsubscribe, mailingListConfirm } = require("./handlers/mailingList");
+const {
+  mailingListSubscribe,
+  mailingListUnsubscribe,
+  mailingListConfirm,
+} = require("./handlers/mailingList");
 
 const {
   getMailingListAddresses,
@@ -10,7 +14,14 @@ const {
   refreshLocationFilterOptions,
 } = require("./handlers/adminFeatures");
 
-const { register, login, saveApp, getAppFields, openApp, getDashFields } = require("./handlers/userdb");
+const {
+  register,
+  login,
+  saveApp,
+  getAppFields,
+  openApp,
+  getDashFields,
+} = require("./handlers/userdb");
 
 const app = require("express")();
 

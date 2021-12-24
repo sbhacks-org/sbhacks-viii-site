@@ -12,7 +12,10 @@ exports.getMailingListAddresses = async (req, res) => {
     }
 
     const snapshot = await db.collection("mailing-list-subscribers").get();
-    const emailAddresses = snapshot.docs.map((doc) => [doc.id, doc.data().confirmed]);
+    const emailAddresses = snapshot.docs.map((doc) => [
+      doc.id,
+      doc.data().confirmed,
+    ]);
 
     let validEmailAddresses = [];
     for (let email of emailAddresses) {
@@ -37,9 +40,16 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const snapshot = await db.collection("hackers").get();
-    const emailAddresses = snapshot.docs.map((doc) => [doc.data().emailAddress, doc.data().status, doc.data().role, doc.data().universityName]);
+    const emailAddresses = snapshot.docs.map((doc) => [
+      doc.data().emailAddress,
+      doc.data().status,
+      doc.data().role,
+      doc.data().universityName,
+    ]);
 
-    const hackerEmailAddresses = emailAddresses.filter((email) => email[2] === "hacker");
+    const hackerEmailAddresses = emailAddresses.filter(
+      (email) => email[2] === "hacker"
+    );
 
     const completeApplications = [];
     for (const email of hackerEmailAddresses) {
@@ -70,7 +80,9 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const completeApplicationsBySchoolCounts = {};
-    for (const [school, emails] of Object.entries(completeApplicationsBySchool)) {
+    for (const [school, emails] of Object.entries(
+      completeApplicationsBySchool
+    )) {
       completeApplicationsBySchoolCounts[school] = emails.length;
     }
 
@@ -87,7 +99,9 @@ exports.getFilteredEmails = async (req, res) => {
     }
 
     const incompleteApplicationsBySchoolCounts = {};
-    for (const [school, emails] of Object.entries(incompleteApplicationsBySchool)) {
+    for (const [school, emails] of Object.entries(
+      incompleteApplicationsBySchool
+    )) {
       incompleteApplicationsBySchoolCounts[school] = emails.length;
     }
 
@@ -99,7 +113,8 @@ exports.getFilteredEmails = async (req, res) => {
       completeApplicationsBySchool: completeApplicationsBySchool,
       incompleteApplicationsBySchool: incompleteApplicationsBySchool,
       completeApplicationsBySchoolCounts: completeApplicationsBySchoolCounts,
-      incompleteApplicationsBySchoolCounts: incompleteApplicationsBySchoolCounts,
+      incompleteApplicationsBySchoolCounts:
+        incompleteApplicationsBySchoolCounts,
     });
   } catch (err) {
     console.error(err);
@@ -127,7 +142,9 @@ exports.getFilteredEmails2 = async (req, res) => {
     let emailAddresses = snapshot.docs.map((doc) => doc.data());
 
     for (const key in Object.keys(filters)) {
-      emailAddresses = emailAddresses.filter((email) => email.key in filters.key);
+      emailAddresses = emailAddresses.filter(
+        (email) => email.key in filters.key
+      );
     }
 
     const filteredEmails = emailAddresses.map((hacker) => hacker.emailAddress);
@@ -145,7 +162,9 @@ exports.getFilteredEmails2 = async (req, res) => {
 const refreshFilterOptionsForField = async (field) => {
   try {
     // Get options
-    const field_options = (await db.collection("filters").doc(field).get()).data();
+    const field_options = (
+      await db.collection("filters").doc(field).get()
+    ).data();
     field_options.options = [];
     // set new options
     await db
@@ -154,7 +173,11 @@ const refreshFilterOptionsForField = async (field) => {
       .then(function (querySnapshot) {
         querySnapshot.docs.forEach((doc) => {
           // if the field option is new, add it to the options array
-          if (!field_options.options.includes(doc.data()[field]) && doc.data()[field] != null && doc.data()[field].trim() != "") {
+          if (
+            !field_options.options.includes(doc.data()[field]) &&
+            doc.data()[field] != null &&
+            doc.data()[field].trim() != ""
+          ) {
             field_options.options.push(doc.data()[field]);
           }
         });
@@ -206,12 +229,19 @@ exports.getFilterOptions = async (req, res) => {
     await Promise.all(
       ["city", "state", "country"].map(async (field) => {
         // Get options
-        let field_options = (await db.collection("filters").doc(field).get()).data();
+        let field_options = (
+          await db.collection("filters").doc(field).get()
+        ).data();
         // check if options were updated in database within 6 hours
-        if (field_options.lastUpdated.toDate() < new Date(Date.now() - 6 * 60 * 60 * 1000)) {
+        if (
+          field_options.lastUpdated.toDate() <
+          new Date(Date.now() - 6 * 60 * 60 * 1000)
+        ) {
           await refreshFilterOptionsForField(field);
           // Get new options
-          field_options = (await db.collection("filters").doc(field).get()).data();
+          field_options = (
+            await db.collection("filters").doc(field).get()
+          ).data();
         }
         locations_options[field] = field_options.options;
       })
