@@ -1,30 +1,20 @@
 const functions = require("firebase-functions");
 
-const {
-  mailingListSubscribe,
-  mailingListUnsubscribe,
-  mailingListConfirm,
-} = require("./handlers/mailingList");
+const { mailingListSubscribe, mailingListUnsubscribe, mailingListConfirm } = require("./handlers/mailingList");
 
 const {
   getMailingListAddresses,
   getFilteredEmails,
   getFilteredEmails2,
   getFilterOptions,
+  refreshLocationFilterOptions,
 } = require("./handlers/adminFeatures");
 
-const {
-  register,
-  login,
-  saveApp,
-  getAppFields,
-  openApp,
-  getDashFields,
-} = require("./handlers/userdb");
+const { register, login, saveApp, getAppFields, openApp, getDashFields } = require("./handlers/userdb");
 
 const app = require("express")();
 
-const cors = require("cors")({origin: true});
+const cors = require("cors")({ origin: true });
 app.use(cors);
 
 app.post("/mailing-list/subscribe", mailingListSubscribe);
@@ -34,7 +24,8 @@ app.get("/mailing-list/confirm", mailingListConfirm);
 app.get("/admin/mailingListAddresses", getMailingListAddresses);
 app.get("/admin/getFilteredEmails", getFilteredEmails);
 app.get("/admin/getFilteredEmails2", getFilteredEmails2);
-app.get("/admin/getFilterOptions", getFilterOptions,);
+app.get("/admin/getFilterOptions", getFilterOptions);
+app.get("/admin/refreshLocationFilterOptions", refreshLocationFilterOptions);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);
