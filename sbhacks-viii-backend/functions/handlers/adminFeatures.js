@@ -16,14 +16,17 @@ exports.getMailingListAddresses = async (req, res) => {
       doc.data().confirmed,
     ]);
 
-    let validEmailAddresses = [];
+    const validEmailAddresses = [];
     for (let email of emailAddresses) {
       if (email[1]) {
         validEmailAddresses.push(email[0]);
       }
     }
 
-    res.json({ emailAddresses: validEmailAddresses });
+    res.json({
+      emailAddresses: validEmailAddresses,
+      emailAddressesCSV: validEmailAddresses.join(", "),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: `something went wrong: ${err}` });
