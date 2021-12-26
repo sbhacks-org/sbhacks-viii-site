@@ -171,6 +171,7 @@ const Application = () => {
     const [hearSbHacks, setHearSbHacks] = useState("");
 
     const [resSaved, setResSaved] = useState(false);
+    const [resumeTimeSaved, setResumeTimeSaved] = useState("");
 
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
@@ -237,6 +238,7 @@ const Application = () => {
                                 setResume(resumeFile);
                                 setResumeUrl(res.data.resumeLink);
                                 setResSaved(true);
+                                setResumeTimeSaved(res.data.resumeTimeSaved);
                                 console.log("link to resume: " + res.data.resumeLink);
                             } catch (err) {
                                 console.log("Error in getting resume: " + err);
@@ -338,6 +340,7 @@ const Application = () => {
             newAppFields.country = country;
             if (resumeUploadFlag) {
                 newAppFields.resumeLink = await uploadResume();
+                newAppFields.resumeTimeSaved = Date.now();
             }
             newAppFields.website = pWebsite;
             newAppFields.github = gitHub;
@@ -521,7 +524,11 @@ const Application = () => {
                                 Resume *
                             </Typography>
                             {resSaved ?
-                                <div className="resumeSavedContainer"><div className="text">Saved<img id="checkmark" src={Checkmark} alt="checkmark"/></div></div>
+                                <div className="resumeSavedContainer">
+                                    <div className="text">
+                                        Saved on {(new Date(resumeTimeSaved)).toLocaleString()}<img id="checkmark" src={Checkmark} alt="checkmark"/>
+                                    </div>
+                                </div>
                                 : <></>}
                             <input
                                 type="file"
