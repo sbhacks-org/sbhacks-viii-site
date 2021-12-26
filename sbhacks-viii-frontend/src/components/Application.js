@@ -171,7 +171,7 @@ const Application = () => {
     const [hearSbHacks, setHearSbHacks] = useState("");
 
     const [resSaved, setResSaved] = useState(false);
-    const [resumeTimeSaved, setResumeTimeSaved] = useState("");
+    const [lastAppTimeSaved, setLastAppTimeSaved] = useState("");
 
     const [address1, setAddress1] = useState("");
     const [address2, setAddress2] = useState("");
@@ -238,7 +238,9 @@ const Application = () => {
                                 setResume(resumeFile);
                                 setResumeUrl(res.data.resumeLink);
                                 setResSaved(true);
-                                setResumeTimeSaved(res.data.resumeTimeSaved);
+                                let d = new Date(0);
+                                d.setUTCSeconds(res.data.saveAppTimeStamps[res.data.saveAppTimeStamps.length-1]._seconds);
+                                setLastAppTimeSaved(d);
                                 console.log("link to resume: " + res.data.resumeLink);
                             } catch (err) {
                                 console.log("Error in getting resume: " + err);
@@ -340,7 +342,6 @@ const Application = () => {
             newAppFields.country = country;
             if (resumeUploadFlag) {
                 newAppFields.resumeLink = await uploadResume();
-                newAppFields.resumeTimeSaved = Date.now();
             }
             newAppFields.website = pWebsite;
             newAppFields.github = gitHub;
@@ -523,10 +524,11 @@ const Application = () => {
                             >
                                 Resume *
                             </Typography>
-                            {resSaved ?
+                            {lastAppTimeSaved ?
                                 <div className="resumeSavedContainer">
                                     <div className="text">
-                                        Saved on {(new Date(resumeTimeSaved)).toLocaleString()}<img id="checkmark" src={Checkmark} alt="checkmark"/>
+                                        Resume Saved, Last App Save Was {lastAppTimeSaved.toLocaleString()}
+                                        <img id="checkmark" src={Checkmark} alt="checkmark"/>
                                     </div>
                                 </div>
                                 : <></>}
