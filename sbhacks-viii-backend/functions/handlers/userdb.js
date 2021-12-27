@@ -19,6 +19,7 @@ const appFields = [
   "github",
   "linkedin",
   "resumeLink",
+  "saveAppTimeStamps",
   "studyLevel",
   "gradYear",
   "universityName",

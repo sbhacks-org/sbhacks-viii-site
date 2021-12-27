@@ -21,3 +21,21 @@
         font-family: "NexaLight";
     }
 }
+
+.resumeSavedContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+.resumeSavedContainer .text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px !important;
+    width: fit-content !important;
+    color: rgb(1, 133, 23);
+    font-weight: 400;
+}
+.resumeSavedContainer .text #checkmark {
+    height: 12px;
+    margin-left: 2px;
+}
