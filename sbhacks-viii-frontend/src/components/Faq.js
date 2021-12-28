@@ -16,7 +16,7 @@ const questions = [
     },
     {
         question: 'When will SB Hacks take place?',
-        answer: 'SB Hacks VIII will take place on Friday, January 14, 2022, and conclude on Sunday, January 16, 2022.'
+        answer: 'SB Hacks VIII will take place on Friday, January 28, 2022, and conclude on Sunday, January 30, 2022. Originally the event was scheduled for January 14 - 16, 2022 but was postponed due university concerns over Covid.'
     },
     {
         question: 'Who can attend?',
@@ -35,12 +35,16 @@ const questions = [
         answer: 'You can find the MLH code of conduct at https://static.mlh.io/docs/mlh-code-of-conduct.pdf.'
     },
     {
-        question: 'Do you offer travel assistance?',
-        answer: 'TBD. Current travel plans to and from UCSB are uncertain, and we will update you as we find out more information.'
+        question: 'Update after the UC System’s move to remote instruction until Jan. 18?',
+        answer: 'We have postponed SB Hacks VIII to January 28 - 30, 2022 in hope of an in-person event. We plan on moving completely virtual if an in-person event is a public health risk and/or no longer complies with university guidelines.'
     },
+    // {
+    //     question: 'Do you offer travel assistance?',
+    //     answer: 'TBD. Current travel plans to and from UCSB are uncertain, and we will update you as we find out more information.'
+    // },
     {
         question: 'When can I apply, and when will acceptances come out?',
-        answer: 'Applications are now open and will close on December 25th, 2021. Acceptances will be released in waves starting December 27, 2021.'
+        answer: 'Applications are now open and will close on January 8, 2022. Acceptances will be released in waves starting January 10, 2022.'
     },
     {
         question: 'Can I compete in a team?',
