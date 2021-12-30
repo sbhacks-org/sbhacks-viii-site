@@ -127,27 +127,34 @@ exports.getFilteredEmails = async (req, res) => {
 
 exports.getFilteredEmails2 = async (req, res) => {
   try {
-    const { authToken, filters_dict } = req.query;
+    // const authToken = req.body.authToken;
+    // const filters_dict = req.body.filters_dict;
     // filters should be a dictionary of key, value
     // key: application field
     // value: list of acceptable values
-    let filters = filters_dict;
-    if (filters === undefined) {
-      filters = {};
-    }
 
-    if (authToken != process.env.ADMIN_AUTH_TOKEN) {
+    const body = req.body;
+
+    if (body.authToken != process.env.ADMIN_AUTH_TOKEN) {
       res.status(400).json({ error: "invalid admin auth token" });
       return;
+    }
+
+    let filters = body;
+    delete filters['authToken'];
+    if (filters === undefined) {
+      filters = {};
     }
 
     const snapshot = await db.collection("hackers").get();
     let emailAddresses = snapshot.docs.map((doc) => doc.data());
 
-    for (const key in Object.keys(filters)) {
-      emailAddresses = emailAddresses.filter(
-        (email) => email.key in filters.key
-      );
+    for (const key of Object.keys(filters)) {
+      if(key in filters) {
+        emailAddresses = emailAddresses.filter(
+          (email) => filters[key].includes(email[key])
+        );
+      }
     }
 
     const filteredEmails = emailAddresses.map((hacker) => hacker.emailAddress);
@@ -155,10 +162,11 @@ exports.getFilteredEmails2 = async (req, res) => {
     res.json({
       filteredEmails: filteredEmails,
       filteredEmailsCSV: filteredEmails.join(", "),
+      filters: filters,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: `something went wrong: ${err}` });
+    res.status(500).json({ error: `something went wrong: ${err}`});
   }
 };
 
