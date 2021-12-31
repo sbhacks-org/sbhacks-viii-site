@@ -162,7 +162,6 @@ exports.getFilteredEmails2 = async (req, res) => {
     res.json({
       filteredEmails: filteredEmails,
       filteredEmailsCSV: filteredEmails.join(", "),
-      filters: filters,
     });
   } catch (err) {
     console.error(err);
