@@ -266,3 +266,74 @@ exports.getFilterOptions = async (req, res) => {
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
+exports.checkToken = async (req, res) => {
+  try {
+    const token = req.body.token
+    res.json({
+      correctToken: token === process.env.ADMIN_AUTH_TOKEN ? true : false
+    })
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
+
+/*
+  body : {
+    token:
+  }
+*/
+exports.getApplicantsToReview = async (req, res) => {
+  // returns array of {name, email, uid, accepted}
+
+}
+
+const appFields = [
+  "gender",
+  "ethnicity",
+  "phoneNumber",
+  "tshirtSize",
+  "shippingAddressLine1",
+  "shippingAddressLine2",
+  "city",
+  "state",
+  "zipCode",
+  "country",
+  "website",
+  "github",
+  "linkedin",
+  "resumeLink",
+  "saveAppTimeStamps",
+  "studyLevel",
+  "gradYear",
+  "universityName",
+  "major",
+  "beenToHackathon",
+  "beenToSBHacks",
+  "hearAboutSBHacks",
+  "essay_answer1",
+  "essay_answer2",
+  "mlhCodeAgree",
+  "privacyAgree",
+  "mlhCommAgree",
+  "accepted" // string, accepted, rejected, notReviewed
+];
+// get applicant info given uid and token
+/*
+body: {
+  uid :
+  token
+}
+
+return json
+ */
+
+// save review into user database
+/*
+  body: {
+    uid
+    token
+    status
+  }
+*/
