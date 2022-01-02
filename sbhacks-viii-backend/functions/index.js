@@ -9,6 +9,10 @@ const {
 const {
   getMailingListAddresses,
   getFilteredEmails,
+  checkToken,
+  getApplicantsToReview,
+  getApplicantReviewInfo,
+  updateHackerStatus
 } = require("./handlers/adminFeatures");
 
 const {
@@ -31,6 +35,11 @@ app.get("/mailing-list/confirm", mailingListConfirm);
 
 app.get("/admin/mailingListAddresses", getMailingListAddresses);
 app.get("/admin/getFilteredEmails", getFilteredEmails);
+
+app.get("/admin/review/checkToken", checkToken);
+app.get("/admin/review/getApplicantsToReview", getApplicantsToReview);
+app.get("/admin/review/getApplicantReviewInfo", getApplicantReviewInfo);
+app.post("/admin/review/updateHackerStatus", updateHackerStatus);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);
