@@ -14,6 +14,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
 import FAQ from "./components/Faq";
 import ResetPassword from "./components/ResetPassword";
+import AdminReview from "./components/AdminReview";
 import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
 import AppPortalNavBar from "./components/AppPortalNavBar";
@@ -65,6 +66,9 @@ function App() {
         </Route>
         <Route path="/resetpassword">
           <ResetPassword />
+        </Route>
+        <Route path="/admin">
+          <AdminReview />
         </Route>
         <Route path="/dashboard">
           <AppPortalNavBar />
