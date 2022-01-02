@@ -269,7 +269,7 @@ exports.getFilterOptions = async (req, res) => {
 
 exports.checkToken = async (req, res) => {
   try {
-    const token = req.body.token
+    const token = req.query.token
     res.json({
       correctToken: token === process.env.ADMIN_AUTH_TOKEN ? true : false
     })
@@ -288,7 +288,7 @@ exports.checkToken = async (req, res) => {
 exports.getApplicantsToReview = async (req, res) => {
   // returns array of {name, email, uid, accepted} 
   try {
-    const token = req.body.token
+    const token = req.query.token
     if (token === process.env.ADMIN_AUTH_TOKEN) {
       const snapshot = await db.collection("hackers").get();
 
@@ -322,6 +322,9 @@ exports.getApplicantsToReview = async (req, res) => {
 }
 
 const appFields = [
+  "fname",
+  "lname",
+  "emailAddress",
   "gender",
   "ethnicity",
   "city",
@@ -346,7 +349,7 @@ const appFields = [
 ];
 // get applicant info given uid and token
 /*
-body: {
+query: {
   uid :
   token
 }
@@ -354,8 +357,8 @@ return json
  */
 exports.getApplicantReviewInfo = async (req, res) => {
   try {
-    const token = req.body.token
-    const uid = req.body.uid
+    const token = req.query.token
+    const uid = req.query.uid
     if (token === process.env.ADMIN_AUTH_TOKEN) {
       const doc = await db.collection("hackers").doc(uid).get();
       if (!doc.exists) {
@@ -389,12 +392,15 @@ exports.getApplicantReviewInfo = async (req, res) => {
     status
   }
 */
-exports.updateHackerStatus = (req, res) => {
+exports.updateHackerStatus = async (req, res) => {
   try {
+    console.log(req);
     const token = req.body.token;
     const uid = req.body.uid;
     const status = req.body.status;
 
+    console.log(token)
+    console.log(process.env.ADMIN_AUTH_TOKEN)
     if (token === process.env.ADMIN_AUTH_TOKEN) {
       const doc = await db.collection("hackers").doc(uid).get();
       if (!doc.exists) {
