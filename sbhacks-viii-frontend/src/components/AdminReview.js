@@ -31,7 +31,7 @@ function AdminReview() {
         open: false
       }
   ]);
-  const [admin, setAdmin] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const [token, setToken] = useState("");
   const [currentApp, setApp] = useState({
     gender: "n/a" ,
@@ -71,14 +71,16 @@ function AdminReview() {
   }, []);
 
   const handleSubmit = () => {
-    axios
-        .get("/checkToken", { params: { token: token } })
-        .then(async (res) => {
-            setAdmin(res.data.sucess)
-        })
-        .catch((err) => {
-            console.log("Error in authenitcation " + err);
-        });
+    console.log(token);
+    // axios
+    //     .get("/admin/review/checkToken", { params: { token: token } })
+    //     .then(async (res) => {
+    //         console.log(res);
+    //         setAdmin(true)
+    //     })
+    //     .catch((err) => {
+    //         console.log("Error in authenitcation " + err);
+    //     });
   }
 
   const getHackers = () => {
@@ -202,7 +204,7 @@ function AdminReview() {
           !admin &&
           <div>
             <h1>Enter Token</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={()=>handleSubmit}>
                 <label>
                 <textarea value={token} onChange={(e) => setToken(e.target.value)} />
                 </label>
