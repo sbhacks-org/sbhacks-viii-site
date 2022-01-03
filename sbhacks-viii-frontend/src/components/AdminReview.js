@@ -70,17 +70,18 @@ function AdminReview() {
     //getHackers();
   }, []);
 
-  const handleSubmit = () => {
-    console.log(token);
-    // axios
-    //     .get("/admin/review/checkToken", { params: { token: token } })
-    //     .then(async (res) => {
-    //         console.log(res);
-    //         setAdmin(true)
-    //     })
-    //     .catch((err) => {
-    //         console.log("Error in authenitcation " + err);
-    //     });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //console.log(token);
+    axios
+        .get("/admin/review/checkToken", { params: { token: token.toString() } })
+        .then(async (res) => {
+            console.log(res.data.correctToken);
+            setAdmin(res.data.correctToken == true)
+        })
+        .catch((err) => {
+            console.log("Error in authenitcation " + err);
+        });
   }
 
   const getHackers = () => {
@@ -204,7 +205,7 @@ function AdminReview() {
           !admin &&
           <div>
             <h1>Enter Token</h1>
-            <form onSubmit={()=>handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>
                 <textarea value={token} onChange={(e) => setToken(e.target.value)} />
                 </label>
