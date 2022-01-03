@@ -31,7 +31,7 @@ function AdminReview() {
         open: false
       }
   ]);
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState(true);
   const [token, setToken] = useState("");
   const [currentApp, setApp] = useState({
     gender: "n/a" ,
@@ -67,16 +67,17 @@ function AdminReview() {
   let validRedirect;
 
   useEffect(() => {
-    //getHackers();
+    getHackers();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //console.log(token);
     axios
-        .get("/admin/review/checkToken", { params: { token: token.toString() } })
+        .get("/admin/review/checkToken", { params: { token: token} })
         .then(async (res) => {
-            console.log(res.data.correctToken);
+            console.log(res.data);
+            console.log(token);
             setAdmin(res.data.correctToken == true)
         })
         .catch((err) => {
@@ -85,10 +86,11 @@ function AdminReview() {
   }
 
   const getHackers = () => {
+    console.log(token)
     axios
-        .get("/getApplicantsToReview", { params: { token: token } })
+        .get("/admin/review/getApplicantsToReview", { params: { token: token} })
         .then(async (res) => {
-            setApplicants(res.data)
+            setApplicants(res.data.hackersInfo)
         })
         .catch((err) => {
             console.log("Error in authenitcation " + err);
