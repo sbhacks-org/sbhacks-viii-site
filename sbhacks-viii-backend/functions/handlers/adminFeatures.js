@@ -299,8 +299,9 @@ exports.getApplicantsToReview = async (req, res) => {
           emailAddress: doc.data().emailAddress,
           fname: doc.data().fname,
           lname: doc.data().lname,
-          accepted: (doc.data().accepted === undefined || doc.data().accepted === null) ? "notReviewed" : doc.data().accepted,
-          saveAppTimeStamps: doc.data().saveAppTimeStamps
+          accepted: (doc.data().accepted === undefined || doc.data().accepted === null) ? "review" : doc.data().accepted,
+          saveAppTimeStamps: doc.data().saveAppTimeStamps,
+          open: false,
         }
       });
 
@@ -345,7 +346,7 @@ const appFields = [
   "hearAboutSBHacks",
   "essay_answer1",
   "essay_answer2",
-  "accepted" // string, accepted, rejected, notReviewed
+  "accepted" // string, true, false, review
 ];
 // get applicant info given uid and token
 /*
