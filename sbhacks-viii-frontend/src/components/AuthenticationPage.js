@@ -215,7 +215,7 @@ const AuthenticationPage = (props) => {
         console.log(errorCode + " | " + errorMessage);
 
         setSubmitStatus(
-          "incorrect email or password is too weak"
+          "error: possible reasons include incorrect email, weak password, existing account"
         );
         setErrorStatus(true);
         // ..
