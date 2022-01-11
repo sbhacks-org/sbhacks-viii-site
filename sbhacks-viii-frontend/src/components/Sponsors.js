@@ -23,6 +23,10 @@ import zest from "../assets/images/sponsors/zest.png";
 import yachak from "../assets/images/sponsors/yachak.png";
 import stickermule from "../assets/images/sponsors/stickermule.png";
 import pressedjuicery from "../assets/images/sponsors/pressedjuicery.png";
+import ng from "../assets/images/sponsors/ng.png";
+import evidation from "../assets/images/sponsors/evidation.png";
+import twilio from "../assets/images/sponsors/twilio.png";
+import hg from "../assets/images/sponsors/hg.png";
 
 const useStyles = makeStyles((theme) => ({
   landmark: {
@@ -84,7 +88,7 @@ const Sponsors = () => {
         className={classes.textPrimary}
       >
         {/* <img src={landmark} className={classes.landmark} /> */}
-        Past Sponsors
+        Sponsors
       </Typography>
 
       {/* Tier 1 */}
@@ -103,7 +107,7 @@ const Sponsors = () => {
       </Grid>
 
       {/* Tier 2 */}
-      <Grid
+      {/* <Grid
         container
         justifyContent="center"
         alignItems="center"
@@ -120,7 +124,7 @@ const Sponsors = () => {
             <img src={firebase} className={classes.tier2Logo} />
           </a>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       {/* Tier 3 */}
       <Grid
@@ -131,8 +135,8 @@ const Sponsors = () => {
         className={classes.sponsorGrid}
       >
         <Grid item xs={3} className={classes.logoContainer}>
-          <a target="_blank" href="https://cloud.google.com/">
-            <img src={gcp} className={classes.tier2Logo} />
+          <a target="_blank" href="https://www.appfolio.com/">
+            <img src={appfolio} className={classes.tier2Logo} />
           </a>
         </Grid>
         <Grid item xs={3} className={classes.logoContainer}>
@@ -141,20 +145,31 @@ const Sponsors = () => {
           </a>
         </Grid>
         <Grid item xs={3} className={classes.logoContainer}>
-          <a target="_blank" href="https://www.alcon.com/">
-            <img src={alcon} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={3} className={classes.logoContainer}>
-          <a target="_blank" href="https://www.appfolio.com/">
-            <img src={appfolio} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://www.amazon.jobs/sba-california/">
             <img src={amazon} className={classes.tier2Logo} />
           </a>
         </Grid>
+        <Grid item xs={3} className={classes.logoContainer}>
+          <a target="_blank" href="https://engineering.ucsb.edu/">
+            <img src={coe} className={classes.tier2Logo} />
+          </a>
+        </Grid> 
+        <Grid item xs={3} className={classes.logoContainer}>
+          <a target="_blank" href="https://evidation.com/">
+            <img src={evidation} className={classes.tier2Logo} />
+          </a>
+        </Grid>
+        <Grid item xs={3} className={classes.logoContainer}>
+          <a target="_blank" href="https://www.twilio.com/">
+            <img src={twilio} className={classes.tier2Logo} />
+          </a>
+        </Grid>
+        <Grid item xs={3} className={classes.logoContainer}>
+          <a target="_blank" href="https://hginsights.com/">
+            <img src={hg} className={classes.tier2Logo} />
+          </a>
+        </Grid>
+
         {/* <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://www.logmein.com/">
             <img src={logmein} className={classes.tier2Logo} />
@@ -170,76 +185,19 @@ const Sponsors = () => {
         alignItems="center"
         spacing={2}
         className={classes.sponsorGrid}
+        style={{paddingTop: 35}}
       >
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://www.payjunction.com/payments/">
-            <img src={payjunction} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a
-            target="_blank"
-            href="https://www.lockheedmartin.com/en-us/index.html"
-          >
-            <img src={lockheed} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://engineering.ucsb.edu/">
-            <img src={coe} className={classes.tier2Logo} />
-          </a>
-        </Grid>
         <Grid item xs={2} className={classes.logoContainer}>
           <a target="_blank" href="https://ccs.ucsb.edu/">
             <img src={ccs} className={classes.tier2Logo} />
           </a>
         </Grid>
         <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://www.balsamiq.com/">
-            <img src={balsamiq} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="http://osl.sa.ucsb.edu/">
-            <img src={osl} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
           <a
             target="_blank"
-            href="http://osl.sa.ucsb.edu/campus-organizations/finding-funding/community-grants"
+            href="https://www.northropgrumman.com/"
           >
-            <img src={comgrants} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="http://www.drinksynapse.com/">
-            <img src={synapse} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://hvmn.com/">
-            <img src={hvmn} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://www.zesttea.com/">
-            <img src={zest} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://yachak.com/">
-            <img src={yachak} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="https://pressedjuicery.com/">
-            <img src={pressedjuicery} className={classes.tier2Logo} />
-          </a>
-        </Grid>
-        <Grid item xs={2} className={classes.logoContainer}>
-          <a target="_blank" href="http://hackp.ac/mlh-stickermule-hackathons">
-            <img src={stickermule} className={classes.tier2Logo} />
+            <img src={ng} className={classes.tier2Logo} />
           </a>
         </Grid>
       </Grid>
