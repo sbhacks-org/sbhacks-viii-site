@@ -18,6 +18,7 @@ import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
 import AppPortalNavBar from "./components/AppPortalNavBar";
 import ReportsMicroservice from "./components/ReportsMicroservice";
+import MLHBanner from "./components/MLHBanner";
 
 import axios from "axios";
 
@@ -82,6 +83,7 @@ function App() {
         </Route>
         <Route path="/">
           <div class="content">
+            <MLHBanner />
             <NavBar />
             <div id="landing" class="initial-content">
               <MailingList />
