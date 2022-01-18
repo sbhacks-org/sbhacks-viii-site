@@ -119,7 +119,7 @@ function MailingList() {
         }
         <div className='eventDateContainer'>
           <div className='eventDate'>
-            <div className='text small'>January 28-30, 2022</div>
+            <div className='text small'> February 4-6, 2022</div>
             <div className='text large'>Corwin Pavilion, UCSB</div>
           </div>
         </div>
