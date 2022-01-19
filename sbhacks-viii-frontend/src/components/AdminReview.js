@@ -271,12 +271,27 @@ export default AdminReview;
 export const QuestionAndResponse = (props) => {
   return (
     <div className="QuestionAndResponse">
-      <div className="question">
-        {props.question}
-      </div>
-      <div answer="answer">
-        {(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}
-      </div>
+      {
+        props.question == "resumeLink" ?
+          <div>
+            <div className="question">
+              {props.question}
+            </div>
+            <div answer="answer">
+              {(props.answer !== null && props.answer != undefined) ? <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}> Open Resume in New Window</a> : "Not answered"}
+              {(props.answer !== null && props.answer != undefined) ? <embed src={props.answer} width="600px" height="800px" /> : "Not answered"}
+            </div>
+          </div>
+          :
+          <><div className="question">
+            {props.question}
+          </div>
+            <div answer="answer">
+              {(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}
+            </div>
+          </>
+      }
+
     </div>
   )
 }
