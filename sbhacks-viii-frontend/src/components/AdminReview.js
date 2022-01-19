@@ -254,7 +254,7 @@ function AdminReview() {
           <h1>Enter Token</h1>
           <form onSubmit={handleSubmit}>
             <label>
-              <textarea value={token} onChange={(e) => setToken(e.target.value)} />
+              <input type="password" value={token} onChange={(e) => setToken(e.target.value)} />
             </label>
             <input type="submit" value="Submit" />
           </form>
