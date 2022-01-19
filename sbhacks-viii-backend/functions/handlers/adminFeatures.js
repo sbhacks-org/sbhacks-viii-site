@@ -108,7 +108,9 @@ exports.getApplicantsToReview = async (req, res) => {
           emailAddress: doc.data().emailAddress,
           fname: doc.data().fname,
           lname: doc.data().lname,
-          accepted: (doc.data().accepted === undefined || doc.data().accepted === null) ? "review" : doc.data().accepted,
+          rating: (doc.data().rating === undefined || doc.data().rating === null) ? -1 : doc.data().rating,
+          // accepted: (doc.data().accepted === undefined || doc.data().accepted === null) ? "review" : doc.data().accepted,
+          status: doc.data().status,
           saveAppTimeStamps: doc.data().saveAppTimeStamps,
           open: false,
         }
@@ -155,7 +157,9 @@ const appFields = [
   "hearAboutSBHacks",
   "essay_answer1",
   "essay_answer2",
-  "accepted" // string, true, false, review
+  "status", // complete or incomplete
+  // "accepted" // string, true, false, review
+  "rating", // 0-10, -1 for not rated
 ];
 // get applicant info given uid and token
 /*
@@ -208,6 +212,7 @@ exports.updateHackerStatus = async (req, res) => {
     const token = req.body.token;
     const uid = req.body.uid;
     const status = req.body.status;
+    const rating = req.body.rating;
 
     console.log(token)
     console.log(process.env.ADMIN_AUTH_TOKEN)
@@ -219,10 +224,12 @@ exports.updateHackerStatus = async (req, res) => {
       }
       const hacker_info = doc.data();
       update_info = hacker_info;
-      update_info.accepted = status;
+      // update_info.accepted = status;
+      update_info.rating = rating;
 
       await db.collection("hackers").doc(uid).update(update_info);
       console.log("updated hacker status")
+      console.log(update_info);
       res.json(update_info);
     }
     else {

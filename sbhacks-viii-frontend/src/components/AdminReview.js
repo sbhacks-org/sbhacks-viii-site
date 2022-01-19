@@ -41,26 +41,34 @@ function AdminReview() {
       fname: "A",
       lname: "L",
       uid: "XXXX",
-      accepted: "false",
-      open: false
+      // accepted: "false",
+      rating: 7,
+      open: false,
+      status: "complete",
     }, {
       fname: "B",
       lname: "L",
       uid: "XXX1",
-      accepted: "true",
-      open: false
+      rating: 5,
+      // accepted: "true",
+      open: false,
+      status: "incomplete",
     }, {
       fname: "C",
       lname: "L",
       uid: "XXX2",
-      accepted: "false",
-      open: false
+      rating: 6,
+      // accepted: "false",
+      open: false,
+      status: "complete",
     }, {
       fname: "D",
       lname: "L",
       uid: "XXX3",
-      accepted: "review",
-      open: false
+      rating: 8,
+      // accepted: "review",
+      open: false,
+      status: "incomplete",
     }
   ]);
   const [admin, setAdmin] = useState(false);
@@ -94,8 +102,11 @@ function AdminReview() {
     mlhCodeAgree: "n/a",
     privacyAgree: "n/a",
     mlhCommAgree: "n/a",
-    accepted: "n/a"
+    status: "incomplete",
+    // accepted: "n/a",
+    rating: -1
   });
+  const [rating, setRating] = useState(-1);
   const history = useHistory();
   let validRedirect;
 
@@ -140,8 +151,13 @@ function AdminReview() {
         fname: applicants[i].fname,
         lname: applicants[i].lname,
         uid: applicants[i].uid,
-        accepted: applicants[i].accepted,
+        rating: applicants[i].rating,
+        status: applicants[i].status,
+        // accepted: applicants[i].accepted,
         open: applicants[i].uid == uid ? !applicants[i].open : false
+      }
+      if (uid == applicants[i].uid) {
+        setRating(applicants[i].rating);
       }
       apps.push(curr);
     }
@@ -157,11 +173,14 @@ function AdminReview() {
         fname: applicants[i].fname,
         lname: applicants[i].lname,
         uid: applicants[i].uid,
-        accepted: applicants[i].accepted,
+        // accepted: applicants[i].accepted,
+        rating: applicants[i].rating,
+        status: applicants[i].status,
         open: false
       }
       apps.push(curr);
     }
+    setRating(-1);
     setApplicants(apps);
   }
 
@@ -177,18 +196,26 @@ function AdminReview() {
       });
   }
 
-  const changeStatus = (uid, status, index) => {
+  const changeStatus = (uid, rating, index) => {
+    console.log(index)
     axios
-      .post("/admin/review/updateHackerStatus", { token: token, uid: uid, status: status })
+      .post("/admin/review/updateHackerStatus", { token: token, uid: uid, rating: rating })
       .then(async (res) => {
         console.log("success");
-        applicants[index].accepted = res.data.accepted;
+        applicants[index].rating = res.data.rating;
         closeApp();
       })
       .catch((err) => {
         console.log("Error in authenitcation " + err);
       });
   }
+
+  const submitRating = (e, index) => {
+    e.preventDefault();
+    changeStatus(currAppUid, rating, index);
+  }
+
+  const zeroTo10 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div className=''>
@@ -202,7 +229,7 @@ function AdminReview() {
                   <div className="row">
 
                     <p>{`${index}. ${app.fname} ${app.lname}`}</p>
-                    {
+                    {/* {
                       app.accepted.toString() == "true" &&
                       <p>&#9989;</p>
                     }
@@ -213,7 +240,20 @@ function AdminReview() {
                     {
                       app.accepted.toString() == "review" &&
                       <p>IN REVIEW</p>
+                    } */}
+                    {
+                      app.rating == -1 ?
+                        <div>
+                          Not rated yet
+                        </div>
+                        :
+                        <div>
+                          {app.rating}
+                        </div>
                     }
+                    <div>
+                      {app.status}
+                    </div>
                     <button onClick={() => {
                       if (app.open)
                         closeApp(app.uid);
@@ -226,14 +266,27 @@ function AdminReview() {
                   {
                     app.open &&
                     <div>
-                      <div className="acceptOrDeny">
+                      {/* <div className="acceptOrDeny">
                         <button className="green" onClick={() => changeStatus(app.uid, "true", index)}>
                           accept
                         </button>
                         <button className="red" onClick={() => changeStatus(app.uid, "false", index)}>
                           deny
                         </button>
-                      </div>
+                      </div> */}
+                      <form onSubmit={(e) => submitRating(e, index)}>
+                        <div className="rate">
+                          <select value={rating} onChange={(e) => setRating(e.target.value)}>
+                            <option value={-1}>Not rated yet</option>
+                            {
+                              zeroTo10.map((val) => {
+                                return <option value={val}>{val}</option>
+                              })
+                            }
+                          </select>
+                        </div>
+                        <input type="submit" value="Submit Rating"/>
+                      </form>
                       {
                         appFields.map((key) => {
                           if (key !== "saveAppTimeStamps") {
