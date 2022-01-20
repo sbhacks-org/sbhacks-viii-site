@@ -24,11 +24,11 @@ const questions = [
     },
     {
         question: 'What should I bring?',
-        answer: 'Bring your laptop, overnight gear, a water bottle, and a photo ID. MLH will be providing a hardware lab.'
+        answer: 'The event will take place virtually, so you can participate from the comfort of your home!. You will need your laptop, food/water, and plenty of energy :)'
     },
     {
         question: 'What can I win?',
-        answer: 'We have a lot of great prizes ready for this year! They will be announced closer to the event.'
+        answer: 'We have a lot of great prizes ready for this year! They are being announced on our Instagram so go check it out!'
     },
     {
         question: 'Are there any rules I should follow?',
@@ -36,7 +36,7 @@ const questions = [
     },
     {
         question: 'Update after the UC System’s move to remote instruction until Jan. 31?',
-        answer: 'We have postponed SB Hacks VIII to February 4 - 6, 2022 in hope of an in-person event. We plan on moving completely virtual if an in-person event is a public health risk and/or no longer complies with university guidelines.'
+        answer: 'We have postponed SB Hacks VIII to February 4 - 6, 2022 and are will be completely virtual.'
     },
     // {
     //     question: 'Do you offer travel assistance?',
@@ -52,7 +52,7 @@ const questions = [
     },
     {
         question: 'Will SB Hacks VIII be in-person?',
-        answer: 'We are tentatively planning for an in-person event, though we may switch to a hybrid or virtual setting should university or CDC guidelines change.'
+        answer: 'SB Hacks VIII will be held virtually, so you can participate from the comfort of your home!'
     },
     {
         question: 'Do I have to be a super experienced coder to attend?',
