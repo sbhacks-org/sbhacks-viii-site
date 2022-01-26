@@ -37,39 +37,39 @@ const appFields = [
 function AdminReview() {
 
   const [applicants, setApplicants] = useState([
-    {
-      fname: "A",
-      lname: "L",
-      uid: "XXXX",
-      // accepted: "false",
-      rating: 7,
-      open: false,
-      status: "complete",
-    }, {
-      fname: "B",
-      lname: "L",
-      uid: "XXX1",
-      rating: 5,
-      // accepted: "true",
-      open: false,
-      status: "incomplete",
-    }, {
-      fname: "C",
-      lname: "L",
-      uid: "XXX2",
-      rating: 6,
-      // accepted: "false",
-      open: false,
-      status: "complete",
-    }, {
-      fname: "D",
-      lname: "L",
-      uid: "XXX3",
-      rating: 8,
-      // accepted: "review",
-      open: false,
-      status: "incomplete",
-    }
+    // {
+    //   fname: "A",
+    //   lname: "L",
+    //   uid: "XXXX",
+    //   // accepted: "false",
+    //   rating: 7,
+    //   open: false,
+    //   status: "complete",
+    // }, {
+    //   fname: "B",
+    //   lname: "L",
+    //   uid: "XXX1",
+    //   rating: 5,
+    //   // accepted: "true",
+    //   open: false,
+    //   status: "incomplete",
+    // }, {
+    //   fname: "C",
+    //   lname: "L",
+    //   uid: "XXX2",
+    //   rating: 6,
+    //   // accepted: "false",
+    //   open: false,
+    //   status: "complete",
+    // }, {
+    //   fname: "D",
+    //   lname: "L",
+    //   uid: "XXX3",
+    //   rating: 8,
+    //   // accepted: "review",
+    //   open: false,
+    //   status: "incomplete",
+    // }
   ]);
   const [admin, setAdmin] = useState(false);
   const [token, setToken] = useState("");
@@ -222,6 +222,9 @@ function AdminReview() {
       {
         admin &&
         <div>
+          <div className="numApplicants">
+            <div>{applicants.length} Applicants</div>
+          </div>
           {
             applicants.map((app, index) => {
               return (
@@ -229,32 +232,20 @@ function AdminReview() {
                   <div className="row">
 
                     <p>{`${index}. ${app.fname} ${app.lname}`}</p>
-                    {/* {
-                      app.accepted.toString() == "true" &&
-                      <p>&#9989;</p>
-                    }
-                    {
-                      app.accepted.toString() == "false" &&
-                      <p>&#10060;</p>
-                    }
-                    {
-                      app.accepted.toString() == "review" &&
-                      <p>IN REVIEW</p>
-                    } */}
                     {
                       app.rating == -1 ?
                         <div>
                           Not rated yet
                         </div>
                         :
-                        <div>
-                          {app.rating}
+                        <div className="rating">
+                          {app.rating} / 10
                         </div>
                     }
-                    <div>
+                    <div className={`${app.status==="complete" ? "greenText" : "redText"}`}>
                       {app.status}
                     </div>
-                    <button onClick={() => {
+                    <button className="appReviewBtn" onClick={() => {
                       if (app.open)
                         closeApp(app.uid);
                       else
@@ -266,14 +257,6 @@ function AdminReview() {
                   {
                     app.open &&
                     <div>
-                      {/* <div className="acceptOrDeny">
-                        <button className="green" onClick={() => changeStatus(app.uid, "true", index)}>
-                          accept
-                        </button>
-                        <button className="red" onClick={() => changeStatus(app.uid, "false", index)}>
-                          deny
-                        </button>
-                      </div> */}
                       <form onSubmit={(e) => submitRating(e, index)}>
                         <div className="rate">
                           <select value={rating} onChange={(e) => setRating(e.target.value)}>
@@ -331,7 +314,7 @@ export const QuestionAndResponse = (props) => {
               {props.question}
             </div>
             <div answer="answer">
-              {(props.answer !== null && props.answer != undefined) ? <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}> Open Resume in New Window</a> : "Not answered"}
+              {(props.answer !== null && props.answer != undefined) ? <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}> Open Resume in New Window</a> : <></>}
               {(props.answer !== null && props.answer != undefined) ? <embed src={props.answer} width="600px" height="800px" /> : "Not answered"}
             </div>
           </div>
