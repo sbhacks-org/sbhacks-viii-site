@@ -12,6 +12,10 @@ const {
   getFilteredEmails2,
   getFilterOptions,
   refreshLocationFilterOptions,
+  checkToken,
+  getApplicantsToReview,
+  getApplicantReviewInfo,
+  updateHackerStatus
 } = require("./handlers/adminFeatures");
 
 const {
@@ -37,6 +41,16 @@ app.get("/admin/getFilteredEmails", getFilteredEmails);
 app.post("/admin/getFilteredEmails2", getFilteredEmails2);
 app.get("/admin/getFilterOptions", getFilterOptions);
 app.get("/admin/refreshLocationFilterOptions", refreshLocationFilterOptions);
+
+app.get("/admin/review/checkToken", checkToken);
+app.get("/admin/review/getApplicantsToReview", getApplicantsToReview);
+app.get("/admin/review/getApplicantReviewInfo", getApplicantReviewInfo);
+app.post("/admin/review/updateHackerStatus", updateHackerStatus);
+
+app.get("/admin/review/checkToken", checkToken);
+app.get("/admin/review/getApplicantsToReview", getApplicantsToReview);
+app.get("/admin/review/getApplicantReviewInfo", getApplicantReviewInfo);
+app.post("/admin/review/updateHackerStatus", updateHackerStatus);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);

@@ -1,0 +1,88 @@
+.numApplicants {
+    text-align: right;
+    width: 80vw;
+    margin: auto;
+    margin-top: 5vh;
+    font-size: 24px;
+    color: white;
+}
+
+.adminReview {
+    padding-top: 10vh;
+}
+
+.row {
+    width: 80vw;
+    /* display: flex;
+    justify-content: space-around; */
+    display: grid;
+    grid-template-columns: 30% 30% 30% 10%;
+    justify-items: start;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.acceptOrDeny {
+    display: flex;
+    width: 90vw;
+    justify-content: space-around;
+}
+.green {
+    background-color: green;
+}
+.red {
+    background-color: red;
+}
+
+.QuestionAndResponse {
+    width: 80vw;
+    margin: auto;
+}
+.question {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: 700;
+    font-size: 20px;
+}
+.answer {
+    font-weight: 400;
+    font-size: 16px;
+}
+.resumeLink {
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.appReviewBtn {
+    justify-self: center;
+    border: none;
+}
+
+.adminReview button {
+    padding: 2px 6px;
+    border-radius: 15px;
+    padding: 2px 4px;
+    box-shadow: black 2px 1px 6px 0px;
+    transition: 0.4s;
+}
+.adminReview button:hover {
+    transform: scale(1.1);
+}
+
+button:hover {
+    cursor : pointer;
+}
+.greenText {
+    color: rgb(51, 173, 51);
+}
+.redText {
+    color: red;
+}
+.rating {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    
+}

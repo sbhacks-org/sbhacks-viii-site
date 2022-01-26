@@ -266,3 +266,169 @@ exports.getFilterOptions = async (req, res) => {
     res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
+
+exports.checkToken = async (req, res) => {
+  try {
+    const token = req.query.token
+    res.json({
+      correctToken: token === process.env.ADMIN_AUTH_TOKEN ? true : false
+    })
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
+
+/*
+  body : {
+    token:
+  }
+*/
+exports.getApplicantsToReview = async (req, res) => {
+  // returns array of {name, email, uid, accepted} 
+  try {
+    const token = req.query.token
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+      const snapshot = await db.collection("hackers").get();
+
+
+      const hackersInfo = snapshot.docs.map((doc) => {
+        return {
+          uid: doc.id,
+          emailAddress: doc.data().emailAddress,
+          fname: doc.data().fname,
+          lname: doc.data().lname,
+          rating: (doc.data().rating === undefined || doc.data().rating === null) ? -1 : doc.data().rating,
+          // accepted: (doc.data().accepted === undefined || doc.data().accepted === null) ? "review" : doc.data().accepted,
+          status: doc.data().status,
+          saveAppTimeStamps: doc.data().saveAppTimeStamps,
+          open: false,
+        }
+      });
+
+      hackersInfo.sort((hacker1, hacker2) => {
+        return hacker1.saveAppTimeStamps[hacker1.saveAppTimeStamps.length - 1] - hacker2.saveAppTimeStamps[hacker2.saveAppTimeStamps.length - 1];
+      });
+      res.json({
+        hackersInfo : hackersInfo
+      })
+    }
+    else {
+      res.status(401).json({error: `Not an admin`})
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
+
+const appFields = [
+  "fname",
+  "lname",
+  "emailAddress",
+  "gender",
+  "ethnicity",
+  "city",
+  "state",
+  "zipCode",
+  "country",
+  "website",
+  "github",
+  "linkedin",
+  "resumeLink",
+  "saveAppTimeStamps",
+  "studyLevel",
+  "gradYear",
+  "universityName",
+  "major",
+  "beenToHackathon",
+  "beenToSBHacks",
+  "hearAboutSBHacks",
+  "essay_answer1",
+  "essay_answer2",
+  "status", // complete or incomplete
+  // "accepted" // string, true, false, review
+  "rating", // 0-10, -1 for not rated
+];
+// get applicant info given uid and token
+/*
+query: {
+  uid :
+  token
+}
+return json
+ */
+exports.getApplicantReviewInfo = async (req, res) => {
+  try {
+    const token = req.query.token
+    const uid = req.query.uid
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+      const doc = await db.collection("hackers").doc(uid).get();
+      if (!doc.exists) {
+        res.status(400).json({ error: "user does not exist" });
+        return;
+      }
+
+      const hacker_info = doc.data();
+      console.log("Got info from database...");
+      let ret_hacker_info = {};
+      for (let key of appFields) {
+        ret_hacker_info[key] = hacker_info[key];
+      }
+      res.json(ret_hacker_info);
+    }
+    else {
+      res.status(401).json({error: `Not an admin`})
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
+
+// save review into user database
+/*
+  body: {
+    uid
+    token
+    status
+  }
+*/
+exports.updateHackerStatus = async (req, res) => {
+  try {
+    console.log(req);
+    const token = req.body.token;
+    const uid = req.body.uid;
+    const status = req.body.status;
+    const rating = req.body.rating;
+
+    console.log(token)
+    console.log(process.env.ADMIN_AUTH_TOKEN)
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+      const doc = await db.collection("hackers").doc(uid).get();
+      if (!doc.exists) {
+        res.status(400).json({ error: "user does not exist" });
+        return;
+      }
+      const hacker_info = doc.data();
+      update_info = hacker_info;
+      // update_info.accepted = status;
+      update_info.rating = rating;
+
+      await db.collection("hackers").doc(uid).update(update_info);
+      console.log("updated hacker status")
+      console.log(update_info);
+      res.json(update_info);
+    }
+    else {
+      res.status(401).json({error: `Not an admin`})
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
