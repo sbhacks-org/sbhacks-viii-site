@@ -21,8 +21,6 @@ import AppPortalNavBar from "./components/AppPortalNavBar";
 
 import axios from "axios";
 
-axios.defaults.baseURL =
-"https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
 // axios.defaults.baseURL =
   // "http://localhost:5001/sbhacks-viii-site/us-central1/api";
 
@@ -67,7 +65,7 @@ function App() {
         <Route path="/resetpassword">
           <ResetPassword />
         </Route>
-        <Route path="/admin">
+        <Route path="/admin/review">
           <AdminReview />
         </Route>
         <Route path="/dashboard">
