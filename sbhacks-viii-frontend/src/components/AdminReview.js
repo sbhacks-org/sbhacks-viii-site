@@ -321,8 +321,20 @@ function AdminReview() {
 export default AdminReview;
 
 
-
+// got code from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 export const QuestionAndResponse = (props) => {
+  const isValidHttpUrl = (string) => {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
   return (
     <div className="QuestionAndResponse">
       {
@@ -342,8 +354,10 @@ export const QuestionAndResponse = (props) => {
           </div>
             <div answer="answer">
               {
-                (props.answer && (props.question == "linkedin" || props.question == "github"  || props.question == "website")) ?
-                  <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}>{props.answer}</a>
+                (props.answer && (props.question == "linkedin" || props.question == "github" || props.question == "website")) ?
+                  <>{isValidHttpUrl(props.answer) ?
+                    <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}>{props.answer}</a> :
+                    <>{(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}</>}</>
                   :
                   <>{(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}</>
               }
