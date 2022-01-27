@@ -27,6 +27,7 @@ import ng from "../assets/images/sponsors/ng.png";
 import evidation from "../assets/images/sponsors/evidation.png";
 import twilio from "../assets/images/sponsors/twilio.png";
 import hg from "../assets/images/sponsors/hg.png";
+import assemblyai from "../assets/AssemblyAI logo-png.png"
 
 const useStyles = makeStyles((theme) => ({
   landmark: {
@@ -154,16 +155,16 @@ const Sponsors = () => {
             <img src={coe} className={classes.tier2Logo} />
           </a>
         </Grid> 
-        <Grid item xs={3} className={classes.logoContainer}>
+        {/* <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://evidation.com/">
             <img src={evidation} className={classes.tier2Logo} />
           </a>
-        </Grid>
-        <Grid item xs={3} className={classes.logoContainer}>
+        </Grid> */}
+        {/* <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://www.twilio.com/">
             <img src={twilio} className={classes.tier2Logo} />
           </a>
-        </Grid>
+        </Grid> */}
         <Grid item xs={3} className={classes.logoContainer}>
           <a target="_blank" href="https://hginsights.com/">
             <img src={hg} className={classes.tier2Logo} />
@@ -198,6 +199,22 @@ const Sponsors = () => {
             href="https://www.northropgrumman.com/"
           >
             <img src={ng} className={classes.tier2Logo} />
+          </a>
+        </Grid>
+        <Grid item xs={2} className={classes.logoContainer}>
+          <a
+            target="_blank"
+            href="https://www.assemblyai.com/"
+          >
+            <img src={assemblyai} className={classes.tier2Logo} />
+          </a>
+        </Grid>
+        <Grid item xs={2} className={classes.logoContainer}>
+          <a
+            target="_blank"
+            href="https://www.stickermule.com/"
+          >
+            <img src={stickermule} className={classes.tier2Logo} />
           </a>
         </Grid>
       </Grid>
