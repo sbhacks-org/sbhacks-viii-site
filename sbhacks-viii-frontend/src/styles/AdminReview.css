@@ -16,11 +16,16 @@
 }
 
 .adminReview {
+    width: 80vw;
     padding-top: 10vh;
+    color: white;
+    border-bottom: dashed white;
+    border-width: 2px;
+    margin: auto;
 }
 
 .row {
-    width: 80vw;
+    width: 100%;
     /* display: flex;
     justify-content: space-around; */
     display: grid;
@@ -90,7 +95,7 @@ button:hover {
     color: red;
 }
 .rating {
-    color: rgb(255, 255, 255);
+    color: rgb(247, 230, 0);
     font-size: 20px;
-    
+    font-weight: 900;
 }
