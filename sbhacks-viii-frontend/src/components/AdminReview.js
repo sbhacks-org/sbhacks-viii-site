@@ -106,6 +106,8 @@ function AdminReview() {
     // accepted: "n/a",
     rating: -1
   });
+  const [rated, setRated] = useState(0);
+  const [completed, setCompleted] = useState(0);
   const [rating, setRating] = useState(-1);
   const history = useHistory();
   let validRedirect;
@@ -136,7 +138,9 @@ function AdminReview() {
     axios
       .get("/admin/review/getApplicantsToReview", { params: { token: token } })
       .then(async (res) => {
-        setApplicants(res.data.hackersInfo)
+        setApplicants(res.data.hackersInfo);
+        setRated(res.data.rated);
+        setCompleted(res.data.completed);
       })
       .catch((err) => {
         console.log("Error in authenitcation " + err);
@@ -212,6 +216,17 @@ function AdminReview() {
 
   const submitRating = (e, index) => {
     e.preventDefault();
+    let prevRating = applicants[index].rating;
+    if (prevRating == -1) {
+      if (rating > -1) {
+        setRated(rated+1);
+      }
+    }
+    else {
+      if (rating == -1) {
+        setRated(rated-1);
+      }
+    }
     changeStatus(currAppUid, rating, index);
   }
 
@@ -222,8 +237,11 @@ function AdminReview() {
       {
         admin &&
         <div>
+          <button id="refreshBtn" onClick={getHackers}>Refresh</button>
           <div className="numApplicants">
             <div>{applicants.length} Applicants</div>
+            <div>{completed} Completed Applications</div>
+            <div>{rated} Applicants Rated</div>
           </div>
           {
             applicants.map((app, index) => {

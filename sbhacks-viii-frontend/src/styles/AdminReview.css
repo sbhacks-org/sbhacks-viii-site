@@ -7,6 +7,14 @@
     color: white;
 }
 
+#refreshBtn {
+    position: fixed;
+    top: 5vh;
+    left: 3vw;
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
 .adminReview {
     padding-top: 10vh;
 }
