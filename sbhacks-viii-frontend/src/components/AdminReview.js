@@ -219,12 +219,12 @@ function AdminReview() {
     let prevRating = applicants[index].rating;
     if (prevRating == -1) {
       if (rating > -1) {
-        setRated(rated+1);
+        setRated(rated + 1);
       }
     }
     else {
       if (rating == -1) {
-        setRated(rated-1);
+        setRated(rated - 1);
       }
     }
     changeStatus(currAppUid, rating, index);
@@ -260,7 +260,7 @@ function AdminReview() {
                           {app.rating} / 10
                         </div>
                     }
-                    <div className={`${app.status==="complete" ? "greenText" : "redText"}`}>
+                    <div className={`${app.status === "complete" ? "greenText" : "redText"}`}>
                       {app.status}
                     </div>
                     <button className="appReviewBtn" onClick={() => {
@@ -286,7 +286,7 @@ function AdminReview() {
                             }
                           </select>
                         </div>
-                        <input type="submit" value="Submit Rating"/>
+                        <input type="submit" value="Submit Rating" />
                       </form>
                       {
                         appFields.map((key) => {
@@ -341,7 +341,13 @@ export const QuestionAndResponse = (props) => {
             {props.question}
           </div>
             <div answer="answer">
-              {(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}
+              {
+                (props.answer && (props.question == "linkedin" || props.question == "github"  || props.question == "website")) ?
+                  <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}>{props.answer}</a>
+                  :
+                  <>{(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}</>
+              }
+
             </div>
           </>
       }
