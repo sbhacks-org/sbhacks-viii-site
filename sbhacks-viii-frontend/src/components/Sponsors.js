@@ -212,7 +212,7 @@ const Sponsors = () => {
         <Grid item xs={2} className={classes.logoContainer}>
           <a
             target="_blank"
-            href="https://www.stickermule.com/"
+            href="http://hackp.ac/mlh-stickermule-hackathons"
           >
             <img src={stickermule} className={classes.tier2Logo} />
           </a>
