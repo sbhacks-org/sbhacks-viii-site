@@ -106,6 +106,8 @@ function AdminReview() {
     // accepted: "n/a",
     rating: -1
   });
+  const [rated, setRated] = useState(0);
+  const [completed, setCompleted] = useState(0);
   const [rating, setRating] = useState(-1);
   const history = useHistory();
   let validRedirect;
@@ -136,7 +138,9 @@ function AdminReview() {
     axios
       .get("/admin/review/getApplicantsToReview", { params: { token: token } })
       .then(async (res) => {
-        setApplicants(res.data.hackersInfo)
+        setApplicants(res.data.hackersInfo);
+        setRated(res.data.rated);
+        setCompleted(res.data.completed);
       })
       .catch((err) => {
         console.log("Error in authenitcation " + err);
@@ -212,6 +216,17 @@ function AdminReview() {
 
   const submitRating = (e, index) => {
     e.preventDefault();
+    let prevRating = applicants[index].rating;
+    if (prevRating == -1) {
+      if (rating > -1) {
+        setRated(rated + 1);
+      }
+    }
+    else {
+      if (rating == -1) {
+        setRated(rated - 1);
+      }
+    }
     changeStatus(currAppUid, rating, index);
   }
 
@@ -222,8 +237,11 @@ function AdminReview() {
       {
         admin &&
         <div>
+          <button id="refreshBtn" onClick={getHackers}>Refresh</button>
           <div className="numApplicants">
             <div>{applicants.length} Applicants</div>
+            <div>{completed} Completed Applications</div>
+            <div>{rated} Applicants Rated</div>
           </div>
           {
             applicants.map((app, index) => {
@@ -242,7 +260,7 @@ function AdminReview() {
                           {app.rating} / 10
                         </div>
                     }
-                    <div className={`${app.status==="complete" ? "greenText" : "redText"}`}>
+                    <div className={`${app.status === "complete" ? "greenText" : "redText"}`}>
                       {app.status}
                     </div>
                     <button className="appReviewBtn" onClick={() => {
@@ -268,7 +286,7 @@ function AdminReview() {
                             }
                           </select>
                         </div>
-                        <input type="submit" value="Submit Rating"/>
+                        <input type="submit" value="Submit Rating" />
                       </form>
                       {
                         appFields.map((key) => {
@@ -303,8 +321,20 @@ function AdminReview() {
 export default AdminReview;
 
 
-
+// got code from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 export const QuestionAndResponse = (props) => {
+  const isValidHttpUrl = (string) => {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
   return (
     <div className="QuestionAndResponse">
       {
@@ -323,7 +353,15 @@ export const QuestionAndResponse = (props) => {
             {props.question}
           </div>
             <div answer="answer">
-              {(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}
+              {
+                (props.answer && (props.question == "linkedin" || props.question == "github" || props.question == "website")) ?
+                  <>{isValidHttpUrl(props.answer) ?
+                    <a className="resumeLink" target="_blank" rel="noopener noreferrer" href={props.answer}>{props.answer}</a> :
+                    <>{(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}</>}</>
+                  :
+                  <>{(props.answer !== null && props.answer != undefined) ? props.answer : "Not answered"}</>
+              }
+
             </div>
           </>
       }

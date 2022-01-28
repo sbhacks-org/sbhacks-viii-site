@@ -292,8 +292,15 @@ exports.getApplicantsToReview = async (req, res) => {
     if (token === process.env.ADMIN_AUTH_TOKEN) {
       const snapshot = await db.collection("hackers").get();
 
-
+      let completed = 0;
+      let rated = 0;
       const hackersInfo = snapshot.docs.map((doc) => {
+        if (doc.data().status === "complete") completed++;
+        if (doc.data().rating){
+          if (doc.data().rating >= 0) {
+            rated++;
+          }
+        }
         return {
           uid: doc.id,
           emailAddress: doc.data().emailAddress,
@@ -310,8 +317,50 @@ exports.getApplicantsToReview = async (req, res) => {
       hackersInfo.sort((hacker1, hacker2) => {
         return hacker1.saveAppTimeStamps[hacker1.saveAppTimeStamps.length - 1] - hacker2.saveAppTimeStamps[hacker2.saveAppTimeStamps.length - 1];
       });
+
+      // put complete apps in the front and put incomplete apps in the back
+      hackersInfoComplete = [];
+      hackersInfoIncomplete = [];
+      for (let index = 0; index < hackersInfo.length; index++) {
+        if (hackersInfo[index].status === "complete") {
+          hackersInfoComplete.push(hackersInfo[index]);
+        }
+        else {
+          hackersInfoIncomplete.push(hackersInfo[index]);
+        }
+      }
+      sortByRating = (hacker1, hacker2) => {
+        if ((hacker1.rating === null || hacker1.rating === undefined) && (hacker2.rating === undefined || hacker2.rating === null)) {
+          return 1;
+        }
+        else if ((hacker1.rating === null || hacker1.rating === undefined) && hacker2.rating) {
+          return -1 * hacker2.rating;
+        }
+        else if ((hacker2.rating === null || hacker2.rating === undefined) && hacker1.rating) {
+          return hacker1.rating;
+        }
+        else {
+          return hacker2.rating - hacker1.rating;
+        }
+      }
+      hackersInfoComplete.sort(sortByRating);
+      hackersInfoIncomplete.sort(sortByRating);
+      for (let i = 0; i < hackersInfo.length; i++) {
+        if (i < completed) {
+          hackersInfo[i] = hackersInfoComplete[i];
+        }
+        else {
+          hackersInfo[i] = hackersInfoIncomplete[i-completed];
+        }
+        
+      }
+
+
+
       res.json({
-        hackersInfo : hackersInfo
+        hackersInfo : hackersInfo,
+        completed: completed,
+        rated: rated
       })
     }
     else {
