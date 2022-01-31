@@ -5,6 +5,7 @@ const { Genders } = require("./Genders");
 const { GradYearOptions } = require("./GradYearOptions");
 const { LevelOfStudyOptions } = require("./LevelOfStudy");
 const { ShirtSizes } = require("./ShirtSizes");
+const { RatingOptions } = require("./RatingOptions");
 
 const FilterOptions = {
   studyLevel: LevelOfStudyOptions,
@@ -14,10 +15,18 @@ const FilterOptions = {
   tshirtSize: ShirtSizes,
   gender: Genders,
   ethnicity: EthnicityOptions,
-  hearAboutSBHacks: ["Email", "Website", "Social Media", "Friend/Colleague", "Workshop", "Other"],
+  hearAboutSBHacks: [
+    "Email",
+    "Website",
+    "Social Media",
+    "Friend/Colleague",
+    "Workshop",
+    "Other",
+  ],
   beenToSBHacks: ["Yes", "No"],
   beenToHackathon: ["Yes", "No"],
   status: ["incomplete", "complete"],
+  rating: RatingOptions,
 };
 
 module.exports = { FilterOptions };
