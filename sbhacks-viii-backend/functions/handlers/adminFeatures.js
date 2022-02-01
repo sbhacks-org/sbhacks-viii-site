@@ -454,6 +454,8 @@ exports.updateHackerStatus = async (req, res) => {
     const status = req.body.status;
     const rating = req.body.rating;
 
+    const submitTime = Date.now();
+
     console.log(token)
     console.log(process.env.ADMIN_AUTH_TOKEN)
     if (token === process.env.ADMIN_AUTH_TOKEN) {
@@ -465,6 +467,14 @@ exports.updateHackerStatus = async (req, res) => {
       const hacker_info = doc.data();
       update_info = hacker_info;
       // update_info.accepted = status;
+
+      let priorityDeadline = new Date('February 1, 2022 05:00:00'); // 9pm jan 31 PST is 5am Feb 1 UTC
+      if (submitTime >= priorityDeadline.getTime()) {
+        update_info.nonPriority = true;
+      }
+      else {
+        update_info.nonPriority = false;
+      }
       update_info.rating = rating;
 
       await db.collection("hackers").doc(uid).update(update_info);

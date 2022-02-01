@@ -202,7 +202,7 @@ const Dashboard = () => {
               <Typography variant="subtitle1">Edit Application</Typography>
             </button>
             <br />
-            Application Deadline: January 28, 2022, 11:59 pm PST
+            Application Deadline: February 2nd, 2022, 11:59 pm PST
           </div>
         </div>
       </div>
