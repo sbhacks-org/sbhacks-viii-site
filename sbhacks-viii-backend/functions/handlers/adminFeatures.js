@@ -468,7 +468,7 @@ exports.updateHackerStatus = async (req, res) => {
       update_info = hacker_info;
       // update_info.accepted = status;
 
-      let priorityDeadline = new Date('February 1, 2022 05:00:00'); // 9pm jan 31 PST is 5am Feb 1 UTC
+      let priorityDeadline = new Date('February 1, 2022 16:00:00'); // 8AM feb 1 PST is 4PM feb 1 UTC
       if (submitTime >= priorityDeadline.getTime()) {
         update_info.nonPriority = true;
       }
