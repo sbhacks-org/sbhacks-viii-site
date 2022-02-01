@@ -11,7 +11,7 @@ const NavBar = (props) => {
   const landingPageLink = "https://sbhacks.com/";
   const landing = "#landing"; //'#landing';
   const intro = "#intro"; // '#intro';
-  const devpost = "https://sb-hacks-vii.devpost.com/";
+  const devpost = "https://sb-hacks-viii.devpost.com/";
 
   const faq = "#faq"; //'#faq';
   const team = ""; //'#team';
