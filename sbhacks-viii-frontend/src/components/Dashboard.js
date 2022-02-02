@@ -130,6 +130,7 @@ const Dashboard = () => {
   const [appStatus, setAppStatus] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
+  const [rating, setRating] = useState("");
 
   const classes = useStyles();
 
@@ -163,6 +164,7 @@ const Dashboard = () => {
             setAppStatus(res.data.status);
             setFname(res.data.fname);
             setLname(res.data.lname);
+            setRating(res.data.rating);
           })
           .catch((err) => {
             console.log("Error in getting user data: " + err);
@@ -191,18 +193,18 @@ const Dashboard = () => {
         <div className={classes.right}>
           <div className={classes.dash}>
             Hi {fname}, your application status is
-
-            <h1 style={{ color: appStatus === "incomplete" ? "#F29252" : "#7EBA5B" }}> {appStatus} </h1>
+            
+            <h1 style={{ color: (appStatus === "complete" || rating === "10") ? "#7EBA5B" : "#F29252" }}> {rating === "10" ? "accepted" : appStatus} </h1>
             <div className={classes.byLine}>
-            {appStatus === "incomplete" ? "Make sure to answer all required questions marked with an * to complete your application." : "You can still edit your application. It’ll be automatically submitted by the deadline."}
+            {/* {appStatus === "incomplete" ? "Make sure to answer all required questions marked with an * to complete your application." : "You can still edit your application. It’ll be automatically submitted by the deadline."} */}
             </div>
             
             <br />
-            <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
+            {rating === "10" ? "" : <button type="submit" className={`${classes.submitBtn} clickable`} onClick={editApp}>
               <Typography variant="subtitle1">Edit Application</Typography>
-            </button>
+            </button>}
             <br />
-            Application Deadline: February 2nd, 2022, 11:59 pm PST
+            {rating === "10" ? "Congratulations! Look out for an email from us to join the Discord and Hopin." : "Application Deadline: February 2nd, 2022, 11:59 pm PST"}
           </div>
         </div>
       </div>

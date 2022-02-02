@@ -295,6 +295,7 @@ exports.getDashFields = async (req, res) => {
       status: hacker_info.status,
       fname: hacker_info.fname,
       lname: hacker_info.lname,
+      rating: hacker_info.rating,
     };
     res.json(ret_hacker_info);
   } catch (err) {
