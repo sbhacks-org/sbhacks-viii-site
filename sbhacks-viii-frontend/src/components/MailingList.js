@@ -107,12 +107,15 @@ function MailingList() {
         <img id='ticketImg' src={TicketPlain} alt='Ticket' />
         <div className='textContainer'>
           <div className='eventDate2 clickable' onClick={() => { if (validRedirect) history.push('/dashboard'); else history.push('/login') }} >
-              <div className='text2' > APPLY HERE </div>
-            </div>
+            <div className='text2' > APPLY HERE </div>
           </div>
-          
+          <div className="applyMentorBox">
+            <a className="applyMentorLink" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLScV8h7kffQlEOXt2byK8jq0azC54i8LXdPy4Y11RJScjUTaTQ/viewform?usp=sf_link"> Sign Up To Be A Mentor!</a>
+          </div>
+        </div>
+
         {
-          isMobile && 
+          isMobile &&
           <div className='eventTitleContainer'>
             <div className='text'>SB Hacks VIII</div>
           </div>

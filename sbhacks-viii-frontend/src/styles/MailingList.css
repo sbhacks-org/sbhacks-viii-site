@@ -61,6 +61,16 @@
     font-family: 'NexaLight';
     text-shadow: 0 0 0 0;
 }
+.applyMentorBox {
+    margin-top: 8px;
+    transition: 0.3s;
+}
+.applyMentorLink {
+    color:rgba(0, 85, 165);
+}
+.applyMentorBox:hover {
+    transform: scale(1.1);
+}
 .eventDate .small {
     font-size: 1.2rem;
 }
@@ -75,6 +85,8 @@
     grid-template-rows: 37% 20% 43%;
 		position: absolute;
 		right: 20vw;
+    justify-items: center;
+    align-items: center;
 }
 @media (max-width: 2259px) {
     .eventDate {
@@ -85,7 +97,7 @@
     .eventDate2 {
         background-color: rgba(24, 75, 122, 0.35);
         border-radius: 20px;
-        padding: 5px 10px;
+        padding: 5px 10px;        
     }
 }
 @media (max-width: 1504px) {
@@ -205,6 +217,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    width: 200px;
 }
 .text {
     color: var(--mailing-list);
