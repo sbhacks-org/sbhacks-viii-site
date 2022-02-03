@@ -16,7 +16,7 @@ const questions = [
     },
     {
         question: 'When will SB Hacks take place?',
-        answer: 'SB Hacks VIII will take place on Friday, February 6, 2022, and conclude on Sunday, February 8, 2022. Originally the event was scheduled for January 14 - 16, 2022 but was postponed due university concerns over Covid.'
+        answer: 'SB Hacks VIII will take place on Friday, February 4, 2022, and conclude on Sunday, February 6, 2022. Originally the event was scheduled for January 14 - 16, 2022 but was postponed due university concerns over Covid.'
     },
     {
         question: 'Who can attend?',
