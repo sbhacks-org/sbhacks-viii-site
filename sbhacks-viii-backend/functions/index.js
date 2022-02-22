@@ -15,7 +15,11 @@ const {
   checkToken,
   getApplicantsToReview,
   getApplicantReviewInfo,
-  updateHackerStatus
+  updateHackerStatus,
+  getSchoolStats,
+  getYearStats,
+  getGenderStats,
+  getEthnicityStats
 } = require("./handlers/adminFeatures");
 
 const {
@@ -51,6 +55,11 @@ app.get("/admin/review/checkToken", checkToken);
 app.get("/admin/review/getApplicantsToReview", getApplicantsToReview);
 app.get("/admin/review/getApplicantReviewInfo", getApplicantReviewInfo);
 app.post("/admin/review/updateHackerStatus", updateHackerStatus);
+
+app.get("/admin/stats/getSchoolStats", getSchoolStats);
+app.get("/admin/stats/getYearStats", getYearStats);
+app.get("/admin/stats/getGenderStats", getGenderStats);
+app.get("/admin/stats/getEthnicityStats", getEthnicityStats);
 
 app.post("/userdb/register", register);
 app.post("/userdb/login", login);

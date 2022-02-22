@@ -150,7 +150,7 @@ exports.getFilteredEmails2 = async (req, res) => {
     let emailAddresses = snapshot.docs.map((doc) => doc.data());
 
     for (const key of Object.keys(filters)) {
-      if(key in filters) {
+      if (key in filters) {
         emailAddresses = emailAddresses.filter(
           (email) => filters[key].includes(email[key])
         );
@@ -165,7 +165,7 @@ exports.getFilteredEmails2 = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: `something went wrong: ${err}`});
+    res.status(500).json({ error: `something went wrong: ${err}` });
   }
 };
 
@@ -296,7 +296,7 @@ exports.getApplicantsToReview = async (req, res) => {
       let rated = 0;
       const hackersInfo = snapshot.docs.map((doc) => {
         if (doc.data().status === "complete") completed++;
-        if (doc.data().rating){
+        if (doc.data().rating) {
           if (doc.data().rating >= 0) {
             rated++;
           }
@@ -350,21 +350,21 @@ exports.getApplicantsToReview = async (req, res) => {
           hackersInfo[i] = hackersInfoComplete[i];
         }
         else {
-          hackersInfo[i] = hackersInfoIncomplete[i-completed];
+          hackersInfo[i] = hackersInfoIncomplete[i - completed];
         }
-        
+
       }
 
 
 
       res.json({
-        hackersInfo : hackersInfo,
+        hackersInfo: hackersInfo,
         completed: completed,
         rated: rated
       })
     }
     else {
-      res.status(401).json({error: `Not an admin`})
+      res.status(401).json({ error: `Not an admin` })
     }
   }
   catch (err) {
@@ -429,7 +429,7 @@ exports.getApplicantReviewInfo = async (req, res) => {
       res.json(ret_hacker_info);
     }
     else {
-      res.status(401).json({error: `Not an admin`})
+      res.status(401).json({ error: `Not an admin` })
     }
   }
   catch (err) {
@@ -483,11 +483,205 @@ exports.updateHackerStatus = async (req, res) => {
       res.json(update_info);
     }
     else {
-      res.status(401).json({error: `Not an admin`})
+      res.status(401).json({ error: `Not an admin` })
     }
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
     res.status(400).json({ error: `Something went wrong${err}` })
+  }
+}
+
+exports.getSchoolStats = async (req, res) => {
+  try {
+    const token = req.query.token
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+
+      schoolsCount = {};
+      numApplicants = 0;
+
+      const snapshot = await db.collection("hackers").get();
+
+      snapshot.docs.map((doc) => {
+        if (doc.data().status === "complete") {
+          schoolName = doc.data().universityName;
+          if (schoolsCount[schoolName]) {
+            schoolsCount[schoolName] = schoolsCount[schoolName] + 1;
+            numApplicants++;
+          }
+          else {
+            schoolsCount[schoolName] = 1;
+            numApplicants++;
+          }
+        }
+
+      })
+
+      console.log("University Name* Count")
+      for (let school of Object.keys(schoolsCount)) {
+        console.log(school + "* " + schoolsCount[school])
+      }
+
+      res.json({schoolsCount : schoolsCount, numApplicants: numApplicants});
+
+    }
+    else {
+      res.status(401).json({ error: `Not an admin` })
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong in getting school stats${err}` })
+  }
+}
+
+exports.getYearStats = async (req, res) => {
+  try {
+    const token = req.query.token
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+
+      yearCount = {};
+      numApplicants = 0;
+
+      const snapshot = await db.collection("hackers").get();
+
+      snapshot.docs.map((doc) => {
+        if (doc.data().status === "complete") {
+          year = doc.data().studyLevel;
+          if (year === "Bachelors") {
+            gradYr = doc.data().gradYear;
+            if (gradYr == "2022") {
+              year = "Seniors"
+            }
+            else if (gradYr == "2023") {
+              year = "Juniors"
+            }
+            else if (gradYr == "2024") {
+              year = "Sophomores"
+            }
+            else if (gradYr == "2025") {
+              year = "Freshmen"
+            }
+            else if (gradYr == "2021") {
+              year = "Graduated < 1 Year"
+            }
+            else {
+              year = "Other"
+            }
+            // console.log(doc.data().gradYear +", " + year)
+          }
+          if (yearCount[year]) {
+            yearCount[year] = yearCount[year] + 1;
+            numApplicants++;
+          }
+          else {
+            yearCount[year] = 1;
+            numApplicants++;
+          }
+        }
+
+      })
+
+      console.log("Study Level* Count")
+      for (let year of Object.keys(yearCount)) {
+        console.log(year + "* " + yearCount[year])
+      }
+
+      res.json({yearCount : yearCount, numApplicants: numApplicants});
+
+    }
+    else {
+      res.status(401).json({ error: `Not an admin` })
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong in getting study level stats${err}` })
+  }
+}
+
+exports.getGenderStats = async (req, res) => {
+  try {
+    const token = req.query.token
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+
+      gendersCount = {};
+      numApplicants = 0;
+
+      const snapshot = await db.collection("hackers").get();
+
+      snapshot.docs.map((doc) => {
+        if (doc.data().status === "complete") {
+          gender = doc.data().gender;
+          if (gendersCount[gender]) {
+            gendersCount[gender] = gendersCount[gender] + 1;
+            numApplicants++;
+          }
+          else {
+            gendersCount[gender] = 1;
+            numApplicants++;
+          }
+        }
+
+      })
+
+      console.log("University Name* Count")
+      for (let gender of Object.keys(gendersCount)) {
+        console.log(gender + "* " + gendersCount[gender])
+      }
+
+      res.json({gendersCount : gendersCount, numApplicants: numApplicants});
+
+    }
+    else {
+      res.status(401).json({ error: `Not an admin` })
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong in getting gender stats${err}` })
+  }
+}
+
+exports.getEthnicityStats = async (req, res) => {
+  try {
+    const token = req.query.token
+    if (token === process.env.ADMIN_AUTH_TOKEN) {
+
+      ethnicityCount = {};
+      numApplicants = 0;
+
+      const snapshot = await db.collection("hackers").get();
+
+      snapshot.docs.map((doc) => {
+        if (doc.data().status === "complete") {
+          ethnicity = doc.data().ethnicity;
+          if (ethnicityCount[ethnicity]) {
+            ethnicityCount[ethnicity] = ethnicityCount[ethnicity] + 1;
+            numApplicants++;
+          }
+          else {
+            ethnicityCount[ethnicity] = 1;
+            numApplicants++;
+          }
+        }
+
+      })
+
+      console.log("University Name* Count")
+      for (let ethnicity of Object.keys(ethnicityCount)) {
+        console.log(ethnicity + "* " + ethnicityCount[ethnicity])
+      }
+
+      res.json({ethnicityCount : ethnicityCount, numApplicants: numApplicants});
+
+    }
+    else {
+      res.status(401).json({ error: `Not an admin` })
+    }
+  }
+  catch (err) {
+    console.log(err);
+    res.status(400).json({ error: `Something went wrong in getting gender stats${err}` })
   }
 }
