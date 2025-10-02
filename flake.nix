@@ -33,5 +33,14 @@
           };
         }
       );
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          default = pkgs.callPackage ./sbhacks-viii-frontend { };
+        }
+      );
     };
 }
