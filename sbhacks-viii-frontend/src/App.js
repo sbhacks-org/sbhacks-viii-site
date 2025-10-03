@@ -14,7 +14,6 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import NavBar from "./components/NavBar";
 import FAQ from "./components/Faq";
 import ResetPassword from "./components/ResetPassword";
-import AdminReview from "./components/AdminReview";
 import Dashboard from "./components/Dashboard";
 import Application from "./components/Application";
 import AppPortalNavBar from "./components/AppPortalNavBar";
@@ -24,9 +23,9 @@ import MLHBanner from "./components/MLHBanner";
 import axios from "axios";
 
 axios.defaults.baseURL =
-"https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
+  "https://us-central1-sbhacks-viii-site.cloudfunctions.net/api";
 // axios.defaults.baseURL =
-  // "http://localhost:5001/sbhacks-viii-site/us-central1/api";
+// "http://localhost:5001/sbhacks-viii-site/us-central1/api";
 
 const landingTheme = createMuiTheme({
   palette: {
@@ -55,34 +54,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-      <Route path="/admin/reportsmicroservice">
-          <ReportsMicroservice />
-        </Route>
-        <Route path="/confirm">
-          <ConfirmPage />
-        </Route>
-        <Route path="/unsubscribe">
-          <UnsubscribePage />
-        </Route>
-        <Route path="/login">
-          <ThemeProvider theme={dashboardTheme}>
-            <AuthenticationPage />
-          </ThemeProvider>
-        </Route>
-        <Route path="/resetpassword">
-          <ResetPassword />
-        </Route>
-        <Route path="/admin/review">
-          <AdminReview />
-        </Route>
-        <Route path="/dashboard">
-          <AppPortalNavBar />
-          <ThemeProvider theme={dashboardTheme}>
-            <Dashboard />
-          </ThemeProvider>
-        </Route>
         <Route path="/application">
-          <AppPortalNavBar />
           <Application />
         </Route>
         <Route path="/">
@@ -94,7 +66,7 @@ function App() {
             </div>
             <ThemeProvider theme={landingTheme}>
               <About />
-              <FAQ/>
+              <FAQ />
               <Sponsors />
             </ThemeProvider>
           </div>
